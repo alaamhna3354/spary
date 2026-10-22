@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+  <meta content="mobile_tab" name="shell-type"/>
+  <!-- Approved typography: Noto Kufi Arabic with only used weights (400, 500, 600, 700) and display=swap -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  
+  <style>
+    @layer base {
+      html {
+        background-color: #0b1c30;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Noto Kufi Arabic', -apple-system, BlinkMacSystemFont, sans-serif;
+        background-color: #0b1c30;
+        color: #f8f9ff;
+        overscroll-behavior: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+      ::selection {
+        background-color: rgba(0, 105, 72, 0.2);
+        color: #006948;
+      }
+      .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      .pt-safe {
+        padding-top: env(safe-area-inset-top, 0px);
+      }
+      main > :first-child {
+        margin-top: 0 !important;
+      }
+      main > :last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'primary-fixed': '#85f8c4',
+            'secondary-fixed-dim': '#bec6e0',
+            'surface-dim': '#cbdbf5',
+            'surface-container-lowest': '#ffffff',
+            'surface-container-low': '#eff4ff',
+            'surface-tint': '#006c4a',
+            'on-primary-fixed': '#002114',
+            'on-primary-fixed-variant': '#005137',
+            'surface-container': '#e5eeff',
+            'outline-variant': '#bccac0',
+            'error-container': '#ffdad6',
+            'inverse-surface': '#213145',
+            'on-primary': '#ffffff',
+            'on-surface': '#0b1c30',
+            'primary': '#006948',
+            'surface-bright': '#f8f9ff',
+            'tertiary': '#825100',
+            'on-error-container': '#93000a',
+            'surface': '#f1f5f9',
+            'on-tertiary-fixed-variant': '#653e00',
+            'on-secondary-fixed': '#131b2e',
+            'tertiary-fixed': '#ffddb8',
+            'on-tertiary': '#ffffff',
+            'primary-container': '#00855d',
+            'inverse-on-surface': '#eaf1ff',
+            'secondary': '#565e74',
+            'background': '#f1f5f9',
+            'on-secondary-container': '#5c647a',
+            'on-secondary-fixed-variant': '#3f465c',
+            'surface-variant': '#d3e4fe',
+            'primary-fixed-dim': '#68dba9',
+            'surface-container-high': '#dce9ff',
+            'outline': '#6d7a72',
+            'surface-container-highest': '#d3e4fe',
+            'on-error': '#ffffff',
+            'on-tertiary-container': '#fffbff',
+            'on-surface-variant': '#3d4a42',
+            'inverse-primary': '#68dba9',
+            'on-background': '#0b1c30',
+            'on-tertiary-fixed': '#2a1700',
+            'secondary-fixed': '#dae2fd',
+            'tertiary-container': '#a36700',
+            'tertiary-fixed-dim': '#ffb95f',
+            'on-secondary': '#ffffff',
+            'secondary-container': '#dae2fd',
+            'on-primary-container': '#f5fff7',
+            'error': '#ba1a1a'
+          },
+          borderRadius: {
+            'DEFAULT': '0.25rem',
+            'md': '0.5rem',
+            'lg': '0.75rem',
+            'xl': '1rem',
+            'full': '9999px'
+          },
+          spacing: {
+            'space-xs': '0.25rem',
+            'space-sm': '0.5rem',
+            'space-md': '0.75rem',
+            'space-lg': '1rem',
+            'space-xl': '1.5rem',
+            'margin': '1rem',
+            'margin-sm': '0.75rem',
+            'gutter': '1rem',
+            'gutter-sm': '0.75rem'
+          },
+          fontFamily: {
+            'sans': ['Noto Kufi Arabic', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            'body-sm': ['Noto Kufi Arabic', 'sans-serif'],
+            'body-md': ['Noto Kufi Arabic', 'sans-serif'],
+            'body-lg': ['Noto Kufi Arabic', 'sans-serif'],
+            'label-sm': ['Noto Kufi Arabic', 'sans-serif'],
+            'label-md': ['Noto Kufi Arabic', 'sans-serif'],
+            'label-lg': ['Noto Kufi Arabic', 'sans-serif'],
+            'title-md': ['Noto Kufi Arabic', 'sans-serif'],
+            'title-lg': ['Noto Kufi Arabic', 'sans-serif'],
+            'headline-sm': ['Noto Kufi Arabic', 'sans-serif'],
+            'headline-md': ['Noto Kufi Arabic', 'sans-serif'],
+            'headline-lg': ['Noto Kufi Arabic', 'sans-serif'],
+            'display-lg': ['Noto Kufi Arabic', 'sans-serif']
+          },
+          fontSize: {
+            'body-sm': ['12px', { lineHeight: '18px', fontWeight: '400' }],
+            'body-md': ['14px', { lineHeight: '22px', fontWeight: '400' }],
+            'body-lg': ['16px', { lineHeight: '26px', fontWeight: '400' }],
+            'label-sm': ['10px', { lineHeight: '14px', fontWeight: '600' }],
+            'label-md': ['12px', { lineHeight: '16px', fontWeight: '500' }],
+            'label-lg': ['14px', { lineHeight: '20px', fontWeight: '500' }],
+            'title-md': ['14px', { lineHeight: '22px', fontWeight: '600' }],
+            'title-lg': ['16px', { lineHeight: '24px', fontWeight: '600' }],
+            'headline-sm': ['18px', { lineHeight: '28px', fontWeight: '600' }],
+            'headline-md': ['20px', { lineHeight: '30px', fontWeight: '600' }],
+            'headline-lg': ['24px', { lineHeight: '34px', fontWeight: '700' }],
+            'display-lg': ['32px', { lineHeight: '44px', fontWeight: '700' }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-[#0b1c30] text-on-surface flex justify-center min-h-screen">
+
+  <!-- Mobile Viewport Shell (Max 400px Container on Desktop) -->
+  <div class="w-full max-w-[400px] min-h-screen bg-[#f1f5f9] flex flex-col relative shadow-[0_0_50px_rgba(0,0,0,0.35)] border-x border-outline-variant/20">
+
+  <!-- UNIFIED SINGLE HEADER: Native Mobile App Bar with exact Spary-logo.png asset -->
+  <header class="fixed top-0 w-full max-w-[400px] z-50 bg-surface-container-lowest/95 backdrop-blur-xl border-b border-surface-container shadow-xs pt-safe">
+    <div class="h-16 px-margin flex items-center justify-between">
+      
+      <!-- Brand & Persona Identifier -->
+      <div class="flex items-center gap-space-sm">
+        <a href="#" class="flex items-center" aria-label="Spary الرئيسية">
+          <!-- Exact preserved asset: Spary-logo.png (artwork includes the brand name; no duplicate text beside it) -->
+          <img src="Spary-logo.png" alt="Spary" class="h-8 w-auto object-contain"/>
+        </a>
+        <div class="hidden xs:flex flex-col border-r border-outline-variant/30 pr-space-xs mr-space-xs">
+          <span class="font-label-sm text-[10px] text-secondary leading-none">تتصفح كـ</span>
+          <span class="font-label-md text-label-sm text-primary font-bold leading-tight">زبون</span>
+        </div>
+      </div>
+
+      <!-- Actions: Role Switcher & Notifications / Cart Badges -->
+      <div class="flex items-center gap-space-xs">
+        <button aria-label="تبديل الواجهة" class="flex items-center gap-1 px-2.5 py-1.5 bg-surface-container-low text-primary rounded-full hover:bg-surface-container active:scale-95 transition-all text-label-sm font-semibold" type="button">
+          <span class="material-symbols-outlined text-[18px]">swap_horiz</span>
+          <span class="hidden sm:inline">تبديل الواجهة</span>
+          <span class="sm:hidden">أعمال</span>
+        </button>
+
+        <button aria-label="الإشعارات" class="relative w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-on-surface hover:text-primary transition-colors active:scale-95" type="button">
+          <span class="material-symbols-outlined text-[20px]">notifications</span>
+          <span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-error ring-2 ring-surface-container-lowest"></span>
+        </button>
+
+        <button aria-label="سلة المشتريات" class="relative w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-on-surface hover:text-primary transition-colors active:scale-95" type="button">
+          <span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+          <span class="absolute -top-1 -right-1 px-1 bg-primary text-on-primary rounded-full font-label-sm text-[10px] min-w-[18px] h-[18px] flex items-center justify-center tabular-nums shadow-xs">2</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN SCROLLABLE CONTENT (Offset for fixed unified header and bottom nav dock) -->
+  <main class="flex-1 flex flex-col relative w-full pt-20 pb-28 bg-surface">
+    <div class="flex flex-col w-full text-on-surface">
+
+      <!-- 1. Active Jordanian Governorate / Delivery Location -->
+      <section class="px-margin pt-space-xs pb-space-xs">
+        <button class="w-full flex items-center justify-between py-2.5 px-3.5 bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-on-surface hover:bg-surface-container-low hover:border-primary/30 transition-all shadow-xs active:scale-[0.99] group text-right" type="button" aria-label="تحديد منطقة التوصيل">
+          <div class="flex items-center gap-2.5 min-w-0 flex-1">
+            <div class="w-8 h-8 rounded-lg bg-surface-container-low flex items-center justify-center text-primary shrink-0 group-hover:bg-primary group-hover:text-on-primary transition-colors">
+              <span class="material-symbols-outlined text-[20px]">location_on</span>
+            </div>
+            <!-- Two lines: Label on top, full location clearly readable below -->
+            <div class="flex flex-col items-start min-w-0 flex-1">
+              <span class="font-label-sm text-[11px] text-secondary leading-tight">التوصيل إلى</span>
+              <span class="font-title-md text-[14px] text-on-surface font-bold leading-normal truncate w-full">عَمّان (البيادر، وادي الرمم)</span>
+            </div>
+          </div>
+          <!-- Clean dropdown chevron indicator without redundant text -->
+          <div class="w-7 h-7 rounded-full flex items-center justify-center text-secondary group-hover:text-primary transition-colors shrink-0 ms-1">
+            <span class="material-symbols-outlined text-[20px] group-hover:translate-y-0.5 transition-transform">expand_more</span>
+          </div>
+        </button>
+      </section>
+
+      <!-- 2. Hero Search Bar & Smart Recents/Quick Terms -->
+      <section class="px-margin pt-space-xs pb-space-xs">
+        <!-- Main Search Input Container -->
+        <div class="relative flex items-center w-full bg-surface-container-lowest border border-outline-variant/50 rounded-xl shadow-xs py-1.5 px-3 focus-within:ring-2 focus-within:ring-primary focus-within:border-transparent transition-all">
+          <div class="flex items-center justify-center text-primary shrink-0 ms-0.5 me-2">
+            <span class="material-symbols-outlined text-[24px]">search</span>
+          </div>
+          <input aria-label="ابحث باسم القطعة أو رقم OEM" class="w-full bg-transparent font-body-md text-[14px] text-on-surface placeholder:text-secondary/70 outline-none" placeholder="ابحث باسم القطعة، رقم OEM (مثل: 04465-33470)..." type="search"/>
+        </div>
+      </section>
+
+      <!-- 3. Specialized Search Pathways (50/50 Dual Entry with Guaranteed Fitment Cue) -->
+      <section class="px-margin pt-space-xs pb-space-xs">
+        <div class="grid grid-cols-2 gap-space-sm">
+          
+          <!-- Search by Vehicle (Make / Model / Year) -->
+          <button class="group flex flex-col p-3 bg-surface-container-lowest border border-outline-variant/35 rounded-xl shadow-xs hover:border-primary/50 hover:shadow-sm transition-all text-right active:scale-[0.98] relative overflow-hidden" type="button">
+            <div class="flex items-center justify-between w-full mb-2">
+              <div class="w-9 h-9 rounded-lg bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                <span class="material-symbols-outlined text-[22px]">directions_car</span>
+              </div>
+              <span class="material-symbols-outlined text-[16px] text-outline-variant group-hover:text-primary group-hover:-translate-x-0.5 rtl:rotate-180 transition-all">arrow_forward</span>
+            </div>
+            <span class="font-title-md text-[13px] text-on-surface font-bold mb-0.5">حسب سيارتك</span>
+            <span class="font-body-sm text-[11px] text-secondary line-clamp-1">تحديد الصانع والموديل والسنة</span>
+            <div class="mt-2 pt-1.5 border-t border-outline-variant/20 flex items-center gap-1 text-[10px] text-primary font-bold">
+              <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+              <span>توافق مضمون 100%</span>
+            </div>
+          </button>
+
+          <!-- Search by VIN / Chassis Number -->
+          <button class="group flex flex-col p-3 bg-surface-container-lowest border border-outline-variant/35 rounded-xl shadow-xs hover:border-primary/50 hover:shadow-sm transition-all text-right active:scale-[0.98] relative overflow-hidden" type="button">
+            <div class="flex items-center justify-between w-full mb-2">
+              <div class="w-9 h-9 rounded-lg bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                <span class="material-symbols-outlined text-[22px]">pin</span>
+              </div>
+              <span class="material-symbols-outlined text-[16px] text-outline-variant group-hover:text-primary group-hover:-translate-x-0.5 rtl:rotate-180 transition-all">arrow_forward</span>
+            </div>
+            <span class="font-title-md text-[13px] text-on-surface font-bold mb-0.5">برقم الشاسيه</span>
+            <span class="font-body-sm text-[11px] text-secondary line-clamp-1">بحث فوري برقم الهيكل (VIN)</span>
+            <div class="mt-2 pt-1.5 border-t border-outline-variant/20 flex items-center gap-1 text-[10px] text-secondary font-bold">
+              <span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+              <span>مطابقة كود المصنع</span>
+            </div>
+          </button>
+
+        </div>
+      </section>
+
+      <!-- 4. Seasonal Promotional Banner (Interactive Image Slider) -->
+      <section class="px-margin py-space-xs">
+        <div class="relative overflow-hidden rounded-2xl shadow-sm bg-surface-container-low border border-outline-variant/30" id="promo-banner-slider">
+          
+          <!-- Slider Track (Horizontal Snap Carousel) -->
+          <div class="flex overflow-x-auto snap-x snap-mandatory scrollbar-none transition-all duration-300" id="banner-track" style="scroll-behavior: smooth;">
+            
+            <!-- Slide 1: Seasonal Periodic Maintenance -->
+            <div class="snap-start shrink-0 w-full relative aspect-[2172/724] overflow-hidden group select-none">
+              <img src="assets/img/Banner-1.png" alt="عروض صيانة وفلاتر السيارات" class="w-full h-full object-cover pointer-events-none"/>
+              <!-- Content Overlay: Pinned explicitly to the physical right edge (right: 0) -->
+              <div class="absolute top-0 bottom-0 right-0 w-[58%] flex items-center justify-start pr-4 pl-2 py-space-xs text-right pointer-events-none" style="right: 0; left: auto;">
+                <div class="w-full flex flex-col justify-center items-start text-white drop-shadow-sm pointer-events-auto">
+                  <span class="inline-block px-2 py-0.5 mb-1 text-[10px] font-bold bg-white/20 backdrop-blur-md text-primary-fixed rounded-full border border-white/25">
+                    توفير الصيانة الدورية
+                  </span>
+                  <h2 class="text-title-md font-bold text-white leading-tight mb-1">
+                    خصومات على الفلاتر والزيوت
+                  </h2>
+                  <p class="text-[11px] text-white/90 font-medium line-clamp-1 mb-1.5 hidden xs:block">
+                    قطع غيار أصلية ومطابقة لسيارتك مع كفالة
+                  </p>
+                  <a href="#" class="inline-flex items-center gap-1 text-[11px] font-bold text-primary-fixed hover:text-white transition-colors">
+                    <span>تصفح العروض</span>
+                    <span class="material-symbols-outlined text-[14px] rtl:rotate-180">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2: High Performance Brake Systems -->
+            <div class="snap-start shrink-0 w-full relative aspect-[2172/724] overflow-hidden group select-none">
+              <img src="assets/img/Banner-2.png" alt="أنظمة الفرامل ومكابح السيراميك" class="w-full h-full object-cover pointer-events-none"/>
+              <!-- Content Overlay: Pinned explicitly to the physical right edge (right: 0) -->
+              <div class="absolute top-0 bottom-0 right-0 w-[58%] flex items-center justify-start pr-4 pl-2 py-space-xs text-right pointer-events-none" style="right: 0; left: auto;">
+                <div class="w-full flex flex-col justify-center items-start text-white drop-shadow-sm pointer-events-auto">
+                  <span class="inline-block px-2 py-0.5 mb-1 text-[10px] font-bold bg-amber-500/25 backdrop-blur-md text-tertiary-fixed rounded-full border border-amber-300/30">
+                    كفاءة استهلاك الوقود
+                  </span>
+                  <h2 class="text-title-md font-bold text-white leading-tight mb-1">
+                    بواجي إيريديوم معتمدة
+                  </h2>
+                  <p class="text-[11px] text-white/90 font-medium line-clamp-1 mb-1.5 hidden xs:block">
+                    عزم أقوى وأداء محرك مثالي تدوم طويلاً
+                  </p>
+                  <a href="#" class="inline-flex items-center gap-1 text-[11px] font-bold text-primary-fixed hover:text-white transition-colors">
+                    <span>اكتشف القطع المتوافقة</span>
+                    <span class="material-symbols-outlined text-[14px] rtl:rotate-180">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3: OEM Engine Ignition & Spark Plugs -->
+            <div class="snap-start shrink-0 w-full relative aspect-[2172/724] overflow-hidden group select-none">
+              <img src="assets/img/Banner-3.png" alt="بواجي وشمعات احتراق أصلية" class="w-full h-full object-cover pointer-events-none"/>
+              <!-- Content Overlay: Pinned explicitly to the physical right edge (right: 0) -->
+              <div class="absolute top-0 bottom-0 right-0 w-[58%] flex items-center justify-start pr-4 pl-2 py-space-xs text-right pointer-events-none" style="right: 0; left: auto;">
+                <div class="w-full flex flex-col justify-center items-start text-white drop-shadow-sm pointer-events-auto">
+                  <span class="inline-block px-2 py-0.5 mb-1 text-[10px] font-bold bg-white/20 backdrop-blur-md text-primary-fixed rounded-full border border-white/25">
+                     أمان وسلامة المركبة
+                  </span>
+                  <h2 class="text-title-md font-bold text-white leading-tight mb-1">
+                     فحمات ومكابح أصلية
+                  </h2>
+                  <p class="text-[11px] text-white/90 font-medium line-clamp-1 mb-1.5 hidden xs:block">
+                     أعلى مستويات الاستجابة والتحمل على الطرق
+                  </p>
+                  <a href="#" class="inline-flex items-center gap-1 text-[11px] font-bold text-primary-fixed hover:text-white transition-colors">
+                    <span>تسوق القطع الآن</span>
+                    <span class="material-symbols-outlined text-[14px] rtl:rotate-180">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Pagination Indicator Dots (Active slide highlighted) -->
+          <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20 pointer-events-auto bg-black/30 backdrop-blur-md px-2 py-0.5 rounded-full" id="banner-dots">
+            <button aria-label="الشريحة 1" class="w-4 h-1.5 rounded-full bg-primary-fixed transition-all banner-dot" data-index="0" type="button"></button>
+            <button aria-label="الشريحة 2" class="w-1.5 h-1.5 rounded-full bg-white/50 hover:bg-white transition-all banner-dot" data-index="1" type="button"></button>
+            <button aria-label="الشريحة 3" class="w-1.5 h-1.5 rounded-full bg-white/50 hover:bg-white transition-all banner-dot" data-index="2" type="button"></button>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- 5. Selected Offers: Product Cards Horizontal Carousel -->
+      <section class="py-space-sm">
+        <div class="px-margin flex items-center justify-between mb-space-sm">
+          <div class="flex items-center gap-1.5">
+            <span class="w-1.5 h-4 rounded-full bg-primary"></span>
+            <h2 class="font-headline-sm text-[16px] text-on-surface font-bold">عروض قطع مختارة</h2>
+          </div>
+          <a class="font-label-md text-label-sm text-primary font-bold flex items-center gap-0.5 hover:underline" href="#">
+            <span>مشاهدة الكل</span>
+            <span class="material-symbols-outlined text-[16px] rtl:rotate-180">arrow_forward</span>
+          </a>
+        </div>
+
+        <!-- Horizontal Scrollable Products Carousel -->
+        <div class="flex overflow-x-auto gap-space-sm px-margin pb-2 scrollbar-none snap-x snap-mandatory">
+
+          <!-- Product Card 1 -->
+          <div class="snap-start shrink-0 w-[172px] flex flex-col bg-surface-container-lowest border border-outline-variant/40 rounded-2xl shadow-xs overflow-hidden p-2.5 relative group hover:shadow-md hover:border-primary/40 transition-all">
+            
+            <!-- Top Badges Row -->
+            <div class="flex items-center justify-between w-full mb-1.5 z-10">
+              <span class="inline-flex items-center gap-0.5 px-2 py-0.5 bg-emerald-50 text-primary border border-primary/25 rounded-full text-[10px] font-bold">
+                <span class="material-symbols-outlined text-[12px]">verified</span>
+                <span>متوافق</span>
+              </span>
+              <span class="bg-amber-500 text-white font-label-sm text-[10px] px-2 py-0.5 rounded-full shadow-xs font-bold tabular-nums">
+                -25%
+              </span>
+            </div>
+
+            <!-- Product Image Hub -->
+            <div class="relative w-full aspect-square rounded-xl bg-surface-container-low overflow-hidden mb-2 flex items-center justify-center">
+              <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="فحمات فرامل سيراميك" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgC0ROIJz0vJPEyVnL3katuK11nukTHi1ISwdrTk-uAboif09l0YPbpbltG1IzrW-QC3FooPr0s7Zkjhj7aeeStgniG2CGDpeWg8d7VIzwf_h-uygCoRPKvTpsLOJ5isiVcCPC1Q00KI2PH-UYYI4B9IyRd6LyZ6F71uWC5v8WI5baRu3PpGFaGf-gTnnO7mXzKjBtnTpWorxpoePdBSdLxI7Jm7-3FI7hFdfVQs-9NbQuAl_ZzgJ-XA"/>
+            </div>
+
+            <!-- Category & Title -->
+            <span class="font-label-sm text-[10px] text-secondary font-medium">نظام الفرامل</span>
+            <h3 class="font-title-md text-[13px] text-on-surface line-clamp-1 mb-1 font-bold group-hover:text-primary transition-colors">فحمات فرامل سيراميك</h3>
+            
+            <!-- Jordanian Price (د.أ) Tabular Bold -->
+            <div class="flex items-baseline gap-1.5 mb-1.5">
+              <span class="text-[16px] text-primary font-bold tabular-nums leading-none">28.50 <span class="text-[11px] font-semibold">د.أ</span></span>
+              <span class="text-[11px] text-secondary/70 line-through tabular-nums">38.00</span>
+            </div>
+
+            <!-- Jordanian Merchant & Location -->
+            <div class="flex items-center gap-1 text-secondary font-body-sm text-[10px] mb-2 line-clamp-1">
+              <span class="material-symbols-outlined text-[13px] text-outline">storefront</span>
+              <span>مؤسسة النور - عَمّان</span>
+            </div>
+
+            <!-- Solid Bold Cart Action -->
+            <button aria-label="إضافة فحمات الفرامل للسلة" class="w-full py-2 bg-primary text-on-primary hover:bg-primary-container rounded-xl font-label-md text-label-sm font-bold flex items-center justify-center gap-1.5 transition-all active:scale-95 shadow-xs" type="button">
+              <span class="material-symbols-outlined text-[17px]">add_shopping_cart</span>
+              <span>أضف للسلة</span>
+            </button>
+          </div>
+
+          <!-- Product Card 2 -->
+          <div class="snap-start shrink-0 w-[172px] flex flex-col bg-surface-container-lowest border border-outline-variant/40 rounded-2xl shadow-xs overflow-hidden p-2.5 relative group hover:shadow-md hover:border-primary/40 transition-all">
+            
+            <!-- Top Badges Row -->
+            <div class="flex items-center justify-between w-full mb-1.5 z-10">
+              <span class="inline-flex items-center gap-0.5 px-2 py-0.5 bg-emerald-50 text-primary border border-primary/25 rounded-full text-[10px] font-bold">
+                <span class="material-symbols-outlined text-[12px]">verified</span>
+                <span>OEM أصلي</span>
+              </span>
+              <span class="bg-amber-500 text-white font-label-sm text-[10px] px-2 py-0.5 rounded-full shadow-xs font-bold tabular-nums">
+                -15%
+              </span>
+            </div>
+
+            <!-- Product Image Hub -->
+            <div class="relative w-full aspect-square rounded-xl bg-surface-container-low overflow-hidden mb-2 flex items-center justify-center">
+              <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="فلتر زيت محرك أصلي" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDONiX71Gq9RltC9StLvDu_-BNDW-SViyGS3-kVMvK2Hx0FnnZwEMn9wr6ekzK4-5HzdsuPrNJDr3e2Go5qD4ZOBEBpxkbikZTYQ1368ncIUclJuEXFmNKBfZXw4G-W7DLPRjBZiCHQS0zZ6G4BuzOyS8gPncMF0LHxO3aHfI-VpvtKJyOQButsYO3hiP1Tzi6GqXURaFtGhNcTKvWhxlPUmesdJeEtCcRTd002ncYmYWwrMRJh8lBhA"/>
+            </div>
+
+            <!-- Category & Title -->
+            <span class="font-label-sm text-[10px] text-secondary font-medium">الفلاتر والصيانة</span>
+            <h3 class="font-title-md text-[13px] text-on-surface line-clamp-1 mb-1 font-bold group-hover:text-primary transition-colors">فلتر زيت محرك أصلي</h3>
+
+            <!-- Jordanian Price (د.أ) Tabular Bold -->
+            <div class="flex items-baseline gap-1.5 mb-1.5">
+              <span class="text-[16px] text-primary font-bold tabular-nums leading-none">7.25 <span class="text-[11px] font-semibold">د.أ</span></span>
+              <span class="text-[11px] text-secondary/70 line-through tabular-nums">8.50</span>
+            </div>
+
+            <!-- Jordanian Merchant & Location -->
+            <div class="flex items-center gap-1 text-secondary font-body-sm text-[10px] mb-2 line-clamp-1">
+              <span class="material-symbols-outlined text-[13px] text-outline">storefront</span>
+              <span>مركز الوفاء - عَمّان</span>
+            </div>
+
+            <!-- Solid Bold Cart Action -->
+            <button aria-label="إضافة فلتر الزيت للسلة" class="w-full py-2 bg-primary text-on-primary hover:bg-primary-container rounded-xl font-label-md text-label-sm font-bold flex items-center justify-center gap-1.5 transition-all active:scale-95 shadow-xs" type="button">
+              <span class="material-symbols-outlined text-[17px]">add_shopping_cart</span>
+              <span>أضف للسلة</span>
+            </button>
+          </div>
+
+          <!-- Product Card 3 -->
+          <div class="snap-start shrink-0 w-[172px] flex flex-col bg-surface-container-lowest border border-outline-variant/40 rounded-2xl shadow-xs overflow-hidden p-2.5 relative group hover:shadow-md hover:border-primary/40 transition-all">
+            
+            <!-- Top Badges Row -->
+            <div class="flex items-center justify-between w-full mb-1.5 z-10">
+              <span class="inline-flex items-center gap-0.5 px-2 py-0.5 bg-emerald-50 text-primary border border-primary/25 rounded-full text-[10px] font-bold">
+                <span class="material-symbols-outlined text-[12px]">verified</span>
+                <span>متوافق</span>
+              </span>
+              <span class="bg-amber-500 text-white font-label-sm text-[10px] px-2 py-0.5 rounded-full shadow-xs font-bold tabular-nums">
+                -20%
+              </span>
+            </div>
+
+            <!-- Product Image Hub -->
+            <div class="relative w-full aspect-square rounded-xl bg-surface-container-low overflow-hidden mb-2 flex items-center justify-center">
+              <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="شمعات احتراق إيريديوم" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByCdeWjxHPdW9qB-OSQmP-6JSCJpAEcmdSIjDZBE5Ee1P2a16XlpQa2pNXtGWJyslIltdFgq7MXMC2SxaSAtv-TP37ebvUMOoVYN31663neCD1cJsE5MljJBa5BGD4PEZ63m3NGwyEbAgsy6UWgxW7Js4XPC_9rMZfJkfanyIutT0jK6Uh3sQA85qfXbrV2ENw_xICUUeGZsAwgwV2Qnuy5uGkLzz4dUR538S_aVDw6q8hmNsX2dQi2A"/>
+            </div>
+
+            <!-- Category & Title -->
+            <span class="font-label-sm text-[10px] text-secondary font-medium">نظام الإشعال</span>
+            <h3 class="font-title-md text-[13px] text-on-surface line-clamp-1 mb-1 font-bold group-hover:text-primary transition-colors">بواجي بوش إيريديوم</h3>
+
+            <!-- Jordanian Price (د.أ) Tabular Bold -->
+            <div class="flex items-baseline gap-1.5 mb-1.5">
+              <span class="text-[16px] text-primary font-bold tabular-nums leading-none">22.00 <span class="text-[11px] font-semibold">د.أ</span></span>
+              <span class="text-[11px] text-secondary/70 line-through tabular-nums">27.50</span>
+            </div>
+
+            <!-- Jordanian Merchant & Location -->
+            <div class="flex items-center gap-1 text-secondary font-body-sm text-[10px] mb-2 line-clamp-1">
+              <span class="material-symbols-outlined text-[13px] text-outline">storefront</span>
+              <span>شركة القمة - إربد</span>
+            </div>
+
+            <!-- Solid Bold Cart Action -->
+            <button aria-label="إضافة شمعات الاحتراق للسلة" class="w-full py-2 bg-primary text-on-primary hover:bg-primary-container rounded-xl font-label-md text-label-sm font-bold flex items-center justify-center gap-1.5 transition-all active:scale-95 shadow-xs" type="button">
+              <span class="material-symbols-outlined text-[17px]">add_shopping_cart</span>
+              <span>أضف للسلة</span>
+            </button>
+          </div>
+
+          <!-- Product Card 4 -->
+          <div class="snap-start shrink-0 w-[172px] flex flex-col bg-surface-container-lowest border border-outline-variant/40 rounded-2xl shadow-xs overflow-hidden p-2.5 relative group hover:shadow-md hover:border-primary/40 transition-all">
+            
+            <!-- Top Badges Row -->
+            <div class="flex items-center justify-between w-full mb-1.5 z-10">
+              <span class="inline-flex items-center gap-0.5 px-2 py-0.5 bg-emerald-50 text-primary border border-primary/25 rounded-full text-[10px] font-bold">
+                <span class="material-symbols-outlined text-[12px]">verified</span>
+                <span>كفالة سنة</span>
+              </span>
+              <span class="bg-amber-500 text-white font-label-sm text-[10px] px-2 py-0.5 rounded-full shadow-xs font-bold tabular-nums">
+                -18%
+              </span>
+            </div>
+
+            <!-- Product Image Hub -->
+            <div class="relative w-full aspect-square rounded-xl bg-surface-container-low overflow-hidden mb-2 flex items-center justify-center">
+              <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="مساعدات أمامية غازية" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD58vA-_3WUy9t8GCHAo0dQPGAshyNRmhbLaZoyr8GIynfJpn96_1yu8kDWUSpq4AwpuPCjghEJcqTdedubrRr-Q_vVnXyKXku3VVXeoIzrllbyOM0QuBI_MxZehJaim_tuXU5jRVKAiX1GsTJB6izdRebKSD9rrKy2JlpSc-pBU30xr6HVAYfu5BMaYWSvpoq-glyZ3iuzwRpI_AEoGCyXu5jPx0iZZIp5vw7t70q6wjwMtDLBxffWpA"/>
+            </div>
+
+            <!-- Category & Title -->
+            <span class="font-label-sm text-[10px] text-secondary font-medium">نظام التعليق</span>
+            <h3 class="font-title-md text-[13px] text-on-surface line-clamp-1 mb-1 font-bold group-hover:text-primary transition-colors">مساعدات أمامية غازية</h3>
+
+            <!-- Jordanian Price (د.أ) Tabular Bold -->
+            <div class="flex items-baseline gap-1.5 mb-1.5">
+              <span class="text-[16px] text-primary font-bold tabular-nums leading-none">64.00 <span class="text-[11px] font-semibold">د.أ</span></span>
+              <span class="text-[11px] text-secondary/70 line-through tabular-nums">78.00</span>
+            </div>
+
+            <!-- Jordanian Merchant & Location -->
+            <div class="flex items-center gap-1 text-secondary font-body-sm text-[10px] mb-2 line-clamp-1">
+              <span class="material-symbols-outlined text-[13px] text-outline">storefront</span>
+              <span>مركز الأردن - الزرقاء</span>
+            </div>
+
+            <!-- Solid Bold Cart Action -->
+            <button aria-label="إضافة المساعدات للسلة" class="w-full py-2 bg-primary text-on-primary hover:bg-primary-container rounded-xl font-label-md text-label-sm font-bold flex items-center justify-center gap-1.5 transition-all active:scale-95 shadow-xs" type="button">
+              <span class="material-symbols-outlined text-[17px]">add_shopping_cart</span>
+              <span>أضف للسلة</span>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 6. Nearby Automotive Services (Aligned to listing + details + direct WhatsApp contact) -->
+      <section class="px-margin py-space-sm">
+        <div class="flex items-center justify-between mb-space-sm">
+          <div class="flex items-center gap-1.5">
+            <span class="w-1.5 h-4 rounded-full bg-primary"></span>
+            <h2 class="font-headline-sm text-[16px] text-on-surface font-bold">خدمات وورش قريبة</h2>
+          </div>
+          <a class="font-label-md text-label-sm text-primary font-bold flex items-center gap-0.5 hover:underline" href="#">
+            <span>كل الورش</span>
+            <span class="material-symbols-outlined text-[16px] rtl:rotate-180">arrow_forward</span>
+          </a>
+        </div>
+
+        <div class="flex flex-col gap-2.5">
+          
+          <!-- Workshop 1 -->
+          <div class="flex flex-col p-3 bg-surface-container-lowest border border-outline-variant/40 rounded-2xl shadow-xs hover:border-primary/40 hover:shadow-sm transition-all group">
+            <div class="flex items-start justify-between gap-2.5 mb-2">
+              <div class="flex items-center gap-2.5 min-w-0 flex-1">
+                <div class="w-10 h-10 rounded-xl bg-surface-container-low flex items-center justify-center text-primary shrink-0 group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                  <span class="material-symbols-outlined text-[22px]">build</span>
+                </div>
+                <div class="flex flex-col min-w-0 flex-1">
+                  <!-- Full readable title without truncation or redundant badges -->
+                  <h3 class="font-title-md text-[13px] text-on-surface font-bold leading-snug group-hover:text-primary transition-colors">
+                    ورشة الميكانيك السريع وتركيب القطع
+                  </h3>
+                  <div class="flex items-center gap-2 text-secondary text-[11px] mt-0.5">
+                    <span class="flex items-center gap-0.5 font-bold text-amber-600">
+                      <span class="material-symbols-outlined text-[12px] fill-current">star</span>
+                      <span>4.8</span>
+                    </span>
+                    <span class="text-outline-variant">•</span>
+                    <span class="flex items-center gap-0.5 text-primary font-semibold">
+                      <span class="material-symbols-outlined text-[12px]">near_me</span>
+                      <span>2.4 كم</span>
+                    </span>
+                    <span class="text-outline-variant">•</span>
+                    <span class="truncate">عَمّان، صويلح الصناعية</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Bar: Status & Direct Brand-Green WhatsApp CTA -->
+            <div class="flex items-center justify-between gap-2 pt-2 border-t border-outline-variant/20">
+              <span class="text-[10px] text-secondary font-medium flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                <span>متاح الآن لتركيب القطع</span>
+              </span>
+              <button class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary text-on-primary hover:bg-primary-container active:scale-95 rounded-xl font-label-md text-[11px] font-bold shadow-xs transition-all shrink-0" type="button" title="التواصل مباشرة عبر واتساب">
+                <span class="material-symbols-outlined text-[15px]">chat</span>
+                <span>واتساب</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Workshop 2 -->
+          <div class="flex flex-col p-3 bg-surface-container-lowest border border-outline-variant/40 rounded-2xl shadow-xs hover:border-primary/40 hover:shadow-sm transition-all group">
+            <div class="flex items-start justify-between gap-2.5 mb-2">
+              <div class="flex items-center gap-2.5 min-w-0 flex-1">
+                <div class="w-10 h-10 rounded-xl bg-surface-container-low flex items-center justify-center text-primary shrink-0 group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                  <span class="material-symbols-outlined text-[22px]">settings_suggest</span>
+                </div>
+                <div class="flex flex-col min-w-0 flex-1">
+                  <!-- Full readable title without truncation or redundant badges -->
+                  <h3 class="font-title-md text-[13px] text-on-surface font-bold leading-snug group-hover:text-primary transition-colors">
+                    مركز فحص وبرمجة كمبيوتر السيارات
+                  </h3>
+                  <div class="flex items-center gap-2 text-secondary text-[11px] mt-0.5">
+                    <span class="flex items-center gap-0.5 font-bold text-amber-600">
+                      <span class="material-symbols-outlined text-[12px] fill-current">star</span>
+                      <span>4.9</span>
+                    </span>
+                    <span class="text-outline-variant">•</span>
+                    <span class="flex items-center gap-0.5 text-primary font-semibold">
+                      <span class="material-symbols-outlined text-[12px]">near_me</span>
+                      <span>3.8 كم</span>
+                    </span>
+                    <span class="text-outline-variant">•</span>
+                    <span class="truncate">عَمّان، البيادر</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Bar: Status & Direct Brand-Green WhatsApp CTA -->
+            <div class="flex items-center justify-between gap-2 pt-2 border-t border-outline-variant/20">
+              <span class="text-[10px] text-secondary font-medium flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                <span>فحص شامل وبرمجة كودات</span>
+              </span>
+              <button class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary text-on-primary hover:bg-primary-container active:scale-95 rounded-xl font-label-md text-[11px] font-bold shadow-xs transition-all shrink-0" type="button" title="التواصل مباشرة عبر واتساب">
+                <span class="material-symbols-outlined text-[15px]">chat</span>
+                <span>واتساب</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 7. Business Portals & Partnership (B2B Entrypoints - Subordinated at bottom - Currently commented out for future reference) -->
+      <!--
+      <section class="px-margin pt-space-sm pb-space-lg mb-space-sm">
+        <div class="border-t border-outline-variant/30 pt-space-md">
+          <div class="flex items-center gap-space-xs mb-1">
+            <span class="material-symbols-outlined text-primary text-[20px]">corporate_fare</span>
+            <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">بوابة الأعمال والشراكة</h2>
+          </div>
+          <p class="font-body-sm text-body-sm text-secondary mb-space-md">
+            هل أنت تاجر قطع، مورد جملة، أو ورشة صيانة في الأردن؟ بدّل لواجهتك المتخصصة:
+          </p>
+          <div class="grid grid-cols-3 gap-space-xs">
+            
+            <button class="flex flex-col items-center justify-center p-2.5 bg-surface-container-lowest border border-outline-variant/30 rounded-xl hover:bg-primary hover:text-on-primary transition-all shadow-xs group active:scale-95" type="button">
+              <span class="material-symbols-outlined text-[24px] text-primary group-hover:text-on-primary mb-1">store</span>
+              <span class="font-label-md text-label-md font-bold text-on-surface group-hover:text-on-primary">التاجر</span>
+            </button>
+
+            <button class="flex flex-col items-center justify-center p-2.5 bg-surface-container-lowest border border-outline-variant/30 rounded-xl hover:bg-primary hover:text-on-primary transition-all shadow-xs group active:scale-95" type="button">
+              <span class="material-symbols-outlined text-[24px] text-primary group-hover:text-on-primary mb-1">local_shipping</span>
+              <span class="font-label-md text-label-md font-bold text-on-surface group-hover:text-on-primary">المورد</span>
+            </button>
+
+            <button class="flex flex-col items-center justify-center p-2.5 bg-surface-container-lowest border border-outline-variant/30 rounded-xl hover:bg-primary hover:text-on-primary transition-all shadow-xs group active:scale-95" type="button">
+              <span class="material-symbols-outlined text-[24px] text-primary group-hover:text-on-primary mb-1">handyman</span>
+              <span class="font-label-md text-label-md font-bold text-on-surface group-hover:text-on-primary">مزود الخدمة</span>
+            </button>
+
+          </div>
+        </div>
+      </section>
+      -->
+
+    </div>
+  </main>
+
+  <!-- FIXED BOTTOM NAVIGATION DOCK (Native mobile 5-tab structure) -->
+  <nav class="fixed bottom-0 w-full max-w-[400px] z-50 pb-safe bg-surface-container-lowest/95 backdrop-blur-xl border-t border-surface-container shadow-[0_-4px_16px_rgba(15,23,42,0.06)]" data-active-classes="text-primary font-bold">
+    <div class="flex justify-around items-center h-16 px-space-xs">
+      
+      <!-- Home -->
+      <a aria-current="page" class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 transition-colors text-primary font-bold" data-path="home" href="#">
+        <span class="material-symbols-outlined text-[24px]">home</span>
+        <span class="text-label-sm text-[11px] font-bold">الرئيسية</span>
+      </a>
+
+      <!-- Offers -->
+      <a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-secondary hover:text-on-surface transition-colors" data-path="offers" href="#">
+        <span class="material-symbols-outlined text-[24px]">local_offer</span>
+        <span class="text-label-sm text-[11px] font-medium">العروض</span>
+      </a>
+
+      <!-- Services -->
+      <a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-secondary hover:text-on-surface transition-colors" data-path="services" href="#">
+        <span class="material-symbols-outlined text-[24px]">car_repair</span>
+        <span class="text-label-sm text-[11px] font-medium">الخدمات</span>
+      </a>
+
+      <!-- My Orders -->
+      <a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-secondary hover:text-on-surface transition-colors" data-path="my-orders" href="#">
+        <span class="material-symbols-outlined text-[24px]">inventory_2</span>
+        <span class="text-label-sm text-[11px] font-medium">طلباتي</span>
+      </a>
+
+      <!-- My Account -->
+      <a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-secondary hover:text-on-surface transition-colors" data-path="account" href="#">
+        <span class="material-symbols-outlined text-[24px]">person</span>
+        <span class="text-label-sm text-[11px] font-medium">حسابي</span>
+      </a>
+
+    </div>
+  </nav>
+
+  </div> <!-- End Mobile Viewport Shell -->
+
+  <script>
+    // Native mobile touch press feedback
+    document.querySelectorAll('button, a').forEach(el => {
+      el.addEventListener('touchstart', function() {
+        this.classList.add('opacity-85');
+      }, {passive: true});
+      el.addEventListener('touchend', function() {
+        this.classList.remove('opacity-85');
+      }, {passive: true});
+    });
+
+    // Auto-playing and interactive promotional banner slider
+    (function initBannerSlider() {
+      const track = document.getElementById('banner-track');
+      const dots = document.querySelectorAll('.banner-dot');
+      if (!track || !dots.length) return;
+
+      let currentSlide = 0;
+      const totalSlides = dots.length;
+      let autoPlayTimer = null;
+
+      function updateActiveDot(index) {
+        dots.forEach((dot, i) => {
+          if (i === index) {
+            dot.className = 'w-4 h-1.5 rounded-full bg-primary-fixed transition-all banner-dot';
+          } else {
+            dot.className = 'w-1.5 h-1.5 rounded-full bg-white/50 hover:bg-white transition-all banner-dot';
+          }
+        });
+      }
+
+      function scrollToSlide(index) {
+        currentSlide = index;
+        const slideWidth = track.clientWidth;
+        // In RTL, scrollLeft can be negative or positive depending on engine.
+        // Using scrollLeft with children elements guarantees consistent multi-browser behavior.
+        const targetChild = track.children[index];
+        if (targetChild) {
+          track.scrollTo({
+            left: targetChild.offsetLeft,
+            behavior: 'smooth'
+          });
+        }
+        updateActiveDot(index);
+      }
+
+      // Dot click event
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          const idx = parseInt(dot.getAttribute('data-index') || '0', 10);
+          scrollToSlide(idx);
+          resetAutoPlay();
+        });
+      });
+
+      // Update dots on manual scroll / swipe
+      track.addEventListener('scroll', () => {
+        const slideWidth = track.clientWidth;
+        if (!slideWidth) return;
+        const index = Math.round(Math.abs(track.scrollLeft) / slideWidth);
+        const clamped = Math.min(Math.max(index, 0), totalSlides - 1);
+        if (clamped !== currentSlide) {
+          currentSlide = clamped;
+          updateActiveDot(clamped);
+        }
+      }, { passive: true });
+
+      function startAutoPlay() {
+        autoPlayTimer = setInterval(() => {
+          const next = (currentSlide + 1) % totalSlides;
+          scrollToSlide(next);
+        }, 4500);
+      }
+
+      function resetAutoPlay() {
+        if (autoPlayTimer) clearInterval(autoPlayTimer);
+        startAutoPlay();
+      }
+
+      // Pause on user hover or touch
+      track.addEventListener('mouseenter', () => clearInterval(autoPlayTimer));
+      track.addEventListener('mouseleave', startAutoPlay);
+      track.addEventListener('touchstart', () => clearInterval(autoPlayTimer), { passive: true });
+      track.addEventListener('touchend', resetAutoPlay, { passive: true });
+
+      startAutoPlay();
+    })();
+  </script>
+</body>
+</html>
