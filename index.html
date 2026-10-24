@@ -491,7 +491,7 @@ body{background:var(--ground);padding:0;min-height:100dvh}
 .sc .wa{min-height:42px;padding:0 11px;border-radius:13px;background:var(--brand);color:var(--on-brand);font-size:11.5px;white-space:nowrap;box-shadow:0 5px 12px rgba(0,31,63,.14);transition:background .2s,transform .2s}
 .sc .wa:hover{background:var(--brand-deep);transform:translateY(-1px)}
 .sc .wa:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.sc .wa svg{flex:none;color:var(--accent)}
+.sc .wa svg{display:block;width:16px;height:16px;flex:none;fill:currentColor;stroke:none;color:var(--accent)}
 @media (max-width:360px){
   .sc{grid-template-columns:68px minmax(0,1fr) auto;gap:9px;padding:9px}
   .sc-media{width:68px;height:68px}
@@ -536,6 +536,7 @@ const P = {
   plus:'<path d="M12 5v14M5 12h14"/>', supply:'<path d="M3 7h13v10H3zM16 10h3l2 3v4h-5"/><path d="M7 11h5"/>',
 };
 const ic = (n, s=22, extra='') => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ${extra}>${P[n]||''}</svg>`;
+const waIcon = (s=16) => `<svg xmlns="http://www.w3.org/2000/svg" width="${s}" height="${s}" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"></path></svg>`;
 
 /* ---------- photo-like placeholders: phone shots of real parts on a bench ---------- */
 const BG = { concrete:['#9A9B96','#62645F'], wood:['#A47C52','#5E4429'], card:['#CDB287','#95784D'], shop:['#61707A','#36414A'], tile:['#DAD8D1','#A9A69E'], night:['#3B4650','#1C232A'], brand:['#173B5D','#001F3F'] };
@@ -790,7 +791,7 @@ function offerCard(l){
 }
 function svcCard(s){
   return `<article class="sc"><div class="sc-media"><img alt="" src="${img(s.icon, 'brand', s.id)}"></div><button class="sc-main" data-h="soon" aria-label="${s.name}، ${s.type}"><span class="sc-title"><b>${s.name}</b></span><span class="m">${s.type}</span><span class="sc-place">${s.area}، ${s.gov}</span></button>
-    <button class="wa" data-h="wa|${s.id}" aria-label="تواصل مع ${s.name} عبر واتساب">${ic('chat',16)} <span>واتساب</span></button></article>`;
+    <button class="wa" data-h="wa|${s.id}" aria-label="تواصل مع ${s.name} عبر واتساب">${waIcon(16)} <span>واتساب</span></button></article>`;
 }
 const nearSvcs = () => SVCS.filter(s => s.gov === H.loc).concat(SVCS.filter(s => s.gov !== H.loc)).slice(0, 2);
 
