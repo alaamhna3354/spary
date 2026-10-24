@@ -1,0 +1,1175 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>تطبيق زبون سوق القطع</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Poppins:wght@700&display=swap">
+<style>
+/* Layout: a 390×844 phone on a cool-grey stage, Spary: Alaa's cards and Noto Kufi, with the proposed palette — identity green #0B5A4A, charcoal ink, burnt-orange actions, with a reference panel beside it that names the SRS clauses of the screen on show. */
+:root{
+  --ground:#E4E9E6; --surface:#FFFFFF; --surface-2:#F3F6F4; --line:#D8E0DC; --line-2:#E6ECE9;
+  --ink:#1F2523; --ink-2:#46524D; --ink-3:#5B6762; --bezel:#1F2523;
+  --brand:#0B5A4A; --brand-soft:#E3F0EB; --brand-line:#BBD6CC; --logo-a:#0B5A4A; --logo-b:#1F2523;
+  --accent:#C2410C; --accent-hover:#A8380A; --accent-ink:#FFFFFF; --accent-soft:#FCE9DC; --accent-line:#F3C3A6;
+  --imgbg:#EAF0ED; --offer:#C2410C; --offer-ink:#FFFFFF; --banner:#0B5A4A; --on-banner:#FFFFFF;
+  --mode-shop:#FFFFFF; --mode-store:#1F2523; --mode-supply:#0B4A3D; --mode-supplier:#3B4250; --on-mode:#FFFFFF;
+  --ok:#1D7348; --ok-soft:#E1F1E7; --warn:#8A5300; --warn-soft:#FFF0D3; --bad:#B42318; --bad-soft:#FCE6E3;
+  --info:#1C5A9E; --info-soft:#E2EDF9; --feat:#6F4600; --feat-soft:#FFE6AE;
+  --scrim:rgba(20,26,24,.5); --shadow:0 1px 2px rgba(31,37,35,.06),0 8px 24px rgba(31,37,35,.08); --shadow-xs:0 1px 2px rgba(31,37,35,.05);
+  --f-display:"Noto Kufi Arabic",Tahoma,sans-serif;
+  --f-body:"Noto Kufi Arabic",Tahoma,sans-serif;
+  --r-s:10px; --r-m:16px; --r-l:20px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ground:#080B0A; --surface:#151C1A; --surface-2:#0E1312; --line:#26302D; --line-2:#1C2422;
+  --ink:#E8ECEA; --ink-2:#BAC4C0; --ink-3:#95A19C; --bezel:#020303;
+  --brand:#3FB58C; --brand-soft:#10302A; --brand-line:#1E5446; --logo-a:#3FB58C; --logo-b:#E8ECEA;
+  --accent:#F0793B; --accent-hover:#F59563; --accent-ink:#1B0D05; --accent-soft:#3A2216; --accent-line:#6A3A22;
+  --imgbg:#1C2623; --offer:#F0793B; --offer-ink:#1B0D05; --banner:#0B4A3D; --on-banner:#FFFFFF;
+  --mode-shop:#151C1A; --mode-store:#2A3532; --mode-supply:#0F5F4E; --mode-supplier:#4A5263; --on-mode:#FFFFFF;
+  --ok:#5CC48C; --ok-soft:#163324; --warn:#F2B552; --warn-soft:#3A2B10; --bad:#F2877B; --bad-soft:#3D1A17;
+  --info:#7DB2EE; --info-soft:#15283D; --feat:#F6CF7A; --feat-soft:#3A2E12;
+  --scrim:rgba(0,0,0,.62); --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.3); --shadow-xs:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ground:#080B0A; --surface:#151C1A; --surface-2:#0E1312; --line:#26302D; --line-2:#1C2422;
+  --ink:#E8ECEA; --ink-2:#BAC4C0; --ink-3:#95A19C; --bezel:#020303;
+  --brand:#3FB58C; --brand-soft:#10302A; --brand-line:#1E5446; --logo-a:#3FB58C; --logo-b:#E8ECEA;
+  --accent:#F0793B; --accent-hover:#F59563; --accent-ink:#1B0D05; --accent-soft:#3A2216; --accent-line:#6A3A22;
+  --imgbg:#1C2623; --offer:#F0793B; --offer-ink:#1B0D05; --banner:#0B4A3D; --on-banner:#FFFFFF;
+  --mode-shop:#151C1A; --mode-store:#2A3532; --mode-supply:#0F5F4E; --mode-supplier:#4A5263; --on-mode:#FFFFFF;
+  --ok:#5CC48C; --ok-soft:#163324; --warn:#F2B552; --warn-soft:#3A2B10; --bad:#F2877B; --bad-soft:#3D1A17;
+  --info:#7DB2EE; --info-soft:#15283D; --feat:#F6CF7A; --feat-soft:#3A2E12;
+  --scrim:rgba(0,0,0,.62); --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.3); --shadow-xs:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.num,.price,.tnum{font-variant-numeric:tabular-nums}
+[dir=rtl] .ltr,.ltr{direction:ltr;unicode-bidi:isolate}
+
+/* stage */
+.stage{display:grid;grid-template-columns:auto minmax(280px,380px);gap:32px;justify-content:center;align-items:start;max-width:1100px;margin:0 auto}
+.device{width:390px;max-width:100%;height:844px;border:10px solid var(--bezel);border-radius:46px;overflow:hidden;position:relative;background:var(--surface-2);box-shadow:var(--shadow)}
+@media (max-width:860px){.stage{grid-template-columns:minmax(0,1fr);justify-items:center}.panel{width:100%;max-width:430px}}
+@media (max-width:480px){.device{border:0;border-radius:var(--r-l);width:100%;height:calc(100dvh - 40px);min-height:560px}}
+
+/* panel */
+.panel{display:flex;flex-direction:column;gap:18px;font-size:14px;min-width:0}
+.panel h1{font-family:var(--f-display);font-size:22px;line-height:1.3;margin:0;text-wrap:balance}
+.panel .lede{color:var(--ink-2);margin:4px 0 0}
+.pbox{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.pbox h2{font-size:12px;letter-spacing:.04em;color:var(--ink-3);margin:0;font-weight:600}
+.pbox select{width:100%;padding:9px 10px;border-radius:var(--r-s);border:1px solid var(--line);background:var(--surface-2)}
+.refs{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.refs li{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:baseline}
+.refs code{font-family:var(--f-display);font-size:12px;font-weight:600;background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:1px 6px;direction:ltr;white-space:nowrap}
+.refs span{color:var(--ink-2);min-width:0}
+.jump{display:flex;flex-wrap:wrap;gap:6px}
+.jump button{border:1px solid var(--line);background:var(--surface-2);border-radius:999px;padding:5px 10px;font-size:13px}
+.jump button[aria-current=true]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.pnote{font-size:13px;color:var(--ink-3);margin:0}
+
+/* app shell */
+.app{height:100%;display:flex;flex-direction:column;position:relative;background:var(--surface-2)}
+.hdr{flex:none;display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--mode-shop);border-bottom:1px solid var(--line);min-height:58px}
+.hdr .grow{flex:1;min-width:0}
+.hdr h1{font-family:var(--f-display);font-size:17px;font-weight:600;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr.m-store{background:var(--mode-store);color:var(--on-mode);border-color:transparent}
+.hdr.m-supply{background:var(--mode-supply);color:var(--on-mode);border-color:transparent}
+.hdr.m-supplier{background:var(--mode-supplier);color:var(--on-mode);border-color:transparent}
+.wordmark{display:flex;align-items:center;gap:8px;font-family:var(--f-display);font-weight:700;font-size:18px}
+.wordmark i{width:30px;height:30px;border-radius:9px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-style:normal}
+.ibtn{width:44px;height:44px;border-radius:12px;border:0;background:transparent;display:grid;place-items:center;position:relative;flex:none}
+.ibtn:hover{background:var(--line-2)}
+.hdr[class*="m-"] .ibtn:hover{background:rgba(255,255,255,.12)}
+.ibtn .dot{position:absolute;top:5px;inset-inline-end:4px;min-width:18px;height:18px;border-radius:9px;background:var(--accent);color:var(--accent-ink);font-size:11px;font-weight:600;display:grid;place-items:center;padding:0 4px}
+.rolepill{display:flex;align-items:center;gap:6px;height:38px;padding:0 10px 0 8px;border-radius:999px;border:1px solid var(--line);background:var(--surface-2);font-weight:600;font-size:14px;max-width:100%;min-width:0}
+.rolepill .lbl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.rolepill .pend{width:8px;height:8px;border-radius:50%;background:var(--warn);flex:none}
+.hdr[class*="m-"] .rolepill{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.28);color:var(--on-mode)}
+.rolepill small{font-weight:500;opacity:.8}
+.content{flex:1;overflow-y:auto;overscroll-behavior:contain;min-height:0;scrollbar-width:thin}
+.pad{padding:14px}
+.stack{display:flex;flex-direction:column;gap:12px}
+.tabs{flex:none;display:grid;grid-template-columns:repeat(5,1fr);background:var(--surface);border-top:1px solid var(--line);padding:4px 4px 10px}
+.tabs button{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;font-size:11.5px;color:var(--ink-3);min-height:52px}
+.tabs button[aria-current=page]{color:var(--accent);font-weight:600}
+.ctabar{flex:none;display:flex;gap:10px;align-items:center;padding:12px 14px 16px;background:var(--surface);border-top:1px solid var(--line)}
+
+/* type */
+.h2{font-family:var(--f-display);font-size:17px;font-weight:600;margin:0}
+.h3{font-size:15px;font-weight:600;margin:0}
+.muted{color:var(--ink-2)}
+.faint{color:var(--ink-3);font-size:13px}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.link{border:0;background:none;color:var(--accent);font-weight:600;padding:6px 0;font-size:14px}
+
+/* controls */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 18px;border-radius:var(--r-m);border:1px solid transparent;font-weight:600;font-size:15px}
+.btn.pri{background:var(--accent);color:var(--accent-ink)}
+.btn.sec{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.danger{background:var(--surface);border-color:var(--bad);color:var(--bad)}
+.btn.block{width:100%}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:14px;white-space:nowrap}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.hscroll{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.hscroll::-webkit-scrollbar{display:none}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:13.5px;font-weight:600}
+.input{width:100%;min-height:48px;padding:10px 12px;border-radius:var(--r-m);border:1px solid var(--line);background:var(--surface)}
+.input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+.searchbox{display:flex;align-items:center;gap:8px;min-height:52px;padding:0 14px;border-radius:var(--r-m);border:1.5px solid var(--ink);background:var(--surface);width:100%;text-align:start;color:var(--ink-3)}
+.searchbox input{border:0;background:transparent;flex:1;min-width:0;outline:none;color:var(--ink);min-height:48px}
+
+/* badges */
+.badges{display:flex;flex-wrap:wrap;gap:5px}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;padding:2px 8px;border-radius:6px;background:var(--surface-2);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
+.badge.new{background:var(--info-soft);border-color:transparent;color:var(--info)}
+.badge.used{background:var(--warn-soft);border-color:transparent;color:var(--warn)}
+.badge.feat{background:var(--feat-soft);border-color:transparent;color:var(--feat)}
+.badge.offer{background:var(--accent-soft);border-color:transparent;color:var(--accent)}
+.badge.ok{background:var(--ok-soft);border-color:transparent;color:var(--ok)}
+.badge.bad{background:var(--bad-soft);border-color:transparent;color:var(--bad)}
+
+/* part card */
+.pcard{display:grid;grid-template-columns:104px minmax(0,1fr);gap:12px;padding:12px;background:var(--surface);border-bottom:1px solid var(--line-2);text-align:start;border-inline:0;border-top:0;width:100%}
+.thumb{width:100%;aspect-ratio:1;border-radius:var(--r-s);overflow:hidden;background:var(--line-2);max-width:100%}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.pcard .t{font-weight:600;font-size:15px;line-height:1.4}
+.pcard .fit{font-size:13px;color:var(--ink-2)}
+.price{font-family:var(--f-display);font-weight:600;font-size:17px}
+.price small{font-size:12px;font-weight:500;color:var(--ink-2)}
+.strike{text-decoration:line-through;color:var(--ink-3);font-size:13px;font-family:var(--f-body)}
+.seller{font-size:13px;color:var(--ink-2);display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.stars{display:inline-flex;align-items:center;gap:2px;font-weight:600;color:var(--ink)}
+.stars svg{color:#D99A00}
+.mini{display:flex;flex-direction:column;gap:6px;width:150px;flex:none;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:8px;text-align:start}
+
+/* blocks */
+.blk{background:var(--surface);border-block:1px solid var(--line-2);padding:14px}
+.blk + .blk{border-top:0;margin-top:8px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:12px}
+.note{display:grid;grid-template-columns:20px minmax(0,1fr);gap:8px;padding:10px 12px;border-radius:var(--r-m);font-size:13.5px;line-height:1.5}
+.note.warn{background:var(--warn-soft);color:var(--warn)}
+.note.info{background:var(--info-soft);color:var(--info)}
+.note.bad{background:var(--bad-soft);color:var(--bad)}
+.note.ok{background:var(--ok-soft);color:var(--ok)}
+.note b{color:inherit}
+.kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px;font-size:14px;margin:0}
+.kv dt{color:var(--ink-3)}
+.kv dd{margin:0;font-weight:500}
+.rows{display:flex;flex-direction:column}
+.rowlink{display:flex;align-items:center;gap:12px;min-height:54px;padding:8px 14px;background:var(--surface);border:0;border-bottom:1px solid var(--line-2);width:100%;text-align:start}
+.rowlink .grow{flex:1;min-width:0}
+.sum{display:flex;justify-content:space-between;gap:8px;font-size:14.5px}
+.sum.total{font-family:var(--f-display);font-weight:600;font-size:17px;padding-top:8px;border-top:1px dashed var(--line)}
+.progress{height:6px;border-radius:3px;background:var(--line-2);overflow:hidden}
+.progress i{display:block;height:100%;background:var(--ok);border-radius:3px}
+table.offers{width:100%;border-collapse:collapse;font-size:13.5px}
+table.offers th{font-size:12px;color:var(--ink-3);font-weight:600;text-align:start;padding:6px 4px;border-bottom:1px solid var(--line)}
+table.offers td{padding:10px 4px;border-bottom:1px solid var(--line-2);vertical-align:middle}
+table.offers tr[aria-current=true] td{background:var(--accent-soft)}
+.seg{display:flex;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px}
+.seg button{flex:1;border:0;background:transparent;border-radius:8px;min-height:36px;font-size:13.5px;color:var(--ink-2)}
+.seg button[aria-pressed=true]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:var(--shadow)}
+
+/* status */
+.status-hero{padding:18px 14px;background:var(--surface);border-bottom:1px solid var(--line-2);display:flex;flex-direction:column;gap:8px}
+.status-word{font-family:var(--f-display);font-size:24px;font-weight:700;line-height:1.25}
+.st-pending{color:var(--warn)}.st-alt{color:var(--bad)}.st-ok{color:var(--ok)}.st-ship{color:var(--info)}.st-fail{color:var(--bad)}.st-cancel{color:var(--ink-3)}
+.track{display:flex;flex-direction:column;gap:0;margin:0;padding:0;list-style:none}
+.track li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;position:relative;padding-bottom:14px;font-size:14px}
+.track li::before{content:"";position:absolute;inset-inline-start:10px;top:20px;bottom:0;width:2px;background:var(--line)}
+.track li:last-child::before{display:none}
+.track .b{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);background:var(--surface);display:grid;place-items:center;z-index:1}
+.track li.done .b{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.track li.now .b{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.track li.todo{color:var(--ink-3)}
+.timer{font-family:var(--f-display);font-weight:700;font-size:28px;font-variant-numeric:tabular-nums;direction:ltr}
+.otp{display:flex;gap:8px;direction:ltr;justify-content:center}
+.otp input{width:46px;height:56px;text-align:center;font-family:var(--f-display);font-size:22px;border-radius:var(--r-m);border:1.5px solid var(--line);background:var(--surface)}
+.otp input:focus{border-color:var(--accent);outline:none}
+.upl{display:flex;align-items:center;gap:12px;padding:12px;border:1.5px dashed var(--line);border-radius:var(--r-m);background:var(--surface);width:100%;text-align:start}
+.upl.done{border-style:solid;border-color:var(--ok);background:var(--ok-soft)}
+.steps-top{display:flex;gap:6px}
+.steps-top i{flex:1;height:4px;border-radius:2px;background:var(--line)}
+.steps-top i.on{background:var(--accent)}
+.radio-row{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:var(--r-m);background:var(--surface);width:100%;text-align:start}
+.radio-row[aria-checked=true]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.radio-row .rd{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);flex:none;margin-top:2px;display:grid;place-items:center}
+.radio-row[aria-checked=true] .rd{border-color:var(--accent)}
+.radio-row[aria-checked=true] .rd::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.radio-row[aria-disabled=true]{opacity:.7}
+
+/* sheets & toast */
+.scrim{position:absolute;inset:0;background:var(--scrim);display:flex;align-items:flex-end;z-index:40}
+.sheet{background:var(--surface);border-radius:20px 20px 0 0;width:100%;max-height:88%;overflow-y:auto;padding:8px 16px 20px;display:flex;flex-direction:column;gap:12px}
+.grab{width:40px;height:4px;border-radius:2px;background:var(--line);margin:4px auto 2px}
+.toast{position:absolute;inset-inline:16px;bottom:96px;background:var(--ink);color:var(--surface);padding:12px 14px;border-radius:var(--r-m);font-size:14px;z-index:60;box-shadow:var(--shadow)}
+.gallery{position:relative;background:var(--line-2)}
+.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;max-width:100%}
+.gallery .count{position:absolute;bottom:10px;inset-inline-start:10px;background:rgba(0,0,0,.6);color:#fff;font-size:12px;padding:2px 8px;border-radius:999px}
+.gallery .dots{position:absolute;bottom:12px;inset-inline:0;display:flex;justify-content:center;gap:5px}
+.gallery .dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.55)}
+.gallery .dots i.on{background:#fff}
+.banner{border-radius:var(--r-m);padding:14px;background:var(--mode-store);color:var(--on-mode);display:grid;grid-template-columns:minmax(0,1fr) 84px;gap:10px;align-items:center;position:relative}
+.banner .ad{position:absolute;top:8px;inset-inline-end:8px;font-size:10.5px;background:rgba(255,255,255,.18);padding:1px 6px;border-radius:4px}
+.banner img{border-radius:10px;width:84px;height:84px;object-fit:cover}
+.mode-ph{display:flex;flex-direction:column;gap:12px;padding:20px 16px}
+.mode-ph ul{margin:0;padding-inline-start:18px;color:var(--ink-2);display:flex;flex-direction:column;gap:4px}
+.empty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:36px 20px}
+.empty .ic{width:56px;height:56px;border-radius:16px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center}
+@media (prefers-reduced-motion:no-preference){.sheet{animation:up .22s ease-out}@keyframes up{from{transform:translateY(24px);opacity:.6}}}
+
+/* Spary skin (Alaa) — overrides on the shared components */
+body{font-size:14px}
+.btn{border-radius:var(--r-m);font-weight:700;font-size:14px}
+.btn.pri:hover{background:var(--accent-hover)}
+.btn.sm{min-height:36px;padding:0 12px;font-size:13px;border-radius:12px}
+.searchbox{border:1px solid var(--line);border-radius:var(--r-m);box-shadow:var(--shadow-xs);color:var(--ink-3)}
+.searchbox > svg{color:var(--accent)}
+.rolepill{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent)}
+.wordmark{color:var(--accent)}
+.wordmark i{border-radius:10px}
+.badge{border-radius:999px;font-size:11px;padding:1px 8px}
+.badge.offer{background:var(--offer);color:var(--offer-ink);font-weight:700}
+.price{color:var(--accent);font-weight:700}
+.card{border-radius:var(--r-m);box-shadow:var(--shadow-xs)}
+.sec-h .h2{display:flex;align-items:center;gap:8px}
+.sec-h .h2::before{content:"";width:4px;height:18px;border-radius:2px;background:var(--accent);flex:none}
+.banner{background:var(--banner);color:var(--on-banner);border-radius:var(--r-l)}
+.thumb{background:var(--imgbg);border-radius:12px}
+.mini{border-radius:var(--r-m)}
+.radio-row,.upl{border-radius:var(--r-m)}
+.ecard{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);text-align:start;box-shadow:var(--shadow-xs);min-width:0;width:100%}
+.ecard.row{flex-direction:row;align-items:center;gap:10px}
+.ecard .icn{width:40px;height:40px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none;margin-bottom:4px}
+.ecard.row .icn{margin:0}
+.ecard b{font-size:14.5px}
+.pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:12px}
+.pc{display:flex;flex-direction:column;gap:8px;padding:8px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);box-shadow:var(--shadow-xs);min-width:0}
+.pc-open{display:flex;flex-direction:column;gap:5px;border:0;background:none;padding:0;text-align:start;min-width:0;width:100%;flex:1}
+.pc-img{position:relative;border-radius:12px;overflow:hidden;background:var(--imgbg);aspect-ratio:1;max-width:100%}
+.pc-img img{width:100%;height:100%;object-fit:cover;display:block}
+.pc-tags{position:absolute;top:6px;inset-inline:6px;display:flex;justify-content:space-between;gap:4px}
+.pc .t{font-weight:700;font-size:13.5px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc .fit{font-size:12px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.pc .seller{font-size:11.5px;min-width:0}
+.pc .badges .badge{font-size:10.5px}
+.pc-add{min-height:40px;border-radius:12px;font-size:13px;padding:0 10px}
+.hscroll .pc{width:172px;flex:none}
+.scard{display:flex;flex-direction:column;gap:10px;padding:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);box-shadow:var(--shadow-xs)}
+.scard .top{display:flex;gap:10px;align-items:center;border:0;background:none;padding:0;text-align:start;width:100%}
+.scard .foot{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.svc-list{display:flex;flex-direction:column;gap:10px;padding:12px}
+
+/* proposed palette: green carries identity and selection, orange only the main action and deals */
+:focus-visible{outline-color:var(--brand)}
+.wordmark{direction:ltr;gap:8px}
+.wordmark .wm{font-family:"Poppins","Segoe UI",sans-serif;font-weight:700;font-size:23px;letter-spacing:-.01em;color:var(--logo-a);line-height:1}
+.rolepill{background:var(--brand-soft);border-color:var(--brand-line);color:var(--brand)}
+.price{color:var(--brand)}
+.link{color:var(--brand)}
+.tabs button[aria-current=page]{color:var(--brand)}
+.sec-h .h2::before{background:var(--brand)}
+.ecard .icn{background:var(--brand-soft);color:var(--brand)}
+.searchbox > svg{color:var(--brand)}
+.radio-row[aria-checked=true]{border-color:var(--brand);box-shadow:0 0 0 1px var(--brand)}
+.radio-row[aria-checked=true] .rd{border-color:var(--brand)}
+.radio-row[aria-checked=true] .rd::after{background:var(--brand)}
+.steps-top i.on{background:var(--brand)}
+.track li.now .b{border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
+.input:focus{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+.otp input:focus{border-color:var(--brand)}
+.chip[aria-pressed=true]{background:var(--brand);border-color:var(--brand);color:var(--on-banner)}
+</style>
+</head>
+<body>
+<div style="position:sticky;top:0;z-index:100;display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;padding:10px 16px;margin:-20px -16px 18px;background:#1F2523;color:#FFFFFF;font:600 14px/1.5 Tahoma,sans-serif">إصدار سابق: v3 — لوغو Spary والألوان المقترحة <a href="index.html" style="color:#7FE0B5">ارجع لأحدث إصدار</a></div>
+<div class="stage">
+  <div class="device"><div class="app" id="app" dir="rtl" lang="ar"></div></div>
+  <aside class="panel" id="panel" aria-label="لوحة المعاينة"></aside>
+</div>
+<script>
+/* ---------- icons (stroke, currentColor) ---------- */
+const P = {
+  search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+  cart:'<path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6"/><circle cx="10" cy="20.5" r="1.2"/><circle cx="17" cy="20.5" r="1.2"/>',
+  back:'<path d="M9 5l7 7-7 7"/>', chev:'<path d="M15 5l-7 7 7 7"/>', down:'<path d="m6 9 6 6 6-6"/>',
+  home:'<path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/>',
+  tag:'<path d="M3 12V4h8l9 9-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/>',
+  wrench:'<path d="M15 4a5 5 0 0 0-4.6 6.9L4 17.3V20h2.7l6.4-6.4A5 5 0 0 0 20 9l-3 1-2-2 1-3z"/>',
+  box:'<path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
+  star:'<path fill="currentColor" stroke="none" d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/>',
+  phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
+  truck:'<path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/>',
+  filter:'<path d="M4 6h16M7 12h10M10 18h4"/>', sort:'<path d="M7 4v16M4 7l3-3 3 3M17 20V4M14 17l3 3 3-3"/>',
+  check:'<path d="m5 12 5 5 9-10"/>', x:'<path d="M6 6l12 12M18 6 6 18"/>', upload:'<path d="M12 16V4M7 9l5-5 5 5M4 20h16"/>',
+  chat:'<path d="M4 20l1.3-4A8 8 0 1 1 8 19z"/><path d="M9 10.5c.5 2 2 3.5 4.5 4.5"/>',
+  pin:'<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
+  alert:'<path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/>', info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
+  store:'<path d="M4 9l1.5-5h13L20 9M4 9v11h16V9M4 9h16M9 20v-6h6v6"/>', clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/>',
+  help:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/>',
+  car:'<path d="M4 15v-3l2-5h12l2 5v3"/><path d="M3 15h18v3H3z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/>',
+  vin:'<path d="M4 5v14M7 5v14M10 5v14M14 5v14M16 5v14M20 5v14"/>', swap:'<path d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/>',
+  shield:'<path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/>', logout:'<path d="M14 4h5v16h-5M10 8l-4 4 4 4M6 12h10"/>',
+  trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>', ret:'<path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/>',
+  doc:'<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/>', heavy:'<path d="M8 8a4 4 0 1 1 8 0M5 9h14l2 12H3z"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>', supply:'<path d="M3 7h13v10H3zM16 10h3l2 3v4h-5"/><path d="M7 11h5"/>',
+};
+const ic = (n, s=22, extra='') => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ${extra}>${P[n]||''}</svg>`;
+
+/* ---------- photo-like placeholders: phone shots of real parts on a bench ---------- */
+const BG = { concrete:['#9A9B96','#62645F'], wood:['#A47C52','#5E4429'], card:['#CDB287','#95784D'], shop:['#61707A','#36414A'], tile:['#DAD8D1','#A9A69E'], night:['#3B4650','#1C232A'] };
+const SH = {
+  pads:'<path d="M105 105q95-42 190 0v52q-95-30-190 0z" fill="url(#m)"/><path d="M118 168q82-34 164 0v44q-82-24-164 0z" fill="#2b2b2b"/><path d="M105 157q95-30 190 0" stroke="#c9ccce" stroke-width="3" fill="none"/>',
+  exhaust:'<rect x="40" y="146" width="96" height="18" rx="9" fill="url(#m)"/><rect x="118" y="112" width="176" height="86" rx="43" fill="url(#m)"/><rect x="286" y="140" width="84" height="16" rx="8" fill="#5b5f62"/><path d="M140 125h130" stroke="#d6d9db" stroke-width="3" opacity=".6"/>',
+  headlight:'<path d="M80 112q130-46 242 8l-22 92q-116 22-208-10z" fill="#1d2226"/><circle cx="165" cy="160" r="36" fill="#dfe7ec" opacity=".85"/><circle cx="250" cy="156" r="27" fill="#cfd8de" opacity=".8"/><path d="M95 205q100 18 200 0" stroke="#e58b2a" stroke-width="7"/>',
+  alt:'<circle cx="208" cy="152" r="82" fill="url(#m)"/><circle cx="208" cy="152" r="46" fill="#3e4245"/><path d="M168 152h80M208 112v80M180 124l56 56M236 124l-56 56" stroke="#7d8286" stroke-width="5"/><circle cx="110" cy="152" r="22" fill="#2a2d30"/>',
+  radiator:'<rect x="66" y="78" width="268" height="152" rx="6" fill="#2d3134"/><g stroke="#8a9095" stroke-width="2">' + Array.from({length:30},(_,i)=>`<path d="M${76+i*8.5} 86v136"/>`).join('') + '</g><rect x="60" y="70" width="18" height="168" rx="4" fill="#575c60"/><rect x="322" y="70" width="18" height="168" rx="4" fill="#575c60"/>',
+  bumper:'<path d="M36 138q164-64 328 0v54q-164 42-328 0z" fill="#26292b"/><path d="M110 176h180" stroke="#4a4e51" stroke-width="10" stroke-linecap="round"/>',
+  hybatt:'<rect x="72" y="98" width="256" height="126" rx="8" fill="url(#m)"/><rect x="72" y="98" width="256" height="26" rx="8" fill="#3b4044"/><rect x="104" y="84" width="22" height="16" fill="#b94a2c"/><rect x="274" y="84" width="22" height="16" fill="#222"/><rect x="150" y="150" width="100" height="34" rx="4" fill="#e6e9eb" opacity=".8"/>',
+  mirror:'<path d="M120 90h170q30 0 30 30v72q0 30-30 30H152q-42 0-52-42z" fill="#1f2326"/><path d="M134 104h150q20 0 20 20v62q0 20-20 20H160q-30 0-38-32z" fill="#a9bac4" opacity=".8"/>',
+  filter:'<rect x="150" y="82" width="100" height="150" rx="14" fill="#0f4b8a"/><g stroke="#2c6db0" stroke-width="4">' + Array.from({length:9},(_,i)=>`<path d="M${158+i*10.5} 96v122"/>`).join('') + '</g><rect x="146" y="74" width="108" height="22" rx="8" fill="#55595c"/>',
+  shock:'<rect x="186" y="34" width="28" height="228" rx="12" fill="url(#m)"/><path d="M168 70l64 16-64 16 64 16-64 16 64 16-64 16 64 16" stroke="#c0392b" stroke-width="7" fill="none" stroke-linejoin="round"/>',
+  compressor:'<rect x="112" y="108" width="190" height="104" rx="42" fill="url(#m)"/><circle cx="108" cy="160" r="40" fill="#2d3033"/><circle cx="108" cy="160" r="14" fill="#7a7f83"/>',
+  store:'<rect x="0" y="0" width="400" height="300" fill="#2b3238" opacity=".35"/><g>' + Array.from({length:4},(_,r)=>`<rect x="20" y="${30+r*66}" width="360" height="6" fill="#d8d2c4"/>` + Array.from({length:7},(_,c)=>`<rect x="${28+c*51}" y="${6+r*66}" width="42" height="${18+((r*7+c)%3)*4}" fill="${['#c96b2c','#2f5d8a','#d9b44a','#6c7a84','#a23b2a'][(r+c)%5]}" opacity=".9"/>`).join('')).join('') + '</g>',
+};
+const _img = {};
+function img(kind, bg='concrete', seed=1){
+  const k = kind+bg+seed; if (_img[k]) return _img[k];
+  const [a,b] = BG[bg]||BG.concrete, rot = ((seed*37)%13)-6;
+  const shape = SH[kind] ? `<g transform="rotate(${rot} 200 150)">${SH[kind]}</g>` :
+    `<g transform="translate(130,80) scale(5.8)" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity=".92">${P[kind]||P.wrench}</g>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><defs><radialGradient id="g" cx="${40+seed*7%30}%" cy="35%" r="85%"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></radialGradient><linearGradient id="m" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9aa0a4"/><stop offset=".45" stop-color="#5c6165"/><stop offset="1" stop-color="#2c2f32"/></linearGradient><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="${seed}"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .32 0"/></filter></defs><rect width="400" height="300" fill="url(#g)"/><rect width="400" height="300" filter="url(#n)"/><ellipse cx="200" cy="246" rx="150" ry="20" fill="#000" opacity=".22"/>${shape}<rect width="400" height="300" fill="url(#g)" opacity=".08"/></svg>`;
+  return _img[k] = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+}
+
+/* ---------- reference data (examples for the prototype) ---------- */
+const GOVS = ['عمّان','الزرقاء','إربد','البلقاء','مادبا','الكرك','المفرق','جرش','عجلون','الطفيلة','معان','العقبة'];
+const NAMES = [
+  {id:'pads_f', name:'فحمات الفرامل الأمامية', alt:['فحمات بريك','تيل فرامل','بريك قدام','فحمات'], img:'pads'},
+  {id:'pads_r', name:'فحمات الفرامل الخلفية', alt:['فحمات بريك خلفي','تيل فرامل خلفي','فحمات'], img:'pads'},
+  {id:'exhaust', name:'العادم', alt:['إشكمان','اشكمان','شكمان','اكزوز'], img:'exhaust'},
+  {id:'alt', name:'مولّد الكهرباء', alt:['دينمو','دينامو'], img:'alt'},
+  {id:'shock', name:'ممتصّ الصدمات الأمامي', alt:['مساعد','مساعدات','مساعد قدام'], img:'shock'},
+  {id:'radiator', name:'مشعّ التبريد', alt:['رديتر','راديتر'], img:'radiator'},
+  {id:'headlight', name:'المصباح الأمامي', alt:['ضو','ضو قدام','فانوس','ضوء أمامي'], img:'headlight'},
+  {id:'bumper', name:'الصدّام الأمامي', alt:['دعامية','صدام'], img:'bumper'},
+  {id:'hybatt', name:'بطارية الهايبرد', alt:['بطارية هايبرد','هايبرد'], img:'hybatt'},
+  {id:'mirror', name:'المرآة الجانبية', alt:['مراية','مرايه'], img:'mirror'},
+  {id:'filter', name:'فلتر الزيت', alt:['فلتر زيت'], img:'filter'},
+  {id:'compressor', name:'ضاغط المكيّف', alt:['كمبروسر','كمبريسور'], img:'compressor'},
+];
+const MAKES = [
+  {id:'hyundai', name:'هيونداي', models:[{id:'avante',name:'أفانتي',alt:['افانتي','النترا','إلنترا','avante','elantra']},{id:'sonata',name:'سوناتا',alt:['sonata','سوناتا هايبرد']},{id:'tucson',name:'توسان',alt:['tucson']}]},
+  {id:'kia', name:'كيا', models:[{id:'cerato',name:'سيراتو',alt:['cerato','k3']},{id:'optima',name:'أوبتيما',alt:['اوبتيما','optima','k5']},{id:'rio',name:'ريو',alt:['rio']}]},
+  {id:'toyota', name:'تويوتا', models:[{id:'prius',name:'بريوس',alt:['prius','بريس']},{id:'corolla',name:'كورولا',alt:['corolla','كرولا']},{id:'camry',name:'كامري',alt:['camry']}]},
+  {id:'ford', name:'فورد', models:[{id:'fusion',name:'فيوجن',alt:['fusion']}]},
+  {id:'mitsubishi', name:'ميتسوبيشي', models:[{id:'lancer',name:'لانسر',alt:['lancer']}]},
+  {id:'nissan', name:'نيسان', models:[{id:'sunny',name:'صني',alt:['sunny']}]},
+];
+const TR = {
+  nash:{name:'مركز النشامى لقطع الكوري', area:'عمّان — رأس العين', gov:'عمّان', rating:4.6, count:128, phone:'079 000 1184', free:100, km:3.2},
+  saleem:{name:'قطع غيار أبو سليم', area:'عمّان — ماركا', gov:'عمّان', rating:4.8, count:212, phone:'078 000 2290', free:150, km:7.5},
+  husseini:{name:'الحسيني لقطع الهايبرد', area:'الزرقاء — المنطقة الحرّة', gov:'الزرقاء', rating:4.3, count:76, phone:'077 000 3352', free:null, km:18.4},
+  amana:{name:'الأمانة للقطع اليابانية', area:'سحاب — المدينة الصناعية', gov:'عمّان', rating:4.5, count:91, phone:'079 000 4417', free:120, km:13.9},
+  shamal:{name:'مستودع الشمال للمستعمل', area:'إربد — شارع الثلاثين', gov:'إربد', rating:4.1, count:39, phone:'078 000 5536', free:null, km:71},
+};
+const W_NONE = 'بلا كفالة';
+const L = [
+  {id:1, n:'pads_f', g:'pads-avante', tr:'nash', cond:'new', auth:'agency', origin:'كوريا', brand:'Hyundai Mobis', oem:'58101-3XA30', mk:'hyundai', md:'avante', cars:'هيونداي أفانتي 2011–2015', price:22, war:'6 أشهر', feat:true, bg:'tile', days:9, desc:'فحمات أمامية أصلية من الوكالة، علبة مغلقة. تركب على أفانتي MD بمحرّك 1.6 و1.8.'},
+  {id:2, n:'pads_f', g:'pads-avante', tr:'saleem', cond:'new', auth:'trader', origin:'كوريا', brand:'Sangsin', oem:'58101-3XA30', mk:'hyundai', md:'avante', cars:'هيونداي أفانتي 2011–2015', price:13.5, offer:{price:11, ends:'31 تشرين الأول', pct:19, days:2}, war:'3 أشهر', bg:'wood', days:4, desc:'فحمات تجارية كورية، بديل مطابق لرقم الوكالة.'},
+  {id:3, n:'pads_f', g:'pads-avante', tr:'amana', cond:'new', auth:'trader', origin:'الصين', brand:'Hi-Q', oem:'58101-3XA30', mk:'hyundai', md:'avante', cars:'هيونداي أفانتي 2011–2015', price:12, war:'شهر', bg:'card', days:12, desc:'بديل اقتصادي مطابق لرقم الوكالة.'},
+  {id:4, n:'pads_f', g:'pads-prius', tr:'amana', cond:'new', auth:'agency', origin:'اليابان', brand:'Toyota', oem:'04465-47070', mk:'toyota', md:'prius', cars:'تويوتا بريوس 2010–2015', price:29, war:'6 أشهر', bg:'tile', days:20, desc:'فحمات أمامية وكالة لبريوس الجيل الثالث.'},
+  {id:5, n:'exhaust', g:'exhaust-prius', tr:'husseini', cond:'used', auth:'agency', origin:'اليابان', brand:'Toyota', oem:'', mk:'toyota', md:'prius', cars:'تويوتا بريوس 2010–2015', price:35, war:W_NONE, bg:'concrete', days:6, desc:'عادم خلفي مستعمل بحالة جيدة، بلا ثقوب. الكفالة: بلا كفالة. التطابق: بريوس الجيل الثالث فقط. الصور للقطعة نفسها.'},
+  {id:6, n:'hybatt', g:'hybatt-prius', tr:'husseini', cond:'used', auth:'agency', origin:'اليابان', brand:'Toyota', oem:'G9280-47031', mk:'toyota', md:'prius', cars:'تويوتا بريوس 2010–2015', price:380, war:'شهر', feat:true, special:true, bg:'shop', days:3, desc:'بطارية هايبرد مستعملة، فُحصت الخلايا كلها. الكفالة: شهر من الاستلام. التطابق: بريوس 2010–2015. الصور للبطارية نفسها.'},
+  {id:7, n:'hybatt', g:'hybatt-prius', tr:'amana', cond:'used', auth:'agency', origin:'اليابان', brand:'Toyota', oem:'', mk:'toyota', md:'prius', cars:'تويوتا بريوس 2010–2015', price:360, war:'أسبوعان', special:true, bg:'concrete', days:15, desc:'بطارية هايبرد مستعملة. الكفالة: أسبوعان. التطابق: بريوس الجيل الثالث. الصور للبطارية نفسها.'},
+  {id:8, n:'headlight', g:'head-cerato', tr:'shamal', cond:'used', auth:'agency', origin:'كوريا', brand:'Kia', oem:'', mk:'kia', md:'cerato', cars:'كيا سيراتو 2014–2016', price:45, war:W_NONE, bg:'wood', days:5, desc:'ضو أمامي يمين مستعمل، العدسة سليمة وفيه خدش خفيف بالحامل. الكفالة: بلا كفالة. التطابق: سيراتو K3. الصور للقطعة نفسها.'},
+  {id:9, n:'headlight', g:'head-cerato', tr:'nash', cond:'new', auth:'trader', origin:'تايوان', brand:'Depo', oem:'92102-A7020', mk:'kia', md:'cerato', cars:'كيا سيراتو 2014–2016', price:68, offer:{price:59, ends:'2 تشرين الثاني', pct:13, days:1}, war:'6 أشهر', bg:'tile', days:2, desc:'ضو أمامي يمين جديد تجاري، تايواني.'},
+  {id:10, n:'alt', g:'alt-sonata', tr:'saleem', cond:'used', auth:'agency', origin:'كوريا', brand:'Mando', oem:'', mk:'hyundai', md:'sonata', cars:'هيونداي سوناتا 2011–2014', price:55, war:'أسبوعان', bg:'concrete', days:8, desc:'دينمو مستعمل مفحوص على الجهاز. الكفالة: أسبوعان. التطابق: سوناتا بنزين 2.4. الصور للقطعة نفسها.'},
+  {id:11, n:'radiator', g:'rad-corolla', tr:'amana', cond:'new', auth:'trader', origin:'اليابان', brand:'Koyorad', oem:'16400-0T040', mk:'toyota', md:'corolla', cars:'تويوتا كورولا 2014–2018', price:48, war:'6 أشهر', bg:'card', days:11, desc:'رديتر جديد ياباني لكورولا.'},
+  {id:12, n:'bumper', g:'bumper-avante', tr:'nash', cond:'new', auth:'trader', origin:'تايوان', brand:'TYG', oem:'86511-3X000', mk:'hyundai', md:'avante', cars:'هيونداي أفانتي 2011–2013', price:39, war:W_NONE, special:true, bg:'shop', days:7, desc:'دعامية أمامية جديدة بلا دهان.'},
+  {id:13, n:'shock', g:'shock-avante', tr:'saleem', cond:'new', auth:'trader', origin:'اليابان', brand:'KYB', oem:'54651-3X100', mk:'hyundai', md:'avante', cars:'هيونداي أفانتي 2011–2015', price:31, offer:{price:26.5, ends:'5 تشرين الثاني', pct:15, days:3}, war:'سنة', bg:'wood', days:3, desc:'مساعد أمامي يسار ياباني.'},
+  {id:14, n:'filter', g:'filter-hy', tr:'nash', cond:'new', auth:'agency', origin:'كوريا', brand:'Hyundai Mobis', oem:'26300-35505', mk:'hyundai', md:'avante', cars:'هيونداي أفانتي، سوناتا، كيا سيراتو', price:3.5, war:W_NONE, bg:'tile', days:30, desc:'فلتر زيت وكالة.'},
+  {id:15, n:'compressor', g:'comp-sonata', tr:'husseini', cond:'used', auth:'agency', origin:'كوريا', brand:'Hyundai', oem:'', mk:'hyundai', md:'sonata', cars:'هيونداي سوناتا هايبرد 2011–2015', price:140, war:'شهر', bg:'night', days:10, desc:'كمبروسر مكيف كهربائي مستعمل. الكفالة: شهر. التطابق: سوناتا هايبرد فقط. الصور للقطعة نفسها.'},
+  {id:16, n:'mirror', g:'mirror-camry', tr:'shamal', cond:'used', auth:'agency', origin:'اليابان', brand:'Toyota', oem:'', mk:'toyota', md:'camry', cars:'تويوتا كامري 2012–2014', price:28, war:W_NONE, bg:'concrete', days:14, desc:'مراية يسار مستعملة، الزجاج سليم والطي الكهربائي يعمل. الكفالة: بلا كفالة. الصور للقطعة نفسها.'},
+  {id:17, n:'shock', g:'shock-avante', tr:'amana', cond:'new', auth:'trader', origin:'اليابان', brand:'KYB', oem:'54651-3X100', mk:'hyundai', md:'avante', cars:'هيونداي أفانتي 2011–2015', price:29, war:'سنة', bg:'card', days:6, desc:'مساعد أمامي يسار ياباني.'},
+  {id:18, n:'shock', g:'shock-avante', tr:'nash', cond:'new', auth:'trader', origin:'كوريا', brand:'Mando', oem:'54651-3X100', mk:'hyundai', md:'avante', cars:'هيونداي أفانتي 2011–2015', price:33.5, war:'6 أشهر', bg:'tile', days:9, desc:'مساعد أمامي يسار كوري.'},
+];
+const SVC_TYPES = ['ونش وسحب سيارات','سطحة بين المحافظات','كراج ميكانيك','كهربائي سيارات','تكييف','بنشر وإطارات وبلانص','بطاريات وتشغيل على الطريق','سمكرة ودهان','زجاج وتظليل','غسيل وتلميع','تنظيف داخلي','فحص قبل الشراء','برمجة مفاتيح','كاميرات وأنظمة صوت','تغيير زيت متنقّل','تأمين','معاملات ترخيص','تأجير سيارات','شراء سيارات حوادث','عُدد صناعية'];
+const SVCS = [
+  {id:1, name:'ونش أبو خليل', type:'ونش وسحب سيارات', gov:'عمّان', area:'طبربور', km:2.1, icon:'truck', bg:'night', info:'سحب داخل عمّان على مدار الساعة.', text:'نوصل خلال 30 دقيقة داخل عمّان الشرقية. السحب للكراج أو للبيت.'},
+  {id:2, name:'بنشر الوحدات 24 ساعة', type:'بنشر وإطارات وبلانص', gov:'عمّان', area:'الوحدات', km:4.8, icon:'wrench', bg:'shop', info:'تبديل كوشوك، ترصيص، بلانص.', text:'مفتوح 24 ساعة. خدمة متنقّلة للبيت بأجرة إضافية.'},
+  {id:3, name:'غسيل وتلميع النخبة', type:'غسيل وتلميع', gov:'عمّان', area:'خلدا', km:6.3, icon:'car', bg:'tile', info:'غسيل خارجي وداخلي وتلميع.', text:'مواعيد من 8 الصبح لـ 10 المسا.'},
+  {id:4, name:'كراج المهندس للهايبرد', type:'كراج ميكانيك', gov:'الزرقاء', area:'الزرقاء الجديدة', km:15.2, icon:'wrench', bg:'concrete', info:'فحص وصيانة سيارات الهايبرد.', text:'فحص بطارية الهايبرد بالجهاز. صيانة بريوس وسوناتا وفيوجن.'},
+  {id:5, name:'كهربائي أبو رامي', type:'كهربائي سيارات', gov:'مادبا', area:'وسط البلد', km:29.5, icon:'alert', bg:'wood', info:'كهرباء وكمبيوتر سيارات.', text:'فحص كمبيوتر وتصليح دينمو وسلف.'},
+  {id:6, name:'سطحة الشمال', type:'سطحة بين المحافظات', gov:'إربد', area:'إربد', km:72, icon:'truck', bg:'card', info:'نقل سيارات بين المحافظات.', text:'من إربد لكل المحافظات، ومن وإلى العقبة بحجز مسبق.'},
+];
+const PERSONAS = {
+  guest:{label:'ضيف — لم يسجّل الدخول', logged:false, caps:[]},
+  customer:{label:'زبون فقط', logged:true, caps:[]},
+  pending:{label:'زبون + طلب متجر قيد المراجعة', logged:true, caps:[{t:'store', st:'pending'}]},
+  rejected:{label:'زبون + طلب متجر مرفوض', logged:true, caps:[{t:'store', st:'rejected'}]},
+  trader:{label:'زبون + تاجر مقبول', logged:true, caps:[{t:'store', st:'active'}]},
+  multi:{label:'زبون + تاجر + مورّد', logged:true, caps:[{t:'store', st:'active'},{t:'supplier', st:'active'}]},
+  supplier:{label:'زبون + مورّد فقط', logged:true, caps:[{t:'supplier', st:'active'}]},
+};
+const ME = {name:'محمد العمري', phone:'079 000 4821', store:'قطع غيار الريّان', storeArea:'الزرقاء — الهاشمية', supplier:'مؤسسة الرواد للتوريد'};
+
+/* ---------- state ---------- */
+const S = {
+  persona:'guest', screen:'home', params:[], stack:[], role:'shop', sheet:null, toast:null,
+  cart:[2, 9], q:{text:'', part:null, mk:null, md:null, year:null, oem:null},
+  f:{cond:[], auth:[], origin:[], brand:[], min:'', max:'', gov:''}, sort:'cheap', loc:null,
+  orderState:'pending', outOfHours:false, altChosen:null, cancelled:[], ret:{}, rated:{},
+  addresses:[{id:1, label:'البيت', gov:'عمّان', area:'خلدا', detail:'شارع وصفي التل، عمارة 14، الطابق الثالث'}], selAddr:1,
+  join:{type:null, step:0, files:{}, terms:false}, svcType:'', svcGov:'', lang:'ar', otpErr:0, pendingAfterLogin:null, vin:'', vinRes:null, carStep:0,
+};
+const me = () => PERSONAS[S.persona];
+const caps = () => me().caps.concat(S.extraCaps || []);
+const cap = t => caps().find(c => c.t === t);
+
+/* ---------- helpers ---------- */
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = n => `${(+n).toFixed(2)} <small>د.أ</small>`;
+const fmtT = n => `${(+n).toFixed(2)} د.أ`;
+const nm = id => NAMES.find(x => x.id === id);
+const lst = id => L.find(x => x.id === +id);
+const lp = l => l.offer ? l.offer.price : l.price;
+const a = (...args) => `data-a="${args.join('|')}"`;
+const stars = (r, c) => `<span class="stars">${ic('star',14)}<span class="tnum">${r.toFixed(1)}</span></span>${c != null ? `<span class="faint">(${c})</span>` : ''}`;
+const condB = l => `<span class="badge ${l.cond === 'new' ? 'new' : 'used'}">${l.cond === 'new' ? 'جديدة' : 'مستعملة'}</span><span class="badge">${l.auth === 'agency' ? 'قطعة وكالة' : 'قطعة تاجر'}</span>`;
+const priceH = l => l.offer ? `<span class="price">${fmt(l.offer.price)}</span> <span class="strike tnum">${l.price.toFixed(2)}</span>` : `<span class="price">${fmt(l.price)}</span>`;
+const thumb = (l, s=1) => `<div class="thumb"><img alt="صورة ${esc(nm(l.n).name)} من التاجر" src="${img(nm(l.n).img, l.bg, l.id + s)}"></div>`;
+const note = (kind, icon, html) => `<div class="note ${kind}" role="note">${ic(icon,20)}<div>${html}</div></div>`;
+const empty = (icon, title, body, btn='') => `<div class="empty"><div class="ic">${ic(icon,26)}</div><p class="h3">${title}</p><p class="faint" style="margin:0">${body}</p>${btn}</div>`;
+const pct = n => `<span class="ltr">−${n}%</span>`;
+const FIT_WARN = 'تأكد من ملاءمة القطعة لسيارتك مع التاجر قبل الطلب.';
+
+/* ---------- navigation ---------- */
+function go(screen, ...params){ S.stack.push({screen:S.screen, params:S.params}); S.screen = screen; S.params = params; S.sheet = null; render(true); }
+function back(){ const p = S.stack.pop(); if (!p) return tab('home'); S.screen = p.screen; S.params = p.params; S.sheet = null; render(true); }
+function tab(screen){ S.stack = []; S.screen = screen; S.params = []; S.sheet = null; S.role = 'shop'; render(true); }
+function sheet(type, ...params){ S.sheet = {type, params}; render(); }
+function closeSheet(){ S.sheet = null; render(); }
+let _t;
+function toast(msg){ S.toast = msg; render(); clearTimeout(_t); _t = setTimeout(() => { S.toast = null; render(); }, 2600); }
+function needLogin(next){ if (me().logged) return false; S.pendingAfterLogin = next; go('login'); return true; }
+
+/* ---------- shell ---------- */
+const ROLE = {
+  shop:{ic:'cart', lbl:'أتسوّق لنفسي', short:'أتسوّق', cls:''},
+  store:{ic:'store', lbl:() => ME.store, small:'تاجر', short:'متجري', cls:'m-store'},
+  supply:{ic:'supply', lbl:'أطلب من مورّد', small:() => ME.store, short:'مورّد', cls:'m-supply'},
+  supplier:{ic:'supply', lbl:() => ME.supplier, small:'مورّد', short:'توريدي', cls:'m-supplier'},
+};
+const val = v => typeof v === 'function' ? v() : v;
+const titleOf = sc => typeof sc.title === 'function' ? sc.title(...S.params) : sc.title;
+function rolePill(compact){
+  if (!caps().length) return '';
+  const r = ROLE[S.role], pend = caps().some(c => c.st !== 'active') && S.role === 'shop';
+  return `<button class="rolepill" ${a('sheet','role')} aria-haspopup="dialog" aria-label="أنت الآن: ${esc(val(r.lbl))}. اضغط لتبديل الصفة">
+    ${ic(r.ic,18)}<span class="lbl">${compact && S.role === 'shop' ? r.short : esc(val(r.lbl))}${!compact && r.small ? ` <small>· ${esc(val(r.small))}</small>` : ''}</span>${pend ? '<i class="pend" aria-hidden="true"></i>' : ''}${ic('down',16)}</button>`;
+}
+function cartBtn(){ const n = S.cart.length; return `<button class="ibtn" ${a('go','cart')} aria-label="السلة، ${n} قطع">${ic('cart')}${n ? `<span class="dot">${n}</span>` : ''}</button>`; }
+const LOGO = `<span class="wordmark" dir="ltr" role="img" aria-label="Spary"><svg width="36" height="30" viewBox="0 0 100 84" aria-hidden="true"><path style="fill:var(--logo-a)" d="M2 40 L31 2 H74 L85 20 H52 Q44 20 44 28 V48 Q44 56 36 56 H12 Z"/><path style="fill:var(--logo-b)" d="M98 42 L70 82 H24 L13 62 H42 Q50 62 50 54 V34 Q50 26 58 26 H88 Z"/></svg><span class="wm" aria-hidden="true">Spa<span style="color:var(--logo-b)">ry</span></span></span>`;
+function header(sc){
+  if (S.role !== 'shop') return `<header class="hdr ${ROLE[S.role].cls}"><div class="grow" style="display:flex">${rolePill(false)}</div></header>`;
+  if (sc.root) return `<header class="hdr"><div class="grow" style="display:flex;min-width:0">${caps().length ? rolePill(false) : LOGO}</div>${cartBtn()}</header>`;
+  return `<header class="hdr"><button class="ibtn" ${a('back')} aria-label="رجوع">${ic('back')}</button><h1 class="grow">${esc(titleOf(sc))}</h1>${rolePill(true)}${sc.noCart ? '' : cartBtn()}</header>`;
+}
+const TABS = [['home','home','الرئيسية'],['offers','tag','العروض'],['services','wrench','الخدمات'],['orders','box','طلباتي'],['account','user','حسابي']];
+function tabs(){ const cur = (SCREENS[S.screen] || {}).tab; return `<nav class="tabs" aria-label="التنقّل الرئيسي">${TABS.map(([id, i, l]) => `<button ${a('tab', id)} ${cur === id ? 'aria-current="page"' : ''}>${ic(i)}<span>${l}</span></button>`).join('')}</nav>`; }
+
+function render(scrollTop){
+  const app = document.getElementById('app');
+  const id = S.role !== 'shop' ? 'mode' : S.screen;
+  const sc = SCREENS[id];
+  const sheetH = S.sheet ? `<div class="scrim" ${a('scrim')}><div class="sheet" role="dialog" aria-modal="true" aria-label="${esc(SHEETS[S.sheet.type].label || '')}"><div class="grab"></div>${SHEETS[S.sheet.type].render(...S.sheet.params)}</div></div>` : '';
+  const prevScroll = app.querySelector('.content')?.scrollTop || 0;
+  app.innerHTML = header(sc) + `<main class="content" id="content">${sc.render(...S.params)}</main>` + (sc.cta ? sc.cta(...S.params) || '' : '') + (sc.root && S.role === 'shop' ? tabs() : '') + sheetH + (S.toast ? `<div class="toast" role="status">${S.toast}</div>` : '');
+  const c = app.querySelector('.content'); if (c) c.scrollTop = scrollTop ? 0 : prevScroll;
+  if (sc.after) sc.after();
+  panel(id, sc);
+}
+
+/* ---------- reference panel (outside the phone) ---------- */
+const JUMP = [['home','الرئيسية'],['search','البحث'],['car','حسب السيارة'],['vin','الشاسيه'],['results','النتائج'],['part','صفحة القطعة',1],['store','صفحة المتجر','nash'],['offers','العروض'],['cart','السلة'],['login','الدخول بكود'],['checkout','إتمام الطلب'],['order','صفحة الطلب','JO-24817'],['alt','اختيار البديل'],['return','الإرجاع',13],['help','الشكوى والأسئلة'],['services','الخدمات'],['account','حسابي'],['join','افتح متجرك'],['joinStatus','حالة المراجعة']];
+const ORDER_STATES = [['pending','معلّق — بانتظار تأكيد التاجر'],['alt','بانتظار اختيارك لتاجر بديل'],['altApprove','البديل أكّد — اعتماد السعر'],['confirmed','مؤكَّد'],['shipping','قيد التوصيل'],['delivered','تمّ التسليم'],['failed','تعذّر التسليم'],['cancelled','ملغى']];
+function panel(id, sc){
+  const p = document.getElementById('panel');
+  const refs = val(sc.refs) || [];
+  const orderCtl = (id === 'order' || id === 'orders') ? `<div class="pbox"><h2>محاكاة حالة الطلب الحالي</h2>
+      <select id="ord-state" aria-label="حالة الطلب">${ORDER_STATES.map(([v, l]) => `<option value="${v}" ${S.orderState === v ? 'selected' : ''}>${l}</option>`).join('')}</select>
+      <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="ooh" ${S.outOfHours ? 'checked' : ''}> وصل الطلب خارج أوقات العمل (ORD-5)</label></div>` : '';
+  p.innerHTML = `<div><h1>تطبيق الزبون — نموذج أولي</h1><p class="lede">سوق قطع السيارات · الأردن · الإصدار الأول. كل شاشة مربوطة ببنود وثيقة المتطلّبات المعتمدة (١٣ تشرين الأول ٢٠٢٦).</p></div>
+    <div class="pbox"><h2>حالة الحساب للعرض</h2><select id="persona" aria-label="حالة الحساب">${Object.entries(PERSONAS).map(([k, v]) => `<option value="${k}" ${S.persona === k ? 'selected' : ''}>${v.label}</option>`).join('')}</select>
+      <p class="pnote">غيّرها لترى شارة التبديل في الرأس: لا تظهر لمن ليس عنده إلا صفة الزبون.</p></div>
+    <div class="pbox"><h2>هذه الشاشة: ${esc(titleOf(sc) || '')}</h2><ul class="refs">${refs.map(([c, t]) => `<li><code>${c}</code><span>${t}</span></li>`).join('')}</ul></div>
+    ${orderCtl}
+    <div class="pbox"><h2>اذهب إلى</h2><div class="jump">${JUMP.map(([s, l, p1]) => `<button data-jump="${s}${p1 != null ? '|' + p1 : ''}" ${id === s ? 'aria-current="true"' : ''}>${l}</button>`).join('')}</div></div>
+    <p class="pnote">البيانات أمثلة توضيحية: أسماء المحلات والهواتف والأسعار وأرقام OEM. أجرة التوصيل رقم توضيحي، فقيمتها معلّقة (DLV-4، القسم ٩). الصور رسوم بديلة بإضاءة وخلفيات عشوائية تحاكي تصوير التاجر بالموبايل.</p>`;
+}
+
+/* ---------- events ---------- */
+const ACT = {
+  go:(s, ...p) => go(s, ...p), back, tab:s => { if (s === 'orders' && needLogin(['orders'])) return; tab(s); },
+  sheet:(t, ...p) => sheet(t, ...p), close:closeSheet,
+  scrim:() => {}, // clicks inside the sheet bubble here; closing is handled by target check
+  role:r => { S.role = r; S.sheet = null; S.stack = []; S.screen = 'home'; render(true); toast(r === 'shop' ? 'رجعت لحسابك الشخصي — سلّتك كما تركتها' : `انتقلت إلى: ${esc(val(ROLE[r].lbl))}`); },
+};
+document.addEventListener('click', e => {
+  const j = e.target.closest('[data-jump]');
+  if (j){ const [s, p1] = j.dataset.jump.split('|'); S.role = 'shop'; S.stack = []; S.sheet = null;
+    if (s === 'order' && !me().logged){ S.persona = 'customer'; }
+    if (s === 'joinStatus' && !caps().some(c => c.st !== 'active')) S.persona = 'pending';
+    if (s === 'alt'){ S.orderState = 'alt'; S.altChosen = null; if (!me().logged) S.persona = 'customer'; }
+    if (s === 'return'){ S.orderState = 'delivered'; if (!me().logged) S.persona = 'customer'; }
+    S.screen = s; S.params = p1 != null ? [isNaN(+p1) ? p1 : +p1] : []; render(true); return; }
+  const scrim = e.target.classList && e.target.classList.contains('scrim');
+  if (scrim){ closeSheet(); return; }
+  const el = e.target.closest('[data-a]'); if (!el || el.disabled) return;
+  const [act, ...args] = el.dataset.a.split('|').map(x => x !== '' && !isNaN(+x) && !/^0\d/.test(x) ? +x : x);
+  (ACT[act] || window[act])?.(...args);
+});
+document.addEventListener('change', e => {
+  if (e.target.id === 'persona'){ S.persona = e.target.value; S.extraCaps = []; S.role = 'shop'; S.sheet = null; render(); }
+  if (e.target.id === 'ord-state'){ S.orderState = e.target.value; S.cancelled = []; if (e.target.value !== 'delivered') S.ret = {}; if (S.screen !== 'order'){ S.screen = 'order'; S.params = ['JO-24817']; } render(true); }
+  if (e.target.id === 'ooh'){ S.outOfHours = e.target.checked; render(); }
+});
+
+/* ---------- screens: home & search ---------- */
+const SCREENS = {}, SHEETS = {};
+const CAT = {pads_f:'فرامل', pads_r:'فرامل', exhaust:'عادم', alt:'كهرباء', shock:'تعليق', radiator:'تبريد', headlight:'إنارة', bumper:'هيكل', hybatt:'كهرباء', mirror:'هيكل', filter:'صيانة', compressor:'تكييف'};
+const norm = s => String(s).toLowerCase().replace(/[ًٌٍَُِّْـ]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').replace(/\s+/g, ' ').trim();
+const makeOf = id => MAKES.find(m => m.id === id);
+const modelOf = (mk, md) => makeOf(mk)?.models.find(m => m.id === md);
+const carName = (mk, md, y) => [makeOf(mk)?.name, modelOf(mk, md)?.name, y].filter(Boolean).join(' ');
+
+function parse(text){
+  const t = ' ' + norm(text) + ' ', r = {text, part:null, typed:null, amb:[], mk:null, md:null, year:null, oem:null};
+  let best = 0, hits = [];
+  NAMES.forEach(x => [x.name, ...x.alt].forEach(al => { const n = norm(al); if (n.length >= 2 && (n.length > 3 ? t.includes(n) : t.includes(' ' + n + ' '))){ if (n.length > best){ best = n.length; hits = [[x.id, al]]; } else if (n.length === best && !hits.some(h => h[0] === x.id)) hits.push([x.id, al]); } }));
+  if (hits.length === 1){ r.part = hits[0][0]; r.typed = hits[0][1]; } else if (hits.length > 1){ r.amb = hits.map(h => h[0]); r.typed = hits[0][1]; }
+  MAKES.forEach(m => { if (t.includes(norm(m.name))) r.mk = m.id; m.models.forEach(md => [md.name, ...md.alt].forEach(al => { if (t.includes(' ' + norm(al) + ' ') || t.includes(norm(al) + ' ')) { r.mk = m.id; r.md = md.id; } })); });
+  const y = text.match(/\b(19[89]\d|20[0-2]\d)\b/); if (y) r.year = +y[1];
+  const o = text.match(/\b[A-Z0-9]{4,6}-[A-Z0-9]{3,6}\b/i); if (o) r.oem = o[0].toUpperCase();
+  return r;
+}
+
+SCREENS.home = { title:'الرئيسية', root:true, tab:'home',
+  refs:[['ACC-1','الضيف يتصفّح ويبحث بلا تسجيل، ويرى السعر واسم التاجر'],['ACC-2','التسجيل مطلوب للطلب فقط'],['SRCH-1/3','البحث بالاسم ورقم OEM من صندوق واحد'],['SRCH-4','مدخل «حسب السيارة»'],['SRCH-5','مدخل «برقم الشاسيه»'],['ADS-1','مساحة بانر تديرها الإدارة'],['OFR-3','مقتطف من صفحة العروض'],['SVC-4','خدمات قريبة، الأقرب أولًا'],['SRCH-11','المحافظة تُختار يدويًا إن رُفض الموقع'],['ACC-7','شارة الصفة في الرأس لمن عنده أكثر من صفة']],
+  render(){
+    const offers = L.filter(l => l.offer);
+    return `<div class="pad stack" style="gap:16px">
+      <button class="banner" ${a('go','store','husseini')} style="border:0;text-align:start"><span class="ad">إعلان</span>
+        <div class="stack" style="gap:4px"><strong style="font-family:var(--f-display);font-size:16px">بطاريات هايبرد مفحوصة</strong><span style="font-size:13px;opacity:.85">الحسيني لقطع الهايبرد — المنطقة الحرّة، الزرقاء</span></div>
+        <img alt="" src="${img('hybatt','shop',41)}"></button>
+      <button class="ecard row" ${a('sheet','loc')}><span class="icn">${ic('pin',20)}</span><span style="flex:1;min-width:0"><span class="faint">نرتّب «الأقرب» من</span><br><b>${S.loc ? (S.loc === 'gps' ? 'موقعك الحالي' : 'محافظة ' + S.loc) : 'اختر منطقتك'}</b></span>${ic('down',18)}</button>
+      <div class="stack" style="gap:10px"><h2 class="h2" style="font-size:22px">عن أي قطعة تبحث؟</h2>
+        <button class="searchbox" ${a('go','search')}>${ic('search')}<span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">اسم القطعة أو رقم OEM</span></button>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <button class="ecard" ${a('go','car')}><span class="icn">${ic('car',20)}</span><b>حسب سيارتك</b><span class="faint">الصانع والموديل والسنة</span></button>
+          <button class="ecard" ${a('go','vin')}><span class="icn">${ic('vin',20)}</span><b>برقم الشاسيه</b><span class="faint">رقم الهيكل (VIN)</span></button></div></div>
+      <section class="stack" style="gap:8px"><div class="sec-h"><h2 class="h2">عروض سارية</h2><button class="link" ${a('tab','offers')}>كل العروض</button></div>
+        <div class="hscroll">${offers.map(pcard).join('')}</div></section>
+      <section class="stack" style="gap:8px"><div class="sec-h"><h2 class="h2">خدمات قريبة منك</h2><button class="link" ${a('tab','services')}>كل الخدمات</button></div>
+        <div class="stack" style="gap:10px">${SVCS.slice(0,3).map(scard).join('')}</div></section>
+    </div>`;
+  }};
+
+function qChips(){
+  const q = S.q, out = [];
+  if (q.part) out.push(['part', `القطعة: ${nm(q.part).name}${q.typed && norm(q.typed) !== norm(nm(q.part).name) ? ` <span class="faint">(كتبتَ «${esc(q.typed)}»)</span>` : ''}`]);
+  if (q.mk) out.push(['car', `السيارة: ${carName(q.mk, q.md)}`]);
+  if (q.year) out.push(['year', `السنة: ${q.year}`]);
+  if (q.oem) out.push(['oem', `رقم OEM: <span class="ltr">${q.oem}</span>`]);
+  return out;
+}
+function parseArea(){
+  const q = S.q;
+  if (!q.text.trim()) return `<div class="stack"><p class="faint" style="margin:0">جرّب الاسم الرسمي أو الشعبي، فكلاهما يوصلك للقطعة نفسها:</p>
+    <div class="chips">${['إشكمان بريوس 2012','فحمات بريك افانتي 2013','58101-3XA30','ضو سيراتو 2015','دينمو سوناتا'].map(x => `<button class="chip" ${a('qset', x)}>${x}</button>`).join('')}</div>
+    <div class="rows card" style="padding:0;overflow:hidden;margin-top:6px"><button class="rowlink" ${a('go','car')}>${ic('car')}<span class="grow">اختر سيارتك: الصانع ثم الموديل ثم السنة</span>${ic('chev',18)}</button><button class="rowlink" ${a('go','vin')}>${ic('vin')}<span class="grow">ابحث برقم الشاسيه</span>${ic('chev',18)}</button></div></div>`;
+  const chips = qChips();
+  let next = '';
+  if (q.amb.length && !q.part) next = `<div class="stack" style="gap:8px"><p class="h3">أي قطعة تقصد بـ«${esc(q.typed)}»؟</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">${q.amb.map(id => `<button class="mini" style="width:auto" ${a('qpick','part',id)}><div class="thumb"><img alt="" src="${img(nm(id).img,'tile',id.length)}"></div><span style="font-weight:600;font-size:14px">${nm(id).name}</span></button>`).join('')}</div></div>`;
+  else if (!q.mk && !q.oem) next = `<div class="stack" style="gap:8px"><p class="h3">حدّد سيارتك لنتائج أدق <span class="faint">(اختياري)</span></p><div class="chips">${MAKES.map(m => `<button class="chip" ${a('qpick','mk',m.id)}>${m.name}</button>`).join('')}</div></div>`;
+  else if (q.mk && !q.md) next = `<div class="stack" style="gap:8px"><p class="h3">الموديل</p><div class="chips">${makeOf(q.mk).models.map(m => `<button class="chip" ${a('qpick','md',m.id)}>${m.name}</button>`).join('')}</div></div>`;
+  else if (q.md && !q.year) next = `<div class="stack" style="gap:8px"><p class="h3">سنة الصنع <span class="faint">(اختياري)</span></p><div class="chips">${Array.from({length:12},(_,i) => 2008 + i * 1 + 4).map(y => `<button class="chip tnum" ${a('qpick','year',y)}>${y}</button>`).join('')}</div></div>`;
+  const nothing = !chips.length && !q.amb.length;
+  return `<div class="stack" style="gap:14px">
+    ${chips.length ? `<div class="stack" style="gap:8px"><p class="faint" style="margin:0">فهمنا بحثك هكذا:</p><div class="chips">${chips.map(([k, h]) => `<span class="chip" style="background:var(--accent-soft);border-color:var(--accent-line)">${h}<button class="ibtn" style="width:28px;height:28px" ${a('qdrop',k)} aria-label="احذف هذا الشرط">${ic('x',14)}</button></span>`).join('')}</div></div>` : ''}
+    ${nothing ? note('info','info','لم نتعرّف على اسم قطعة أو سيارة في ما كتبته. جرّب اسمًا آخر للقطعة، أو رقم OEM كما هو على القطعة.') : next}
+    ${nothing ? '' : `<button class="btn pri block" ${a('go','results')}>${ic('search',18)} اعرض النتائج</button>`}</div>`;
+}
+function qset(x){ S.q = parse(x); render(); }
+function qpick(k, v){ if (k === 'part'){ S.q.part = v; S.q.amb = []; } else if (k === 'mk'){ S.q.mk = v; S.q.md = null; } else S.q[k] = v; render(); }
+function qdrop(k){ if (k === 'part'){ S.q.part = null; S.q.amb = []; } if (k === 'car'){ S.q.mk = S.q.md = null; } if (k === 'year') S.q.year = null; if (k === 'oem') S.q.oem = null; render(); }
+SCREENS.search = { title:'البحث', noCart:true,
+  refs:[['NAM-1','لكل قطعة اسم رسمي وأسماء شعبية: إشكمان = عادم'],['NAM-3','أي اسم يكتبه الزبون يوصله إلى القطعة نفسها'],['SRCH-1','البحث باسم القطعة بكل أسمائها'],['SRCH-3','البحث برقم OEM'],['SRCH-4','الصانع والموديل والسنة تتحوّل إلى شروط'],['SRCH-10','الفلاتر تعمل مجتمعة مع أي طريقة بحث']],
+  render(){ return `<div class="pad stack" style="gap:14px"><label class="searchbox" for="q">${ic('search')}<input id="q" type="search" autocomplete="off" placeholder="اسم القطعة، اسمها الشعبي، أو رقم OEM" value="${esc(S.q.text)}"></label><div id="parse">${parseArea()}</div></div>`; },
+  after(){ const i = document.getElementById('q'); if (!i) return; if (!S.sheet){ i.focus(); i.setSelectionRange(i.value.length, i.value.length); }
+    i.oninput = () => { S.q = parse(i.value); document.getElementById('parse').innerHTML = parseArea(); }; }};
+
+/* ---------- by car ---------- */
+function carPick(k, v){ if (k === 'mk'){ S.q = {...parse(''), mk:v}; } else S.q[k] = v; render(); }
+SCREENS.car = { title:'حسب السيارة',
+  refs:[['SRCH-4','البحث بنوع السيارة: الصانع، الموديل، السنة'],['NAM-6','قائمة مرجعية للسيارات يختار منها التاجر أيضًا'],['SRCH-10','تُضاف الفلاتر بعد الوصول للنتائج']],
+  render(){
+    const q = S.q, step = !q.mk ? 0 : !q.md ? 1 : !q.year ? 2 : 3;
+    const crumbs = `<div class="steps-top" aria-hidden="true">${[0,1,2].map(i => `<i class="${i <= step - (step === 3 ? 1 : 0) ? 'on' : ''}"></i>`).join('')}</div>
+      <div class="chips">${q.mk ? `<button class="chip" ${a('carPick','mk','')}>${makeOf(q.mk).name} ${ic('x',14)}</button>` : ''}${q.md ? `<button class="chip" ${a('carPick','md','')}>${modelOf(q.mk,q.md).name} ${ic('x',14)}</button>` : ''}${q.year ? `<button class="chip tnum" ${a('carPick','year','')}>${q.year} ${ic('x',14)}</button>` : ''}</div>`;
+    let body;
+    if (step === 0) body = `<h2 class="h2">الصانع</h2><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">${MAKES.map(m => `<button class="btn sec" style="min-height:64px" ${a('carPick','mk',m.id)}>${m.name}</button>`).join('')}</div>`;
+    else if (step === 1) body = `<h2 class="h2">الموديل</h2><div class="card" style="padding:0;overflow:hidden">${makeOf(q.mk).models.map(m => `<button class="rowlink" ${a('carPick','md',m.id)}><span class="grow">${m.name}</span>${ic('chev',18)}</button>`).join('')}</div>`;
+    else if (step === 2) body = `<h2 class="h2">سنة الصنع</h2><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">${Array.from({length:16},(_,i) => 2024 - i).map(y => `<button class="btn sec tnum" ${a('carPick','year',y)}>${y}</button>`).join('')}</div>`;
+    else body = `<div class="card stack"><div style="display:flex;gap:10px;align-items:center">${ic('car',28)}<div><div class="h3">${carName(q.mk,q.md,q.year)}</div><div class="faint">${L.filter(l => l.md === q.md).length} قطعة منشورة لهذه السيارة</div></div></div>
+      <button class="btn pri block" ${a('go','results')}>اعرض كل القطع</button></div>
+      <p class="h3" style="margin-top:6px">أو اختر القطعة</p><div class="chips">${[...new Set(L.filter(l => l.md === q.md).map(l => l.n))].map(n => `<button class="chip" ${a('carPart',n)}>${nm(n).name}</button>`).join('') || '<span class="faint">لا قطع منشورة لهذه السيارة بعد</span>'}</div>`;
+    return `<div class="pad stack" style="gap:14px">${crumbs}${body}</div>`;
+  }};
+function carPart(n){ S.q.part = n; go('results'); }
+
+/* ---------- by chassis number ---------- */
+const VIN_OK = 'KMHDH41EBDU468213', VIN_NONE = 'JTDKB20U093512870';
+function vinRun(v){ const val = (v || document.getElementById('vin')?.value || '').toUpperCase().replace(/\s/g, ''); S.vin = val; S.vinRes = val.length !== 17 ? 'bad' : val === VIN_OK ? 'ok' : 'none'; render(); }
+function vinPart(n){ S.q = {...parse(''), part:n, mk:'hyundai', md:'avante', year:2013}; go('results'); }
+SCREENS.vin = { title:'البحث برقم الشاسيه',
+  refs:[['SRCH-5','الشاسيه إحدى طرق الوصول، والنتيجة تساعد في الملاءمة ولا تضمن التوافق'],['SRCH-9','عند غياب النتائج تبقى طرق البحث الأخرى متاحة'],['INT-6','تعطّل مصدر الشاسيه لا يعطّل البحث الآخر'],['SRCH-6','مصدر البيانات قابل للتبديل — حقول بطاقة السيارة تتبع ما يرسله']],
+  render(){
+    const r = S.vinRes;
+    let res = '';
+    if (r === 'bad') res = note('bad','alert','رقم الشاسيه 17 خانة من أحرف وأرقام. تأكّد منه في رخصة السيارة.');
+    if (r === 'ok') res = `<div class="card stack"><div style="display:flex;gap:10px;align-items:center">${ic('car',28)}<div><div class="h3">هيونداي أفانتي (MD)</div><div class="faint ltr" style="text-align:end">${VIN_OK}</div></div></div>
+      <dl class="kv"><dt>سنة الصنع</dt><dd class="tnum">2013</dd><dt>المحرّك</dt><dd>1.6 GDI بنزين</dd><dt>ناقل الحركة</dt><dd>أوتوماتيك</dd><dt>تاريخ الإنتاج</dt><dd class="tnum">03/2013</dd></dl>
+      <p class="faint" style="margin:0">التفاصيل كما وصلت من مصدر بيانات الشاسيه.</p></div>
+      ${note('warn','alert','<b>النتائج تساعدك في معرفة الملاءمة، ولا تضمن أن القطعة تركب على سيارتك.</b> ' + FIT_WARN)}
+      <p class="h3">قطع منشورة لهذه السيارة</p><div class="card" style="padding:0;overflow:hidden">${[...new Set(L.filter(l => l.md === 'avante').map(l => l.n))].map(n => `<button class="rowlink" ${a('vinPart',n)}><span class="grow">${nm(n).name}</span><span class="faint">${L.filter(l => l.md === 'avante' && l.n === n).length} عروض</span>${ic('chev',18)}</button>`).join('')}</div>`;
+    if (r === 'none') res = `${empty('vin','لا توجد نتائج لهذا الرقم','مصدر البيانات لا يعرف هذه السيارة بعد. طرق البحث الأخرى متاحة:')}
+      <div class="stack" style="gap:8px"><button class="btn sec block" ${a('go','search')}>${ic('search',18)} باسم القطعة أو رقم OEM</button><button class="btn sec block" ${a('go','car')}>${ic('car',18)} بنوع السيارة</button></div>`;
+    return `<div class="pad stack" style="gap:14px">
+      <div class="field"><label for="vin">رقم الشاسيه (VIN)</label><input id="vin" class="input ltr tnum" maxlength="17" autocomplete="off" spellcheck="false" style="text-transform:uppercase;letter-spacing:.06em" value="${esc(S.vin)}" placeholder="17 خانة"><span class="faint">تجده في رخصة السيارة أو أسفل الزجاج الأمامي.</span></div>
+      <button class="btn pri block" ${a('vinRun')}>اعرض سيارتي وقطعها</button>
+      <div class="chips"><button class="chip" ${a('vinRun',VIN_OK)}>جرّب رقمًا معروفًا</button><button class="chip" ${a('vinRun',VIN_NONE)}>جرّب رقمًا بلا بيانات</button></div>
+      ${res}</div>`;
+  }};
+
+/* ---------- results, filters, sorting ---------- */
+const SORTS = {cheap:'الأرخص أولًا', rating:'الأعلى تقييمًا', near:'الأقرب إليك'};
+function sortL(arr, how){
+  const k = how === 'rating' ? (x, y) => TR[y.tr].rating - TR[x.tr].rating || lp(x) - lp(y) : how === 'near' ? (x, y) => TR[x.tr].km - TR[y.tr].km : (x, y) => lp(x) - lp(y);
+  return [...arr].sort(k);
+}
+function applyF(arr, f = S.f){
+  return arr.filter(l => (!f.cond.length || f.cond.includes(l.cond)) && (!f.auth.length || f.auth.includes(l.auth)) && (!f.origin.length || f.origin.includes(l.origin)) && (!f.brand.length || f.brand.includes(l.brand))
+    && (f.min === '' || lp(l) >= +f.min) && (f.max === '' || lp(l) <= +f.max) && (!f.gov || TR[l.tr].gov === f.gov) && (!f.tr || l.tr === f.tr));
+}
+function matchQ(){ const q = S.q; return L.filter(l => (!q.part || l.n === q.part) && (!q.mk || l.mk === q.mk) && (!q.md || l.md === q.md) && (!q.oem || l.oem === q.oem)); }
+function results(){ const base = sortL(applyF(matchQ()), S.sort); return [...base.filter(l => l.feat), ...base.filter(l => !l.feat)]; }
+const fCount = () => ['cond','auth','origin','brand'].reduce((n, k) => n + S.f[k].length, 0) + (S.f.min !== '' || S.f.max !== '' ? 1 : 0) + (S.f.gov ? 1 : 0) + (S.f.tr ? 1 : 0);
+function pcard(l){
+  const t = TR[l.tr], others = L.filter(x => x.g === l.g).length - 1, inCart = S.cart.includes(l.id);
+  return `<article class="pc"><button class="pc-open" ${a('go','part',l.id)}>
+    <div class="pc-img"><img alt="صورة القطعة من التاجر" src="${img(nm(l.n).img, l.bg, l.id + 1)}"><div class="pc-tags"><span>${l.feat ? '<span class="badge feat">مميّز</span>' : ''}</span><span>${l.offer ? `<span class="badge offer">${pct(l.offer.pct)}</span>` : ''}</span></div></div>
+    <div class="badges">${condB(l)}${l.special ? `<span class="badge">${ic('heavy',12)} شحن خاص</span>` : ''}</div>
+    <span class="t">${nm(l.n).name}</span><span class="fit">${l.cars}</span>
+    <span>${priceH(l)}</span>${l.offer ? `<span class="faint" style="font-size:11.5px">${ic('clock',12)} العرض حتى ${l.offer.ends}</span>` : ''}
+    <span class="seller">${ic('store',13)} ${t.name}</span>
+    <span class="seller">${stars(t.rating)} · ${t.gov}${others > 0 ? ` · ${others} ${others > 1 ? 'عروض أخرى' : 'عرض آخر'}` : ''}</span></button>
+    <button class="btn ${inCart ? 'sec' : 'pri'} pc-add" ${a('addCart',l.id)}>${inCart ? `${ic('check',16)} في السلة` : `${ic('cart',16)} أضف للسلة`}</button></article>`;
+}
+SCREENS.results = { title:() => S.q.part ? nm(S.q.part).name : S.q.md ? carName(S.q.mk, S.q.md) : 'النتائج',
+  refs:[['SRCH-8','القطعة المميّزة أولًا ضمن النتائج المطابقة، وعليها «مميّز»'],['SRCH-7','الأرخص أولًا، وللزبون الأعلى تقييمًا أو الأقرب'],['SRCH-10','الحالة، الأصالة، المنشأ، الماركة، السعر، المحافظة — مجتمعة'],['SRCH-11','«الأقرب» من الموقع أو المحافظة المختارة'],['CAT-6','جديدة/مستعملة ووكالة/تاجر شارتان منفصلتان'],['CAT-12.1','شارة «شحن خاص» للقطع الكبيرة'],['OFR-2','السعر الأصلي مشطوب بجانب سعر العرض'],['ACC-1','السعر واسم التاجر ظاهران للضيف']],
+  render(){
+    const list = results(), n = fCount();
+    return `<div style="position:sticky;top:0;z-index:2;background:var(--surface);border-bottom:1px solid var(--line);padding:10px 14px;display:flex;flex-direction:column;gap:8px">
+      <div class="chips hscroll" style="flex-wrap:nowrap">${qChips().map(([k, h]) => `<span class="chip">${h}</span>`).join('') || '<span class="faint">كل القطع</span>'}<button class="chip" ${a('go','search')}>${ic('search',14)} تعديل</button></div>
+      <div style="display:flex;gap:8px;align-items:center"><span class="grow faint tnum" style="flex:1">${list.length} نتيجة${S.sort === 'near' && S.loc ? ` · من ${S.loc === 'gps' ? 'موقعك' : S.loc}` : ''}</span>
+        <button class="chip" ${a('sheet','sort')}>${ic('sort',16)} ${SORTS[S.sort]}</button><button class="chip" ${a('sheet','filter')} ${n ? 'aria-pressed="true"' : ''}>${ic('filter',16)} فلترة${n ? ` (${n})` : ''}</button></div></div>
+      ${list.length ? `<div class="pgrid">${list.map(pcard).join('')}</div>` : empty('filter','لا نتائج بهذه الشروط','خفّف الفلاتر أو غيّر كلمات البحث.', n ? `<button class="btn sec" ${a('fclear')}>امسح الفلاتر</button>` : '')}`;
+  }};
+function ftog(k, v){ const arr = S.f[k]; const i = arr.indexOf(v); i < 0 ? arr.push(v) : arr.splice(i, 1); render(); }
+function fset(k, v){ S.f[k] = S.f[k] === v ? '' : v; render(); }
+function fclear(){ S.f = {cond:[], auth:[], origin:[], brand:[], min:'', max:'', gov:'', tr:''}; render(); }
+const uniq = k => [...new Set(L.map(l => l[k]))];
+SHEETS.filter = { label:'الفلترة', render(scope){
+  const pool = scope === 'offers' ? L.filter(l => l.offer) : matchQ();
+  const grp = (title, k, opts) => `<div class="stack" style="gap:8px"><p class="h3">${title}</p><div class="chips">${opts.map(([v, l]) => `<button class="chip" aria-pressed="${S.f[k].includes(v)}" ${a('ftog',k,v)}>${l}</button>`).join('')}</div></div>`;
+  return `<div class="sec-h"><h2 class="h2">الفلترة</h2><button class="link" ${a('fclear')}>امسح الكل</button></div>
+    ${grp('الحالة','cond',[['new','جديدة'],['used','مستعملة']])}${grp('الأصالة','auth',[['agency','قطعة وكالة'],['trader','قطعة تاجر']])}
+    ${grp('المنشأ','origin',uniq('origin').map(o => [o, o]))}${grp('الماركة','brand',uniq('brand').map(o => [o, o]))}
+    <div class="stack" style="gap:8px"><p class="h3">السعر (د.أ)</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><input id="fmin" class="input tnum" inputmode="decimal" placeholder="من" value="${S.f.min}" aria-label="أقل سعر"><input id="fmax" class="input tnum" inputmode="decimal" placeholder="إلى" value="${S.f.max}" aria-label="أعلى سعر"></div></div>
+    <div class="field"><label for="fgov">المحافظة</label><select id="fgov" class="input"><option value="">كل المحافظات</option>${GOVS.map(g => `<option ${S.f.gov === g ? 'selected' : ''}>${g}</option>`).join('')}</select></div>
+    ${scope === 'offers' ? `<div class="field"><label for="ftr">التاجر</label><select id="ftr" class="input"><option value="">كل التجّار</option>${Object.entries(TR).map(([k, t]) => `<option value="${k}" ${S.f.tr === k ? 'selected' : ''}>${t.name}</option>`).join('')}</select></div>` : ''}
+    <button class="btn pri block" ${a('close')}>اعرض ${applyF(pool).length} نتيجة</button>`;
+}};
+document.addEventListener('change', e => { const m = {fmin:'min', fmax:'max', fgov:'gov', ftr:'tr'}[e.target.id]; if (m){ S.f[m] = e.target.value; render(); } });
+SHEETS.sort = { label:'الترتيب', render(scope){
+  const opts = scope === 'offers' ? {pct:'الأعلى خصمًا', new:'الأحدث'} : SORTS, cur = scope === 'offers' ? S.osort || 'pct' : S.sort;
+  return `<h2 class="h2">الترتيب</h2><div class="stack" style="gap:8px">${Object.entries(opts).map(([k, l]) => `<button class="radio-row" role="radio" aria-checked="${cur === k}" ${a('setSort',k,scope || '')}><span class="rd"></span><span>${l}${k === 'cheap' ? ' <span class="faint">(الافتراضي)</span>' : ''}${k === 'near' && !S.loc ? '<br><span class="faint">يحتاج موقعك أو محافظتك</span>' : ''}</span></button>`).join('')}</div>`;
+}};
+function setSort(k, scope){ if (scope === 'offers'){ S.osort = k; return closeSheet(); } if (k === 'near' && !S.loc){ S.afterLoc = () => { S.sort = 'near'; }; return sheet('loc'); } S.sort = k; closeSheet(); }
+SHEETS.loc = { label:'منطقتك', render(){
+  return `<h2 class="h2">من أين نحسب «الأقرب»؟</h2><p class="muted" style="margin:0">نرتّب القطع والخدمات حسب قربها منك. يمكنك السماح بالموقع، أو اختيار محافظتك فقط.</p>
+    <button class="btn pri block" ${a('setLoc','gps')}>${ic('pin',18)} استخدم موقعي الحالي</button>
+    <p class="h3">أو اختر محافظتك</p><div class="chips">${GOVS.map(g => `<button class="chip" aria-pressed="${S.loc === g}" ${a('setLoc',g)}>${g}</button>`).join('')}</div>
+    <p class="faint" style="margin:0">في النموذج: «موقعي» يحاكي موافقة الجهاز.</p>`;
+}};
+function setLoc(v){ S.loc = v; S.afterLoc?.(); S.afterLoc = null; S.sheet = null; render(); toast(v === 'gps' ? 'نرتّب الآن من موقعك الحالي' : `نرتّب الآن من محافظة ${v}`); }
+
+/* ---------- part page ---------- */
+function addCart(id){ if (S.cart.includes(id)) return go('cart'); S.cart.push(id); toast('أُضيفت القطعة للسلة'); }
+SCREENS.part = { title:id => nm(lst(id).n).name,
+  refs:[['CAT-2','الصور، الاسم، الحالة، السيارات، السعر، المنشأ، الصنف، الماركة، الوصف، الكفالة'],['CAT-3','رقم OEM إلزامي للجديدة، اختياري للمستعملة'],['CAT-6','الحالة والأصالة صفتان منفصلتان'],['CAT-7','وصف المستعملة: الكفالة، التطابق، صورتها الفعلية'],['CAT-8','قطعة واحدة بلا كمية'],['CAT-12.1/12.2','شحن خاص بأجرة الشحن العادي نفسها'],['NAM-1','الأسماء الشعبية تحت الاسم الرسمي'],['ORD-10','رقم التاجر للاتصال'],['SRCH-9','تنبيه الملاءمة بجانب الاتصال'],['SRCH-7','عروض نفس القطعة: الأرخص أولًا، أو الأعلى تقييمًا، أو الأقرب'],['DLV-11','عرض التوصيل المجاني على قطع التاجر'],['OFR-2/4','سعر العرض وتاريخ نهايته']],
+  render(id){
+    const l = lst(id), t = TR[l.tr], N = nm(l.n), grp = sortL(L.filter(x => x.g === l.g), S.psort || 'cheap');
+    return `<div class="gallery"><img alt="صورة ${N.name} كما صوّرها التاجر" src="${img(N.img, l.bg, l.id + 1)}"><span class="count tnum">1 / 3</span><div class="dots"><i class="on"></i><i></i><i></i></div></div>
+    <div class="blk stack" style="gap:8px"><div class="badges">${l.feat ? '<span class="badge feat">مميّز</span>' : ''}${condB(l)}${l.special ? `<span class="badge">${ic('heavy',12)} شحن خاص</span>` : ''}</div>
+      <h2 class="h2" style="font-size:20px">${N.name}</h2><p class="faint" style="margin:0">يُعرف أيضًا: ${N.alt.slice(0,3).join('، ')}</p>
+      <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">${priceH(l)}${l.offer ? `<span class="badge offer">عرض ${pct(l.offer.pct)} حتى ${l.offer.ends}</span>` : ''}</div>
+      ${l.special ? note('info','truck','قطعة كبيرة تحتاج شحنًا خاصًا. أجرتها مثل أجرة التوصيل العادي لمنطقتك.') : ''}</div>
+    <div class="blk stack" style="gap:10px"><button class="rowlink" style="padding:0;border:0;min-height:auto" ${a('go','store',l.tr)}><div class="thumb" style="width:44px;flex:none;border-radius:50%"><img alt="" src="${img('store','shop',l.tr.length)}"></div><div class="grow"><div style="font-weight:600">${t.name}</div><div class="faint">${t.area} · ${stars(t.rating, t.count)}</div></div>${ic('chev',18)}</button>
+      ${t.free ? `<div class="faint" style="display:flex;gap:6px;align-items:center">${ic('truck',16)} توصيل مجاني من هذا المتجر للطلبات من ${t.free} د.أ فأكثر</div>` : ''}
+      <div style="display:flex;gap:10px;align-items:center"><button class="btn sec" ${a('callTr',l.tr)}>${ic('phone',18)} اتصل بالتاجر</button><span class="ltr tnum" style="font-weight:600;user-select:all">${t.phone}</span></div>
+      ${note('warn','alert', FIT_WARN)}</div>
+    <div class="blk stack" style="gap:10px"><h3 class="h3">التفاصيل</h3><dl class="kv">
+      <dt>رقم OEM</dt><dd class="ltr tnum" style="text-align:start">${l.oem || '<span class="faint">غير مذكور</span>'}</dd><dt>الماركة</dt><dd>${l.brand}</dd><dt>المنشأ</dt><dd>${l.origin}</dd><dt>الصنف</dt><dd>${CAT[l.n]}</dd><dt>الكفالة</dt><dd>${l.war}</dd></dl>
+      <h3 class="h3">تركب على</h3><div class="chips">${l.cars.split('، ').map(c => `<span class="chip">${ic('car',14)} ${c}</span>`).join('')}</div>
+      <h3 class="h3">الوصف</h3><p style="margin:0">${l.desc}</p></div>
+    ${grp.length > 1 ? `<div class="blk stack" style="gap:10px"><h3 class="h3">عروض نفس القطعة (${grp.length})</h3>
+      <div class="seg" role="group" aria-label="ترتيب العروض">${Object.entries(SORTS).map(([k, v]) => `<button aria-pressed="${(S.psort || 'cheap') === k}" ${a('psort',k)}>${v.replace(' أولًا','').replace(' إليك','')}</button>`).join('')}</div>
+      <div style="overflow-x:auto"><table class="offers"><thead><tr><th>التاجر</th><th>الحالة</th><th>السعر</th><th><span class="faint">فتح</span></th></tr></thead><tbody>${grp.map(x => `<tr ${x.id === l.id ? 'aria-current="true"' : ''}><td><div style="font-weight:600">${TR[x.tr].name}</div><div class="faint">${stars(TR[x.tr].rating)} · ${TR[x.tr].gov}${S.psort === 'near' && S.loc ? ` · ${TR[x.tr].km} كم` : ''}</div></td><td>${x.cond === 'new' ? 'جديدة' : 'مستعملة'}<div class="faint">${x.auth === 'agency' ? 'وكالة' : 'تاجر'}</div></td><td class="tnum" style="font-weight:600">${lp(x).toFixed(2)}${x.offer ? `<div class="strike">${x.price.toFixed(2)}</div>` : ''}</td><td>${x.id === l.id ? '<span class="faint">هذا</span>' : `<button class="ibtn" ${a('go','part',x.id)} aria-label="افتح عرض ${TR[x.tr].name}">${ic('chev',18)}</button>`}</td></tr>`).join('')}</tbody></table></div></div>` : ''}
+    <div style="height:12px"></div>`;
+  },
+  cta(id){ const l = lst(id), inCart = S.cart.includes(l.id); return `<div class="ctabar"><div class="grow" style="flex:1">${priceH(l)}<div class="faint">الدفع عند الاستلام</div></div><button class="btn ${inCart ? 'sec' : 'pri'}" ${a('addCart',l.id)}>${inCart ? `${ic('check',18)} في السلة — افتحها` : `${ic('cart',18)} أضف للسلة`}</button></div>`; }};
+function psort(k){ if (k === 'near' && !S.loc){ S.afterLoc = () => { S.psort = 'near'; }; return sheet('loc'); } S.psort = k; render(); }
+function callTr(k){ toast(`في التطبيق يفتح هذا الزر الاتصال بـ ${TR[k].phone}`); }
+
+/* ---------- store page ---------- */
+SCREENS.store = { title:k => TR[k].name,
+  refs:[['ACC-15','الاسم، الصورة، المنطقة، متوسط التقييم وعددها، الهاتف، القطع المنشورة'],['DLV-11','عرض التوصيل المجاني إن فعّله التاجر'],['OFR-2','أسعار العروض على قطع المتجر'],['ACC-5','المتجر سجلّ مستقلّ له اسمه وتقييمه']],
+  render(k){
+    const t = TR[k], parts = sortL(L.filter(l => l.tr === k), 'cheap');
+    return `<div class="gallery"><img alt="صورة محل ${t.name}" src="${img('store','shop',k.length + 3)}" style="aspect-ratio:16/9"></div>
+      <div class="blk stack" style="gap:8px"><h2 class="h2" style="font-size:20px">${t.name}</h2><div class="faint">${ic('pin',14)} ${t.area}</div><div>${stars(t.rating, t.count)} <span class="faint">تقييم</span></div>
+        <div style="display:flex;gap:10px;align-items:center"><button class="btn sec" ${a('callTr',k)}>${ic('phone',18)} اتصل</button><span class="ltr tnum" style="font-weight:600;user-select:all">${t.phone}</span></div>
+        ${t.free ? note('ok','truck',`<b>توصيل مجاني</b> لطلباتك من هذا المتجر بقيمة ${t.free} د.أ فأكثر. تُحسب على قطع هذا المتجر وحدها.`) : ''}</div>
+      <div class="pad" style="padding-bottom:6px"><h3 class="h3">قطع المتجر (${parts.length})</h3></div><div class="pgrid" style="padding-top:0">${parts.map(pcard).join('')}</div>`;
+  }};
+
+/* ---------- offers ---------- */
+SCREENS.offers = { title:'العروض', root:true, tab:'offers',
+  refs:[['OFR-3','العروض السارية بفلاتر البحث نفسها وفلتر التاجر، ترتيب بنسبة الخصم أو الأحدث'],['OFR-2','السعر الأصلي مشطوب وسعر العرض بجانبه'],['OFR-4','سعر العرض يُحتسب إن أُكّد الطلب قبل انتهائه'],['OFR-5','عند انتهائه يعود السعر الأصلي ويختفي من الصفحة'],['OFR-1','التاجر يضيفه من باقته — جهة التاجر']],
+  render(){
+    const so = S.osort || 'pct', list = applyF(L.filter(l => l.offer)).sort((x, y) => so === 'pct' ? y.offer.pct - x.offer.pct : x.offer.days - y.offer.days), n = fCount();
+    return `<div style="position:sticky;top:0;z-index:2;background:var(--surface);border-bottom:1px solid var(--line);padding:10px 14px;display:flex;gap:8px;align-items:center">
+      <h2 class="h2" style="flex:1">عروض سارية</h2><button class="chip" ${a('sheet','sort','offers')}>${ic('sort',16)} ${so === 'pct' ? 'الأعلى خصمًا' : 'الأحدث'}</button><button class="chip" ${a('sheet','filter','offers')} ${n ? 'aria-pressed="true"' : ''}>${ic('filter',16)} فلترة${n ? ` (${n})` : ''}</button></div>
+      <div class="pgrid">${list.map(pcard).join('') || `<div style="grid-column:1/-1">${empty('tag','لا عروض بهذه الشروط','غيّر الفلاتر لترى عروضًا أخرى.')}</div>`}</div>`;
+  }};
+
+/* ---------- cart ---------- */
+const byTrader = ids => ids.map(lst).reduce((m, l) => ((m[l.tr] = m[l.tr] || []).push(l), m), {});
+const sumL = arr => arr.reduce((s, l) => s + lp(l), 0);
+const FEE = 3; // illustrative: the zone fee table is pending (DLV-4, section 9)
+function freeLine(k, arr){
+  const t = TR[k]; if (!t.free) return '';
+  const s = sumL(arr);
+  return s >= t.free ? note('ok','truck','<b>التوصيل مجاني عن جزء هذا المتجر.</b>')
+    : `<div class="stack" style="gap:6px"><div class="faint">أضف بـ <b class="tnum">${(t.free - s).toFixed(2)} د.أ</b> من هذا المتجر ليصير توصيل جزئه مجانيًا</div><div class="progress" aria-hidden="true"><i style="width:${Math.min(100, s / t.free * 100)}%"></i></div></div>`;
+}
+function rmCart(id){ S.cart = S.cart.filter(x => x !== id); toast('حُذفت القطعة من السلة'); }
+SCREENS.cart = { title:'السلة', noCart:true,
+  refs:[['ORD-2','طلب واحد ولو كانت القطع من أكثر من تاجر، مع التاجر المسؤول عن كل جزء'],['CAT-8','قطعة واحدة لكل إعلان، بلا كميات'],['DLV-11','عرض التوصيل المجاني يظهر في السلة لكل تاجر، ويُحسب على قطعه وحدها'],['OFR-4','سعر العرض يدخل في حساب حدّ التوصيل المجاني'],['DLV-4','أجرة التوصيل مبلغ واحد منفصل يظهر قبل التأكيد'],['ORD-3','الدفع عند الاستلام فقط'],['ACC-2','الضيف يملأ السلة، والدخول يُطلب عند إكمال الطلب']],
+  render(){
+    if (!S.cart.length) return empty('cart','سلّتك فارغة','ابحث عن قطعتك وأضفها هنا.', `<button class="btn pri" ${a('go','search')}>ابحث عن قطعة</button>`);
+    const g = byTrader(S.cart);
+    return `<div class="pad"><p class="muted" style="margin:0">${S.cart.length} قطع من ${Object.keys(g).length} ${Object.keys(g).length > 1 ? 'تجّار' : 'تاجر'} — طلب واحد، وكل تاجر يؤكّد قطعه.</p></div>
+      ${Object.entries(g).map(([k, arr]) => `<section class="blk stack" style="gap:10px"><div style="display:flex;gap:8px;align-items:center">${ic('store',18)}<div class="grow" style="flex:1"><div style="font-weight:600">${TR[k].name}</div><div class="faint">${TR[k].area}</div></div></div>
+        ${arr.map(l => `<div style="display:grid;grid-template-columns:72px minmax(0,1fr) auto;gap:10px;align-items:center">${thumb(l)}<div style="min-width:0"><div style="font-weight:600;font-size:14px">${nm(l.n).name}</div><div class="faint">${l.cars}</div><div class="badges" style="margin-top:4px">${condB(l)}</div><div style="margin-top:2px">${priceH(l)}</div></div><button class="ibtn" ${a('rmCart',l.id)} aria-label="احذف ${nm(l.n).name}">${ic('trash',20)}</button></div>`).join('')}
+        ${freeLine(k, arr)}</section>`).join('')}
+      <div class="blk stack" style="gap:8px"><div class="sum"><span>مجموع القطع</span><span class="tnum">${fmtT(sumL(S.cart.map(lst)))}</span></div><div class="sum"><span>أجرة التوصيل</span><span class="faint">تظهر بعد اختيار العنوان</span></div>
+        <div class="faint">${ic('shield',14)} الدفع عند الاستلام فقط</div></div><div style="height:8px"></div>`;
+  },
+  cta(){ if (!S.cart.length) return ''; return `<div class="ctabar"><div style="flex:1"><div class="faint">المجموع قبل التوصيل</div><div class="price">${fmt(sumL(S.cart.map(lst)))}</div></div><button class="btn pri" ${a('checkout')}>أكمل الطلب</button></div>`; }};
+function checkout(){ if (needLogin(['checkout'])) return; go('checkout'); }
+
+/* ---------- sign in with an SMS code ---------- */
+S.loginStep = 'phone';
+SCREENS.login = { title:'الدخول', noCart:true,
+  refs:[['ACC-3','التسجيل برقم الموبايل وكود يصل برسالة نصّية'],['SEC-1','بلا كلمة مرور. صلاحية الكود 5 دقائق، قفل 15 دقيقة بعد 5 محاولات، 3 أكواد بالساعة'],['PRV-2','موافقة صريحة على الشروط والخصوصية عند التسجيل'],['ACC-4','حساب واحد برقم الموبايل، يبدأ زبونًا']],
+  render(){
+    if (S.loginStep === 'phone') return `<div class="pad stack" style="gap:16px"><h2 class="h2" style="font-size:22px">ادخل برقم موبايلك</h2><p class="muted" style="margin:0">نرسل لك كودًا برسالة نصّية. لا كلمة مرور.</p>
+      <div class="field"><label for="ph">رقم الموبايل</label><div style="display:flex;gap:8px;direction:ltr"><span class="input tnum" style="width:auto;display:grid;place-items:center">+962</span><input id="ph" class="input tnum" inputmode="tel" value="7 9000 4821" aria-describedby="phh"></div><span id="phh" class="faint">مثال: 7X XXX XXXX</span></div>
+      <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" id="terms" checked style="width:20px;height:20px;margin-top:3px"><span>أوافق على <u>شروط الاستخدام</u> و<u>سياسة الخصوصية</u>. <span class="faint">يُطلب مرة عند التسجيل، ومن جديد إن تغيّرت السياسة.</span></span></label>
+      <button class="btn pri block" ${a('sendCode')}>أرسل الكود</button></div>`;
+    const locked = S.otpErr >= 5;
+    return `<div class="pad stack" style="gap:16px"><h2 class="h2" style="font-size:22px">أدخل الكود</h2><p class="muted" style="margin:0">أرسلناه برسالة نصّية إلى <span class="ltr tnum">079 000 4821</span>. <button class="link" ${a('loginBack')}>غيّر الرقم</button></p>
+      <div class="otp" role="group" aria-label="كود التحقق">${Array.from({length:6},(_,i) => `<input id="o${i}" inputmode="numeric" maxlength="1" aria-label="الخانة ${i + 1}" ${locked ? 'disabled' : ''}>`).join('')}</div>
+      ${locked ? note('bad','clock','<b>أُقفل الدخول 15 دقيقة</b> بعد 5 محاولات خاطئة. حاول بعدها.') : S.otpErr ? note('bad','alert',`الكود غير صحيح. بقيت ${5 - S.otpErr} محاولات قبل القفل.`) : ''}
+      <button class="btn pri block" ${a('verify')} ${locked ? 'disabled' : ''}>تحقّق وادخل</button>
+      <div class="faint" style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><span>${ic('clock',14)} صلاحية الكود 5 دقائق</span><span class="tnum">إعادة الإرسال بعد 0:42</span></div>
+      <div class="card stack" style="gap:8px;background:var(--surface-2)"><span class="faint">محاكاة للعرض:</span><div class="chips"><button class="chip" ${a('fillOtp')}>املأ الكود الصحيح</button><button class="chip" ${a('badOtp')}>جرّب كودًا خاطئًا</button></div></div></div>`;
+  },
+  after(){ for (let i = 0; i < 6; i++){ const el = document.getElementById('o' + i); if (!el) return; el.oninput = () => { if (el.value && i < 5) document.getElementById('o' + (i + 1)).focus(); }; } }};
+function sendCode(){ if (!document.getElementById('terms').checked) return toast('الموافقة على الشروط مطلوبة لإنشاء الحساب'); S.loginStep = 'otp'; render(true); }
+function loginBack(){ S.loginStep = 'phone'; render(); }
+function fillOtp(){ '482915'.split('').forEach((d, i) => document.getElementById('o' + i).value = d); }
+function badOtp(){ '111111'.split('').forEach((d, i) => document.getElementById('o' + i).value = d); verify(); }
+function verify(){
+  const code = Array.from({length:6}, (_, i) => document.getElementById('o' + i).value).join('');
+  if (code.length < 6) return toast('أدخل الخانات الست');
+  if (code !== '482915'){ S.otpErr++; return render(); }
+  S.otpErr = 0; S.loginStep = 'phone'; if (S.persona === 'guest') S.persona = 'customer';
+  const next = S.pendingAfterLogin || ['account']; S.pendingAfterLogin = null; S.screen = next[0]; S.params = next.slice(1); render(true); toast(`أهلًا ${ME.name.split(' ')[0]}، دخلت بنجاح`);
+}
+
+/* ---------- checkout ---------- */
+SCREENS.checkout = { title:'إتمام الطلب', noCart:true,
+  refs:[['ACC-14','أكثر من عنوان: المحافظة، المنطقة، العنوان التفصيلي، موقع على الخريطة اختياريًا'],['DLV-4','أجرة التوصيل مبلغ واحد منفصل، ضمن الإجمالي قبل التأكيد'],['DLV-11','الجزء المجاني يظهر قبل التأكيد'],['ORD-3','الدفع عند الاستلام فقط'],['ORD-4/5','كل تاجر يؤكّد توفّر قطعته خلال 15 دقيقة عمل'],['ORD-13','لا يُرسل الطلب للتوصيل قبل تأكيد كل الأجزاء'],['DLV-3','توصيل فقط، لا استلام من المحل']],
+  render(){
+    if (!S.cart.length) return empty('cart','لا قطع لإتمام الطلب','أضف قطعة للسلة أولًا.');
+    const g = byTrader(S.cart), parts = sumL(S.cart.map(lst)), free = Object.entries(g).filter(([k, arr]) => TR[k].free && sumL(arr) >= TR[k].free).map(([k]) => TR[k].name);
+    const addr = S.addresses.find(x => x.id === S.selAddr);
+    return `<div class="blk stack" style="gap:10px"><div class="sec-h"><h3 class="h3">${ic('pin',16)} عنوان التوصيل</h3><button class="link" ${a('sheet','addr')}>أضف عنوانًا</button></div>
+      ${S.addresses.map(x => `<button class="radio-row" role="radio" aria-checked="${x.id === S.selAddr}" ${a('selAddr',x.id)}><span class="rd"></span><span><b>${x.label}</b> — ${x.gov}، ${x.area}<br><span class="faint">${x.detail}</span></span></button>`).join('')}</div>
+    <div class="blk stack" style="gap:8px"><h3 class="h3">القطع</h3>${Object.entries(g).map(([k, arr]) => `<div><div class="faint">${TR[k].name}</div>${arr.map(l => `<div class="sum"><span>${nm(l.n).name}</span><span class="tnum">${lp(l).toFixed(2)}</span></div>`).join('')}</div>`).join('')}</div>
+    <div class="blk stack" style="gap:8px"><div class="sum"><span>مجموع القطع</span><span class="tnum">${fmtT(parts)}</span></div>
+      <div class="sum"><span>أجرة التوصيل إلى ${addr.gov}</span><span class="tnum">${fmtT(FEE)}</span></div>${free.length ? `<div class="faint" style="color:var(--ok)">${ic('check',14)} جزء ${free.join(' و')} مجاني</div>` : ''}
+      <div class="sum total"><span>الإجمالي</span><span class="tnum">${fmtT(parts + FEE)}</span></div></div>
+    <div class="blk stack" style="gap:8px"><h3 class="h3">الدفع</h3><div class="radio-row" role="radio" aria-checked="true"><span class="rd"></span><span><b>الدفع عند الاستلام</b><br><span class="faint">تدفع لمندوب التوصيل بعد أن تستلم القطع.</span></span></div></div>
+    <div class="pad">${note('info','info','يؤكّد كل تاجر توفّر قطعته خلال 15 دقيقة من أوقات العمل. لا يخرج الطلب للتوصيل قبل تأكيد كل الأجزاء.')}</div>`;
+  },
+  cta(){ if (!S.cart.length) return ''; const t = sumL(S.cart.map(lst)) + FEE; return `<div class="ctabar"><button class="btn pri block" ${a('placeOrder')}>تأكيد الطلب · ${fmtT(t)}</button></div>`; }};
+function selAddr(id){ S.selAddr = id; render(); }
+SHEETS.addr = { label:'عنوان جديد', render(){ return `<h2 class="h2">عنوان جديد</h2>
+  <div class="field"><label for="ad-l">اسم العنوان</label><input id="ad-l" class="input" value="الشغل"></div>
+  <div class="field"><label for="ad-g">المحافظة</label><select id="ad-g" class="input">${GOVS.map(g => `<option ${g === 'الزرقاء' ? 'selected' : ''}>${g}</option>`).join('')}</select></div>
+  <div class="field"><label for="ad-a">المنطقة</label><input id="ad-a" class="input" value="الزرقاء الجديدة"></div>
+  <div class="field"><label for="ad-d">العنوان التفصيلي</label><textarea id="ad-d" class="input" rows="2">شارع الملك طلال، بجانب مخابز الزرقاء</textarea></div>
+  <button class="btn sec block" ${a('mapNote')}>${ic('pin',18)} حدّد على الخريطة <span class="faint">(اختياري)</span></button>
+  <button class="btn pri block" ${a('saveAddr')}>احفظ العنوان</button>`; }};
+function mapNote(){ toast('في التطبيق تفتح خريطة لتثبيت الموقع'); }
+function saveAddr(){ const id = Date.now(); S.addresses.push({id, label:document.getElementById('ad-l').value, gov:document.getElementById('ad-g').value, area:document.getElementById('ad-a').value, detail:document.getElementById('ad-d').value}); S.selAddr = id; closeSheet(); }
+function placeOrder(){ S.placed = {items:[...S.cart], date:'اليوم، ' + new Date().toLocaleTimeString('ar-JO-u-nu-latn', {hour:'numeric', minute:'2-digit'})}; S.cart = []; S.orderState = 'pending'; S.cancelled = []; S.ret = {}; S.altChosen = null; S.stack = []; S.screen = 'order'; S.params = ['NEW']; render(true); toast('استلمنا طلبك، وننتظر تأكيد التجّار'); }
+
+/* ---------- my orders ---------- */
+const ORD_WORD = {pending:['معلّق','st-pending'], alt:['بانتظار اختيارك لتاجر بديل','st-alt'], altApprove:['معلّق','st-pending'], confirmed:['مؤكَّد','st-ok'], shipping:['قيد التوصيل','st-ship'], delivered:['تمّ التسليم','st-ok'], failed:['تعذّر التسليم','st-fail'], cancelled:['ملغى','st-cancel']};
+function getOrder(id){
+  if (id === 'JO-23960') return {id, items:[5], date:'14 تشرين الأول 2026', state:'delivered', fixed:true, ret:{5:'refunded'}};
+  if (id === 'NEW' && S.placed) return {id:'JO-24818', key:'NEW', items:S.placed.items, date:S.placed.date, state:S.orderState};
+  return {id:'JO-24817', key:'JO-24817', items:[1, 14, 13], date:'22 تشرين الأول 2026، 11:40', state:S.orderState};
+}
+SCREENS.orders = { title:'طلباتي', root:true, tab:'orders',
+  refs:[['ORD-15','حالة كل طلب بكلمة واضحة'],['ORD-2','طلب واحد لعدة تجّار'],['PLT-2','إدارة الحساب من التطبيق والموقع']],
+  render(){
+    const list = [...(S.placed ? ['NEW'] : []), 'JO-24817', 'JO-23960'].map(getOrder);
+    return `<div class="pad stack"><h2 class="h2">طلباتي</h2>${list.map(o => { const [w, c] = ORD_WORD[o.state]; const arr = o.items.map(lst);
+      return `<button class="card stack" style="gap:6px;text-align:start;width:100%" ${a('go','order',o.key || o.id)}><div style="display:flex;justify-content:space-between;gap:8px"><span class="ltr tnum faint">${o.id}</span><span class="faint">${o.date}</span></div>
+        <div class="${c}" style="font-family:var(--f-display);font-weight:600;font-size:17px">${w}</div><div class="faint">${arr.length} قطع من ${Object.keys(byTrader(o.items)).length} ${Object.keys(byTrader(o.items)).length > 1 ? 'تجّار' : 'تاجر'} · ${fmtT(sumL(arr) + FEE)}</div></button>`; }).join('')}</div>`;
+  }};
+
+/* ---------- order page (ORD-15) ---------- */
+const RET = {requested:'طلب إرجاع', back:'عادت للتاجر', refunded:'رُدّ المبلغ'};
+const RET_ORDER = ['requested','back','refunded'];
+const altsFor = id => sortL(L.filter(x => x.g === lst(id).g && x.id !== id), 'cheap');
+function orderView(o){
+  // the last item's trader is the one who answers late or apologises in the demo
+  const prob = o.items[o.items.length - 1], st = o.state;
+  const altId = st === 'altApprove' || (['confirmed','shipping','delivered','failed'].includes(st) && S.altChosen) || (st === 'pending' && S.altChosen) ? (S.altChosen || altsFor(prob)[0]?.id) : null;
+  const items = o.items.map(id => id === prob && altId ? altId : id);
+  const trSt = k => {
+    if (o.fixed || ['confirmed','shipping','delivered','failed','cancelled'].includes(st)) return 'ok';
+    const holdsProb = lst(altId || prob).tr === k;
+    if (st === 'alt' && !altId) return lst(prob).tr === k ? 'sorry' : 'ok';
+    if (st === 'pending') return holdsProb ? 'wait' : 'ok';
+    return 'ok';
+  };
+  return {prob, altId, items, trSt};
+}
+SCREENS.order = { title:k => 'الطلب ' + getOrder(k).id, noCart:true,
+  refs:[['ORD-15','الحالة بكلمة واضحة: معلّق، بانتظار اختيارك لتاجر بديل، مؤكَّد، قيد التوصيل، تمّ التسليم، تعذّر التسليم، ملغى — والإرجاع على القطعة'],['ORD-2','بيان التاجر المسؤول عن كل جزء وحالة تأكيده'],['ORD-5/6','خارج أوقات العمل تبدأ مهلة التاجر مع بداية الدوام'],['ORD-7/8','اعتذار تاجر: بديل خلال ساعة أو إلغاء الطلب كاملًا'],['ORD-8.3','تغيّر السعر يُعتمد قبل الإرسال للتوصيل'],['ORD-9','الإلغاء كاملًا أو جزئيًا قبل استلام المندوب'],['DLV-6/10','الإرجاع على مستوى القطعة'],['RAT-2','التقييم بعد الاستلام فقط'],['ORD-3','الدفع عند الاستلام']],
+  render(k){
+    const o = getOrder(k), st = o.state, v = orderView(o), [w, c] = ORD_WORD[st], arr = v.items.map(lst), live = v.items.filter(id => !S.cancelled.includes(id));
+    const total = sumL(live.map(lst)) + FEE, old = sumL(o.items.map(lst)) + FEE;
+    const wait = TR[lst(v.altId || v.prob).tr].name;
+    const sub = {
+      pending: S.outOfHours ? `وصل طلبك خارج أوقات العمل. يبدأ التجّار بالردّ مع بداية الدوام، الأحد 9:00 صباحًا.` : v.altId ? `اخترت ${wait} بديلًا، وننتظر تأكيده للقطعة.` : `ننتظر تأكيد ${wait} لقطعته. يردّ التاجر خلال 15 دقيقة من أوقات العمل.`,
+      alt:`اعتذر ${TR[lst(v.prob).tr].name} عن قطعة في طلبك. اختر تاجرًا بديلًا لها أو ألغِ الطلب كاملًا.`,
+      altApprove:`ننتظر اعتمادك للسعر الجديد قبل إرسال الطلب للتوصيل.`,
+      confirmed:'أكّد كل التجّار قطعهم، وأُرسل طلبك لشركة التوصيل.', shipping:`خرج طلبك مع شركة التوصيل. تدفع للمندوب ${fmtT(total)} عند الاستلام.`,
+      delivered:'استلمت طلبك. يمكنك إرجاع أي قطعة خلال 3 أيام من الاستلام.', failed:'سجّلت شركة التوصيل أن التسليم تعذّر. إن احتجت مساعدة تواصل مع الدعم.', cancelled:'أُلغي هذا الطلب، ولن تُرسل أي قطعة.'}[st];
+    const steps = [['أُرسل الطلب', 1], ['تأكيد التجّار', ['confirmed','shipping','delivered','failed'].includes(st) ? 1 : ['pending','alt','altApprove'].includes(st) ? 0 : -1], ['خرج للتوصيل', ['shipping','delivered','failed'].includes(st) ? 1 : st === 'confirmed' ? 0 : -1], [st === 'failed' ? 'تعذّر التسليم' : 'تمّ التسليم', st === 'delivered' ? 1 : st === 'shipping' ? 0 : st === 'failed' ? 1 : -1]];
+    const canCancel = !o.fixed && ['pending','alt','altApprove','confirmed'].includes(st);
+    const altCard = st === 'alt' ? `<div class="card stack" style="border-color:var(--bad)"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="h3">باقي لاختيار البديل</span><span class="timer st-alt">47:12</span></div>
+        <p class="faint" style="margin:0">إذا لم تختر خلال ساعة من الإشعار يُلغى الطلب كاملًا، ولا تُرسل القطع المؤكَّدة وحدها.</p>
+        <button class="btn pri block" ${a('go','alt',k)}>اختر تاجرًا بديلًا</button><button class="btn danger block" ${a('sheet','cancel',k,'all')}>ألغِ الطلب كاملًا</button></div>` : '';
+    const approve = st === 'altApprove' && v.altId ? `<div class="card stack" style="border-color:var(--accent)"><p class="h3" style="margin:0">أكّد ${TR[lst(v.altId).tr].name} القطعة بسعر ${fmtT(lp(lst(v.altId)))}</p>
+        <div class="sum"><span>الإجمالي السابق</span><span class="tnum strike" style="font-size:14px">${fmtT(old)}</span></div><div class="sum total"><span>الإجمالي الجديد</span><span class="tnum">${fmtT(total)}</span></div>
+        <button class="btn pri block" ${a('approveAlt')}>اعتمد الإجمالي الجديد</button><button class="btn danger block" ${a('sheet','cancel',k,'all')}>ألغِ الطلب</button></div>` : '';
+    return `<div class="status-hero"><span class="faint"><span class="ltr tnum">${o.id}</span> · ${o.date}</span><div class="status-word ${c}">${w}</div><p class="muted" style="margin:0">${sub}</p>${altCard}${approve}</div>
+      ${st !== 'cancelled' ? `<div class="blk"><ol class="track">${steps.filter(s => !(st === 'failed' && s[0] === 'تمّ التسليم')).map(([l, d]) => `<li class="${d === 1 ? 'done' : d === 0 ? 'now' : 'todo'}"><span class="b">${d === 1 ? ic('check',12) : ''}</span><span>${l}</span></li>`).join('')}</ol></div>` : ''}
+      ${Object.entries(byTrader(v.items)).map(([t, ls]) => { const s = v.trSt(t);
+        return `<section class="blk stack" style="gap:10px"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">${ic('store',18)}<b style="flex:1">${TR[t].name}</b>${st === 'cancelled' ? '<span class="badge">ملغى</span>' : s === 'ok' ? `<span class="badge ok">${ic('check',12)} أكّد</span>` : s === 'wait' ? `<span class="badge used">${ic('clock',12)} بانتظار التأكيد</span>` : '<span class="badge bad">اعتذر</span>'}</div>
+          ${ls.map(l => { const cx = S.cancelled.includes(l.id), r = o.fixed ? o.ret[l.id] : S.ret[l.id];
+            return `<div style="display:grid;grid-template-columns:60px minmax(0,1fr) auto;gap:10px;align-items:center;${cx ? 'opacity:.55' : ''}">${thumb(l)}<div style="min-width:0"><div style="font-weight:600;font-size:14px">${nm(l.n).name}${l.id === v.altId ? ' <span class="badge">بديل</span>' : ''}</div><div class="faint">${l.cars}</div>${cx ? '<span class="badge">أُلغيت القطعة</span>' : ''}
+              ${r ? `<ol class="track" style="margin-top:8px">${RET_ORDER.map((x, i) => `<li class="${i < RET_ORDER.indexOf(r) ? 'done' : i === RET_ORDER.indexOf(r) ? (r === 'refunded' ? 'done' : 'now') : 'todo'}" style="padding-bottom:8px"><span class="b">${i <= RET_ORDER.indexOf(r) && (i < RET_ORDER.indexOf(r) || r === 'refunded') ? ic('check',12) : ''}</span><span>${RET[x]}</span></li>`).join('')}</ol>` : ''}</div>
+              <span class="tnum" style="font-weight:600">${lp(l).toFixed(2)}</span></div>
+              ${st === 'delivered' && !r && !cx ? `<button class="btn sec" style="min-height:40px;align-self:flex-start" ${a('go','return',l.id)}>${ic('ret',16)} إرجاع هذه القطعة</button>` : ''}`; }).join('')}
+          ${st === 'delivered' ? (S.rated[t] || o.fixed ? `<div class="faint">قيّمت هذا التاجر ${ic('star',14)} ${S.rated[t] || 5}</div>` : `<button class="btn sec" style="min-height:40px" ${a('sheet','rate',t)}>${ic('star',16)} قيّم ${TR[t].name}</button>`) : ''}
+          ${st !== 'cancelled' ? `<div class="faint" style="display:flex;gap:6px;align-items:center">${ic('phone',14)} <span class="ltr tnum" style="user-select:all">${TR[t].phone}</span></div>` : ''}</section>`; }).join('')}
+      <div class="blk stack" style="gap:8px"><div class="sum"><span>مجموع القطع</span><span class="tnum">${fmtT(sumL(live.map(lst)))}</span></div><div class="sum"><span>أجرة التوصيل</span><span class="tnum">${fmtT(FEE)}</span></div><div class="sum total"><span>الإجمالي</span><span class="tnum">${fmtT(total)}</span></div><div class="faint">${ic('shield',14)} الدفع عند الاستلام</div></div>
+      <div class="pad stack" style="gap:10px">${canCancel ? `<button class="btn danger block" ${a('sheet','cancel',k,'')}>إلغاء الطلب أو جزء منه</button>` : ''}
+        ${st === 'shipping' ? note('info','info','استلم المندوب القطع، فلا يمكن إلغاء الطلب الآن. بعد الاستلام يمكنك طلب إرجاع قطعة.') : ''}
+        ${st === 'failed' ? `<button class="btn sec block" ${a('support')}>${ic('chat',18)} تواصل مع الدعم عبر واتساب</button>` : ''}
+        <button class="btn ghost block" ${a('go','help',k)}>${ic('help',18)} مشكلة في الطلب؟</button></div>`;
+  }};
+function approveAlt(){ S.orderState = 'confirmed'; render(true); toast('اعتمدت الإجمالي الجديد، وأُرسل طلبك للتوصيل'); }
+function support(){ toast('في التطبيق يفتح واتساب على رقم الدعم الذي يحدّده صاحب المشروع'); }
+SHEETS.cancel = { label:'إلغاء', render(k, all){
+  const o = getOrder(k), v = orderView(o), live = v.items.filter(id => !S.cancelled.includes(id));
+  return `<h2 class="h2">${all ? 'إلغاء الطلب كاملًا' : 'ماذا تريد أن تلغي؟'}</h2>
+    ${S.orderState === 'confirmed' ? note('info','info','أُرسل طلبك لشركة التوصيل ولم يستلم المندوب القطع بعد. سنلغي الشحنة لديها ونبلغ التاجر.') : ''}
+    ${all ? '' : `<div class="stack" style="gap:8px">${live.map(id => `<label class="radio-row" style="align-items:center"><input type="checkbox" class="cx" value="${id}" style="width:20px;height:20px"><span style="flex:1">${nm(lst(id).n).name}<br><span class="faint">${TR[lst(id).tr].name}</span></span><span class="tnum">${lp(lst(id)).toFixed(2)}</span></label>`).join('')}</div>
+      <button class="btn sec block" ${a('cancelSome')}>ألغِ القطع المحدّدة</button>`}
+    <button class="btn danger block" ${a('cancelAll')}>ألغِ الطلب كاملًا</button><button class="btn ghost block" ${a('close')}>تراجع</button>`;
+}};
+function cancelAll(){ S.orderState = 'cancelled'; S.sheet = null; render(true); toast('أُلغي الطلب وأُبلغ التجّار'); }
+function cancelSome(){ const ids = [...document.querySelectorAll('.cx:checked')].map(x => +x.value); if (!ids.length) return toast('اختر قطعة واحدة على الأقل');
+  S.cancelled.push(...ids); const o = getOrder(S.params[0]); if (orderView(o).items.every(id => S.cancelled.includes(id))) S.orderState = 'cancelled'; S.sheet = null; render(); toast('أُلغيت القطع المحدّدة وأُبلغ تجّارها'); }
+
+/* ---------- choose a replacement trader (ORD-7/8) ---------- */
+SCREENS.alt = { title:'اختر تاجرًا بديلًا', noCart:true,
+  refs:[['ORD-7','يُبلَّغ الزبون ويختار بديلًا للجزء غير المؤكَّد أو يلغي الطلب؛ لا اختيار تلقائي'],['ORD-8.1','ساعة من وقت الإشعار'],['ORD-8.2','بلا اختيار خلال الساعة يُلغى الطلب كاملًا'],['ORD-8.3','البديل يؤكّد، ثم يعتمد الزبون أي فرق في السعر'],['SRCH-7','البدائل مرتّبة الأرخص أولًا']],
+  render(k){
+    const o = getOrder(k), prob = lst(orderView(o).prob), alts = altsFor(prob.id);
+    S.altPick = S.altPick && alts.some(x => x.id === S.altPick) ? S.altPick : alts[0]?.id;
+    return `<div class="pad stack" style="gap:14px"><div class="card stack" style="gap:6px"><span class="badge bad" style="align-self:flex-start">اعتذر ${TR[prob.tr].name}</span><b>${nm(prob.n).name}</b><span class="faint">${prob.cars} · كان سعرها ${fmtT(lp(prob))}</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center"><span class="h3">باقي من الساعة</span><span class="timer st-alt">47:12</span></div>
+      ${alts.length ? `<p class="h3" style="margin:0">عروض أخرى لنفس القطعة</p><div class="stack" style="gap:8px" role="radiogroup">${alts.map(x => { const d = lp(x) - lp(prob);
+        return `<button class="radio-row" role="radio" aria-checked="${S.altPick === x.id}" ${a('pickAlt',x.id)}><span class="rd"></span><span style="flex:1;min-width:0"><b>${TR[x.tr].name}</b><br><span class="faint">${stars(TR[x.tr].rating)} · ${TR[x.tr].gov} · ${x.cond === 'new' ? 'جديدة' : 'مستعملة'}، ${x.auth === 'agency' ? 'وكالة' : 'تاجر'} · ${x.brand}</span></span><span style="text-align:end"><span class="tnum" style="font-weight:600">${lp(x).toFixed(2)}</span><br><span class="faint tnum">${d === 0 ? 'نفس السعر' : (d > 0 ? '+' : '−') + Math.abs(d).toFixed(2)}</span></span></button>`; }).join('')}</div>
+        ${note('info','info','يؤكّد التاجر البديل توفّر القطعة، ثم نعرض عليك الإجمالي الجديد لتعتمده قبل التوصيل.')}`
+      : empty('search','لا عروض أخرى لهذه القطعة الآن','يمكنك إلغاء الطلب كاملًا.')}</div>`;
+  },
+  cta(k){ return `<div class="ctabar" style="flex-direction:column;align-items:stretch">${S.altPick ? `<button class="btn pri block" ${a('chooseAlt',k)}>اطلبها من هذا التاجر</button>` : ''}<button class="btn danger block" ${a('sheet','cancel',k,'all')}>ألغِ الطلب كاملًا</button></div>`; }};
+function pickAlt(id){ S.altPick = id; render(); }
+function chooseAlt(k){ S.altChosen = S.altPick; S.orderState = 'pending'; S.stack.pop(); S.screen = 'order'; S.params = [k]; render(true); toast('أرسلنا طلبك للتاجر البديل');
+  setTimeout(() => { if (S.orderState === 'pending' && S.altChosen){ S.orderState = 'altApprove'; render(); toast('أكّد التاجر البديل القطعة'); } }, 3500); }
+
+/* ---------- return a part ---------- */
+SCREENS.return = { title:'إرجاع قطعة', noCart:true,
+  refs:[['DLV-10','الإرجاع على مستوى القطعة لا الطلب'],['DLV-7','3 أيام للجديد و3 أيام مبدئيًا للمستعمل'],['DLV-8','أجرة الإرجاع على من كان الخطأ منه'],['DLV-6','شركة التوصيل تستلم القطعة وتعيدها وتردّ الثمن'],['DLV-9','لا تعمل بعد التركيب أو الكفالة: بين الزبون والتاجر'],['OFR-4','المبلغ المردود بسعر العرض إن اشتُريت به'],['ORD-15','حالة الإرجاع على القطعة: طلب إرجاع، عادت للتاجر، رُدّ المبلغ']],
+  render(id){
+    const l = lst(id), r = S.retReason;
+    const reasons = [['wrong','القطعة مختلفة عن الوصف أو الصور','trader'],['damaged','وصلت تالفة','trader'],['mine','طلبتُ القطعة الخطأ، أو غيّرت رأيي','me']];
+    return `<div class="pad stack" style="gap:14px"><div style="display:grid;grid-template-columns:72px minmax(0,1fr);gap:10px;align-items:center">${thumb(l)}<div><b>${nm(l.n).name}</b><div class="faint">${TR[l.tr].name}</div><div class="tnum" style="font-weight:600">${fmtT(lp(l))}</div></div></div>
+      ${note('info','clock',`يمكنك الإرجاع خلال 3 أيام من الاستلام — حتى <b>25 تشرين الأول</b>.`)}
+      <p class="h3" style="margin:0">سبب الإرجاع</p><div class="stack" style="gap:8px" role="radiogroup">${reasons.map(([k, t, who]) => `<button class="radio-row" role="radio" aria-checked="${r === k}" ${a('retWhy',k)}><span class="rd"></span><span>${t}<br><span class="faint">أجرة الإرجاع على ${who === 'me' ? 'حسابك' : 'التاجر'}</span></span></button>`).join('')}</div>
+      ${note('warn','alert','<b>قطعة لا تعمل بعد التركيب، أو الكفالة؟</b> هذه بينك وبين التاجر مباشرة، والتطبيق ليس طرفًا فيها. اتصل به على <span class="ltr tnum">' + TR[l.tr].phone + '</span>.')}
+      <p class="faint" style="margin:0">تستلم شركة التوصيل القطعة منك وتعيدها للتاجر، وتردّ لك ${fmtT(lp(l))}. نتابع لك الحالة هنا.</p></div>`;
+  },
+  cta(id){ return `<div class="ctabar"><button class="btn pri block" ${S.retReason ? '' : 'disabled'} ${a('retSend',id)}>قدّم طلب الإرجاع</button></div>`; }};
+function retWhy(k){ S.retReason = k; render(); }
+function retSend(id){ S.ret[id] = 'requested'; S.retReason = null; back(); toast('استلمنا طلب الإرجاع'); }
+
+/* ---------- rate a trader ---------- */
+SHEETS.rate = { label:'تقييم التاجر', render(t){ return `<h2 class="h2">كيف كانت تجربتك مع ${TR[t].name}؟</h2><p class="muted" style="margin:0">التقييم بالنجوم، ويُنشر فور إرساله.</p>
+  <div style="display:flex;gap:6px;justify-content:center;direction:ltr" role="radiogroup" aria-label="عدد النجوم">${[1,2,3,4,5].map(n => `<button class="ibtn" style="width:52px;height:52px;color:${(S.rateN || 0) >= n ? '#D99A00' : 'var(--line)'}" ${a('rateN',n)} aria-label="${n} من 5">${ic('star',36)}</button>`).join('')}</div>
+  <button class="btn pri block" ${S.rateN ? '' : 'disabled'} ${a('rateSend',t)}>انشر التقييم</button>`; }};
+function rateN(n){ S.rateN = n; render(); }
+function rateSend(t){ S.rated[t] = S.rateN; S.rateN = 0; S.sheet = null; render(); toast('نُشر تقييمك'); }
+
+/* ---------- help & complaints ---------- */
+SCREENS.help = { title:'المساعدة والشكاوى', noCart:true,
+  refs:[['RAT-5','الزبون يتواصل مع صاحب المحل أولًا، ثم الإدارة خيارًا أخيرًا من داخل التطبيق'],['RAT-6','أسئلة شائعة تديرها الإدارة وتشرح طريق الشكوى'],['ADM-5','الدعم عبر رقم واتساب يظهر في التطبيق']],
+  render(k){
+    const o = getOrder(k || 'JO-24817'), trs = Object.keys(byTrader(o.items));
+    const faq = [['كيف أتأكد أن القطعة تركب على سيارتي؟','اتصل بالتاجر من صفحة القطعة قبل الطلب، وأعطه رقم الشاسيه أو موديل سيارتك.'],['متى أدفع؟','عند الاستلام فقط، للمندوب.'],['ماذا لو اعتذر التاجر عن قطعة؟','نبلغك، ولك ساعة لتختار تاجرًا بديلًا أو تلغي الطلب كاملًا.'],['كيف أرجع قطعة؟','من صفحة الطلب خلال 3 أيام من الاستلام، لكل قطعة على حدة.'],['كيف أقدّم شكوى؟','تواصل مع صاحب المحل أولًا. إن لم تُحل، قدّمها للإدارة من هذه الصفحة.']];
+    return `<div class="pad stack" style="gap:14px">
+      ${S.complained ? note('ok','check','<b>وصلت شكواك للإدارة.</b> يصلك ردّها إشعارًا.') : ''}
+      <section class="card stack"><h2 class="h3">1. تواصل مع صاحب المحل أولًا</h2>${trs.map(t => `<div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><span>${TR[t].name}</span><span class="ltr tnum" style="font-weight:600;user-select:all">${TR[t].phone}</span></div>`).join('')}</section>
+      <section class="card stack"><h2 class="h3">2. لم تُحل؟ قدّم شكوى للإدارة</h2>
+        <div class="field"><label for="c-o">الطلب</label><select id="c-o" class="input"><option>${o.id}</option><option>شكوى عامة بلا طلب</option></select></div>
+        <div class="field"><label for="c-t">ما المشكلة؟</label><textarea id="c-t" class="input" rows="3" placeholder="اكتب ما حصل، ومتى تواصلت مع المحل"></textarea></div>
+        <button class="btn pri block" ${a('complain')}>أرسل الشكوى</button></section>
+      <section class="stack" style="gap:8px"><h2 class="h3">أسئلة شائعة</h2>${faq.map(([q, ans]) => `<details class="card"><summary style="font-weight:600;cursor:pointer">${q}</summary><p class="muted" style="margin:8px 0 0">${ans}</p></details>`).join('')}</section>
+      <button class="btn sec block" ${a('support')}>${ic('chat',18)} راسل الدعم على واتساب</button></div>`;
+  }};
+function complain(){ if (!document.getElementById('c-t').value.trim()) return toast('اكتب المشكلة أولًا'); S.complained = true; render(true); }
+
+/* ---------- services ---------- */
+function svcList(){
+  let s = SVCS.filter(x => (!S.svcType || x.type === S.svcType) && (!S.svcGov || x.gov === S.svcGov));
+  const home = S.loc && S.loc !== 'gps' ? S.loc : null;
+  return s.sort((x, y) => home ? (y.gov === home) - (x.gov === home) || x.km - y.km : x.km - y.km);
+}
+function scard(s){
+  return `<div class="scard"><button class="top" ${a('go','service',s.id)}><div class="thumb" style="width:52px;flex:none"><img alt="" src="${img(s.icon, s.bg, s.id)}"></div><div style="flex:1;min-width:0"><div style="font-weight:700">${s.name}</div><div class="faint">${s.type}</div><div class="faint">${ic('pin',12)} ${s.gov}، ${s.area}${S.loc === 'gps' ? ` · <span class="tnum">${s.km} كم</span>` : ''}</div></div></button>
+    <div class="foot"><span class="faint" style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.info}</span><button class="btn pri sm" ${a('sheet','wa',s.id)}>${ic('chat',16)} واتساب</button></div></div>`;
+}
+SCREENS.services = { title:'الخدمات', root:true, tab:'services',
+  refs:[['SVC-1','إعلان فقط: لا طلب ولا دفع داخل التطبيق'],['SVC-3','صورة، نوع الخدمة، المنطقة والموقع، معلومات، نصّ حرّ'],['SVC-4','الأقرب أولًا، مع فلتر المنطقة'],['SRCH-11','المحافظة يدويًا إن رُفض الموقع'],['SVC-7','أنواع الخدمات قائمة تديرها الإدارة'],['§7','خريطة الخدمات مرحلة لاحقة — لا خريطة هنا']],
+  render(){
+    const list = svcList();
+    return `<div style="position:sticky;top:0;z-index:2;background:var(--surface);border-bottom:1px solid var(--line);padding:10px 14px;display:flex;flex-direction:column;gap:8px">
+      <div style="display:flex;gap:8px;align-items:center"><h2 class="h2" style="flex:1">خدمات لسيارتك</h2><button class="chip" ${a('sheet','loc')}>${ic('pin',16)} ${S.loc ? (S.loc === 'gps' ? 'الأقرب لموقعك' : 'من ' + S.loc) : 'حدّد منطقتك'}</button></div>
+      <div class="hscroll"><button class="chip" aria-pressed="${!S.svcType}" ${a('svcT','')}>كل الأنواع</button>${SVC_TYPES.map(t => `<button class="chip" aria-pressed="${S.svcType === t}" ${a('svcT',t)}>${t}</button>`).join('')}</div>
+      <select id="svc-gov" class="input" style="min-height:40px" aria-label="المنطقة"><option value="">كل المحافظات</option>${GOVS.map(g => `<option ${S.svcGov === g ? 'selected' : ''}>${g}</option>`).join('')}</select></div>
+      ${list.length ? `<div class="svc-list">${list.map(scard).join('')}</div>` : empty('wrench','لا خدمات بهذه الشروط','جرّب نوعًا آخر أو محافظة أخرى.')}`;
+  }};
+function svcT(t){ S.svcType = t; render(); }
+document.addEventListener('change', e => { if (e.target.id === 'svc-gov'){ S.svcGov = e.target.value; render(); } });
+SCREENS.service = { title:id => SVCS.find(s => s.id === id).name,
+  refs:[['SVC-3','صورة، نوع الخدمة، المنطقة والموقع، معلومات، نصّ حرّ'],['SVC-5','زرّ يفتح واتساب برسالة جاهزة، يمكن أن تحمل رابط موقع الزبون'],['SVC-1','لا طلب ولا دفع داخل التطبيق']],
+  render(id){ const s = SVCS.find(x => x.id === id);
+    return `<div class="gallery"><img alt="صورة ${s.name}" src="${img(s.icon, s.bg, s.id + 7)}"></div>
+      <div class="blk stack" style="gap:8px"><span class="badge" style="align-self:flex-start">${s.type}</span><h2 class="h2" style="font-size:20px">${s.name}</h2><div class="faint">${ic('pin',14)} ${s.gov}، ${s.area}${S.loc === 'gps' ? ` · ${s.km} كم منك` : ''}</div></div>
+      <div class="blk stack" style="gap:8px"><h3 class="h3">معلومات</h3><p style="margin:0">${s.info}</p><p class="muted" style="margin:0">${s.text}</p></div>
+      <div class="pad">${note('info','info','التواصل والاتفاق والدفع مع صاحب الخدمة مباشرة، خارج التطبيق.')}</div>`; },
+  cta(id){ return `<div class="ctabar"><button class="btn pri block" ${a('sheet','wa',id)}>${ic('chat',18)} تواصل عبر واتساب</button></div>`; }};
+SHEETS.wa = { label:'رسالة واتساب', render(id){ const s = SVCS.find(x => x.id === id);
+  return `<h2 class="h2">رسالة جاهزة لـ ${s.name}</h2><div class="card" style="background:var(--ok-soft);border-color:transparent">مرحبًا، شفت إعلانك «${s.name}» على تطبيق سوق القطع، وبدي ${s.type.split(' ')[0]}.${S.waLoc !== false ? '<br><span class="ltr" style="color:var(--info)">maps.google.com/?q=31.98,35.87</span>' : ''}</div>
+  <label style="display:flex;gap:10px;align-items:center"><input type="checkbox" id="wa-loc" ${S.waLoc !== false ? 'checked' : ''} style="width:20px;height:20px"> أرفق رابط موقعي على الخريطة</label>
+  <button class="btn pri block" ${a('waOpen')}>${ic('chat',18)} افتح واتساب</button><p class="faint" style="margin:0">في التطبيق يفتح واتساب والرسالة جاهزة للإرسال؛ لا يُرسل شيء قبل أن تضغط أنت «إرسال» هناك.</p>`; }};
+document.addEventListener('change', e => { if (e.target.id === 'wa-loc'){ S.waLoc = e.target.checked; render(); } });
+function waOpen(){ S.sheet = null; render(); toast('في التطبيق: يفتح واتساب برسالتك'); }
+
+/* ---------- account ---------- */
+const CAP_TXT = {store:'تاجر — متجر', supplier:'مورّد', service:'مزوّد خدمة'};
+const ST_TXT = {active:['فعّالة','ok'], pending:['قيد المراجعة','used'], rejected:['مرفوض','bad']};
+SCREENS.account = { title:'حسابي', root:true, tab:'account',
+  refs:[['ACC-4','حساب واحد برقم الموبايل، تُضاف إليه الصفات'],['ACC-7','الصفة الحالية ظاهرة، والانتقال بزرّ واحد'],['ACC-14','عناوين التوصيل'],['PLT-4','العربية والإنكليزية'],['RAT-6','الأسئلة الشائعة وطريق الشكوى'],['ADM-5','دعم واتساب'],['PRV-3/4','حذف الحساب وتصدير البيانات'],['SEC-6','الخروج من كل الأجهزة']],
+  render(){
+    const row = (icn, t, act, sub='') => `<button class="rowlink" ${act}>${ic(icn)}<span class="grow">${t}${sub ? `<br><span class="faint">${sub}</span>` : ''}</span>${ic('chev',18)}</button>`;
+    if (!me().logged) return `<div class="pad stack" style="gap:14px"><div class="card stack"><h2 class="h2">ادخل برقم موبايلك</h2><p class="muted" style="margin:0">لتطلب وتتابع طلباتك. تصفّح بلا تسجيل متاح دائمًا.</p><button class="btn pri block" ${a('loginFrom','account')}>الدخول بكود SMS</button></div>
+      <div class="card stack" style="gap:8px"><b>عندك محل قطع أو خدمة سيارات؟</b><span class="faint">افتح متجرك أو أعلن عن خدمتك على حسابك نفسه.</span><button class="btn sec" ${a('startJoin')}>${ic('store',18)} افتح متجرك</button></div></div>
+      <div class="rows card" style="padding:0;overflow:hidden;margin:0 14px">${row('globe','اللغة',a('sheet','lang'),'العربية')}${row('help','الأسئلة الشائعة والشكاوى',a('go','help'))}${row('chat','الدعم عبر واتساب',a('support'))}</div>`;
+    const cs = caps();
+    return `<div class="pad stack" style="gap:14px"><div style="display:flex;gap:12px;align-items:center"><div class="empty" style="padding:0"><div class="ic">${ic('user',26)}</div></div><div><div class="h2">${ME.name}</div><div class="faint ltr tnum" style="text-align:end">${ME.phone}</div></div></div>
+      <section class="card stack" style="gap:10px"><div class="sec-h"><h2 class="h3">صفاتك على هذا الحساب</h2>${cs.length ? `<button class="link" ${a('sheet','role')}>${ic('swap',16)} بدّل الصفة</button>` : ''}</div>
+        <div style="display:flex;justify-content:space-between"><span>زبون</span><span class="badge ok">فعّالة</span></div>
+        ${cs.map(c => `<div style="display:flex;justify-content:space-between;gap:8px"><span>${CAP_TXT[c.t]}${c.t === 'store' ? ' · ' + ME.store : c.t === 'supplier' ? ' · ' + ME.supplier : ''}</span><span class="badge ${ST_TXT[c.st][1]}">${ST_TXT[c.st][0]}</span></div>`).join('')}
+        ${cs.some(c => c.st !== 'active') ? `<button class="btn sec" ${a('go','joinStatus')}>تابع حالة طلبك</button>` : ''}
+        <button class="btn ${cs.length ? 'ghost' : 'sec'}" ${a('startJoin')}>${ic('plus',18)} ${cs.some(c => c.t === 'store') ? 'أضف صفة أخرى' : 'افتح متجرك'}</button></section></div>
+      <div class="rows card" style="padding:0;overflow:hidden;margin:0 14px 14px">${row('box','طلباتي',a('tab','orders'))}${row('pin','عناويني',a('sheet','addrs'),S.addresses.length + ' عناوين محفوظة')}${row('globe','اللغة',a('sheet','lang'),'العربية')}${row('help','الأسئلة الشائعة والشكاوى',a('go','help'))}${row('chat','الدعم عبر واتساب',a('support'))}${row('shield','الخصوصية وبياناتي',a('sheet','privacy'))}${row('logout','الخروج من كل الأجهزة',a('logoutAll'))}${row('logout','تسجيل الخروج',a('logout'))}</div>`;
+  }};
+function loginFrom(s){ S.pendingAfterLogin = [s]; go('login'); }
+function logout(){ S.persona = 'guest'; S.extraCaps = []; S.role = 'shop'; tab('home'); toast('سجّلت الخروج'); }
+function logoutAll(){ toast('خرجت من كل أجهزتك؛ هذا الجهاز يطلب الكود من جديد'); }
+SHEETS.addrs = { label:'عناويني', render(){ return `<h2 class="h2">عناويني</h2>${S.addresses.map(x => `<div class="card" style="display:flex;gap:8px;align-items:flex-start"><span style="flex:1"><b>${x.label}</b><br><span class="faint">${x.gov}، ${x.area} — ${x.detail}</span></span><button class="ibtn" ${a('editAddr')} aria-label="عدّل">${ic('doc',18)}</button><button class="ibtn" ${a('delAddr',x.id)} aria-label="احذف">${ic('trash',18)}</button></div>`).join('')}<button class="btn sec block" ${a('sheet','addr')}>${ic('plus',18)} أضف عنوانًا</button>`; }};
+function editAddr(){ sheet('addr'); }
+function delAddr(id){ S.addresses = S.addresses.filter(x => x.id !== id); render(); }
+SHEETS.lang = { label:'اللغة', render(){ return `<h2 class="h2">اللغة</h2><button class="radio-row" role="radio" aria-checked="true" ${a('close')}><span class="rd"></span><span>العربية</span></button><button class="radio-row" role="radio" aria-checked="false" ${a('enNote')}><span class="rd"></span><span lang="en" dir="ltr">English</span></button><p class="faint" style="margin:0">ما يكتبه التجّار يبقى بلغته كما كتبوه.</p>`; }};
+function enNote(){ S.sheet = null; render(); toast('النموذج بالعربية؛ الواجهة الإنكليزية من اليسار لليمين تُرسم بعد اعتماد هذه'); }
+SHEETS.privacy = { label:'الخصوصية', render(){ return `<h2 class="h2">الخصوصية وبياناتي</h2>
+  <button class="rowlink" style="border:1px solid var(--line);border-radius:12px" ${a('expReq')}>${ic('doc')}<span class="grow">اطلب نسخة من بياناتي<br><span class="faint">تجهّزها الإدارة وتصلك بصيغة مقروءة</span></span></button>
+  <button class="rowlink" style="border:1px solid var(--line);border-radius:12px;color:var(--bad)" ${a('delReq')}>${ic('trash')}<span class="grow">احذف حسابي<br><span class="faint">لا يتم الحذف وعليك طلب قائم؛ أغلِقه أولًا</span></span></button>`; }};
+function expReq(){ S.sheet = null; render(); toast('وصل طلبك للإدارة'); }
+function delReq(){ S.sheet = null; render(); toast('عندك طلب قائم (JO-24817). يُحذف الحساب بعد إغلاقه'); }
+
+/* ---------- role switch (ACC-7) ---------- */
+SHEETS.role = { label:'تبديل الصفة', render(){
+  const cs = caps(), st = cap('store'), sp = cap('supplier'), sv = cap('service');
+  const r = (role, icn, t, sub, extra='') => `<button class="radio-row" role="radio" aria-checked="${S.role === role}" ${a('role',role)} ${extra}><span class="rd"></span><span style="flex:1"><b>${t}</b><br><span class="faint">${sub}</span></span>${ic(icn,20)}</button>`;
+  const off = (t, sub, act) => `<button class="radio-row" aria-disabled="true" ${act}><span class="rd" style="border-style:dashed"></span><span style="flex:1"><b>${t}</b><br><span class="faint">${sub}</span></span>${ic('chev',18)}</button>`;
+  return `<h2 class="h2">تعمل الآن بصفة…</h2><div class="stack" style="gap:8px" role="radiogroup">
+    ${r('shop','cart','أتسوّق لنفسي','طلباتك وعناوينك وسلّتك الشخصية')}
+    ${st?.st === 'active' ? r('store','store','أدير متجري', ME.store + ' · قطعك وطلبات الزبائن') + r('supply','supply','أطلب من مورّد','مشتريات الجملة لـ' + ME.store) : ''}
+    ${st?.st === 'pending' ? off(ME.store + ' — قيد المراجعة','تفتح واجهة المتجر بعد قبول الإدارة · تابع الحالة', a('go','joinStatus')) : ''}
+    ${st?.st === 'rejected' ? off('طلب المتجر لم يُقبل','اعرف السبب وأعد التقديم', a('go','joinStatus')) : ''}
+    ${sp?.st === 'active' ? r('supplier','supply','أدير توريدي', ME.supplier + ' · أصنافك وطلبات التجّار') : ''}
+    ${sp?.st === 'pending' ? off(ME.supplier + ' — قيد المراجعة','تفتح واجهة المورّد بعد قبول الإدارة', a('go','joinStatus')) : ''}
+    ${sv ? r('service','wrench','أدير إعلاناتي','إعلانات خدمتك واشتراكها') : ''}</div>
+    ${sp && !st ? note('info','info','<b>الزبائن لا يرون الموردين.</b> لتبيع لهم افتح متجر تاجر على حسابك نفسه، وتبقى موردًا.') : ''}
+    <div class="stack" style="gap:6px"><span class="faint">أضف صفة لحسابك</span><div class="chips">${!st ? `<button class="chip" ${a('startJoin','store')}>${ic('store',16)} افتح متجرك</button>` : ''}${!sp ? `<button class="chip" ${a('startJoin','supplier')}>${ic('supply',16)} سجّل كمورّد</button>` : ''}${!sv ? `<button class="chip" ${a('startJoin','service')}>${ic('wrench',16)} أعلن عن خدمتك</button>` : ''}</div></div>`;
+}};
+ROLE.service = {ic:'wrench', lbl:'إعلاناتي', small:'مزوّد خدمة', short:'إعلاناتي', cls:'m-supply'};
+const MODE_TXT = {
+  store:['واجهة المتجر', [['إضافة القطع وصورها وحالتها','CAT-2…9'],['طلبات الزبائن وتأكيدها خلال المهلة','ORD-4/5'],['العروض على القطع','OFR-1'],['التوصيل المجاني من المتجر','DLV-11'],['الاشتراك والباقة','SUB-1…9']]],
+  supply:['الطلب من الموردين', [['بضاعة الموردين وأسعارهم — للتاجر المقبول وحده','SUP-2, ACC-1'],['الحدّ الأدنى وشرائح الكمية لكل صنف','SUP-3'],['شريط خصومات الموردين','SUP-6']]],
+  supplier:['واجهة المورّد', [['أصنافك وحدّها الأدنى وشرائحها','SUP-3'],['طلبات التجّار: قبول أو اعتذار','SUP-4'],['الخصومات ومدّتها','SUP-6'],['الاشتراك','SUB-7']]],
+  service:['إعلانات الخدمة', [['إضافة الإعلان وتعديله','SVC-2/3'],['الاشتراك شرط لظهور الإعلان','SVC-6']]],
+};
+SCREENS.mode = { title:() => MODE_TXT[S.role][0],
+  refs:() => [['ACC-7','الصفة ظاهرة في الرأس بلونها واسمها، والعودة من الشارة نفسها'],['SEC-2','بيانات الموردين تُحجب على مستوى الخادم'],['—','هذه الواجهة تُصمَّم في دفعة لاحقة؛ هنا تُثبت الانتقال فقط']],
+  render(){ const [t, items] = MODE_TXT[S.role];
+    return `<div class="mode-ph"><h2 class="h2" style="font-size:22px">${t}</h2><p class="muted" style="margin:0">تُصمَّم في الدفعة التالية. ستضمّ:</p>
+      <ul>${items.map(([x, r]) => `<li>${x} <span class="faint ltr">${r}</span></li>`).join('')}</ul>
+      ${note('ok','check','سلّتك الشخصية وطلباتك محفوظة كما هي. ارجع لها من الشارة في الأعلى.')}
+      <button class="btn sec block" ${a('role','shop')}>${ic('cart',18)} ارجع: أتسوّق لنفسي</button></div>`; }};
+
+/* ---------- open your store (join) ---------- */
+S.extraCaps = [];
+function startJoin(t){ if (needLogin(['join'])) return; S.join = {type:t || null, step:t ? 1 : 0, files:{}, terms:false}; go('join'); }
+const JOIN_T = {store:['افتح متجرك','تبيع قطعك للزبائن. يحتاج قبول الإدارة.'], supplier:['سجّل كمورّد','تبيع للتجّار بالجملة، ولا يراك الزبائن. يحتاج قبول الإدارة.'], service:['أعلن عن خدمتك','ونش، كراج، غسيل… بلا أوراق. يظهر إعلانك بعد تفعيل الاشتراك.']};
+SCREENS.join = { title:() => S.join.type ? JOIN_T[S.join.type][0] : 'أضف صفة لحسابك', noCart:true,
+  refs:[['ACC-4','الحساب نفسه برقمه، تُضاف إليه صفة تاجر أو مورّد أو مزوّد خدمة'],['ACC-6','صفة التاجر والمورّد لا تُفعَّل إلا بعد قبول الإدارة'],['ACC-8','السجلّ التجاري، الهوية، صورة المحل — تُرفع من التطبيق'],['ACC-10','مزوّد الخدمة بلا أوراق'],['ACC-11','الموافقة على شروط صاحب المشروع داخل التطبيق'],['ACC-12','المورّد يفتح متجر تاجر ليبيع للزبون'],['SEC-5','الأوراق في مساحة خاصة بروابط مؤقتة']],
+  render(){
+    const j = S.join, steps = j.type === 'service' ? 2 : 3;
+    if (j.step === 0) return `<div class="pad stack" style="gap:12px"><p class="muted" style="margin:0">على حسابك نفسه ورقمك نفسه. تبقى زبونًا، وتُضاف لك صفة جديدة.</p>
+      ${Object.entries(JOIN_T).map(([k, [t, s]]) => { const has = cap(k); return `<button class="radio-row" ${has ? 'aria-disabled="true" disabled' : ''} ${a('joinType',k)}>${ic(k === 'store' ? 'store' : k === 'supplier' ? 'supply' : 'wrench',24)}<span style="flex:1"><b>${t}</b><br><span class="faint">${has ? 'موجودة على حسابك' : s}</span></span>${ic('chev',18)}</button>`; }).join('')}
+      ${cap('supplier') && !cap('store') ? note('info','info','أنت مورّد. لتبيع للزبائن مباشرة افتح متجر تاجر هنا، على حسابك نفسه.') : ''}</div>`;
+    const bar = `<div class="steps-top" aria-label="الخطوة ${j.step} من ${steps}">${Array.from({length:steps}, (_, i) => `<i class="${i < j.step ? 'on' : ''}"></i>`).join('')}</div>`;
+    let body;
+    if (j.step === 1 && j.type !== 'service') body = `<h2 class="h2">بيانات ${j.type === 'store' ? 'المتجر' : 'المؤسسة'}</h2>
+      <div class="field"><label for="j-n">${j.type === 'store' ? 'اسم المتجر' : 'اسم المؤسسة'}</label><input id="j-n" class="input" value="${j.type === 'store' ? ME.store : ME.supplier}"></div>
+      <div class="field"><label for="j-g">المحافظة</label><select id="j-g" class="input">${GOVS.map(g => `<option ${g === 'الزرقاء' ? 'selected' : ''}>${g}</option>`).join('')}</select></div>
+      <div class="field"><label for="j-a">المنطقة</label><input id="j-a" class="input" value="الهاشمية"></div>
+      <div class="field"><label for="j-p">هاتف ${j.type === 'store' ? 'المتجر' : 'المؤسسة'}</label><input id="j-p" class="input ltr tnum" value="079 000 4821"><span class="faint">${j.type === 'store' ? 'يظهر في صفحة متجرك ليتصل بك الزبون.' : 'يظهر للتجّار المقبولين فقط.'}</span></div>`;
+    if (j.step === 1 && j.type === 'service') body = `<h2 class="h2">بيانات الخدمة</h2>
+      <button class="upl ${j.files.photo ? 'done' : ''}" ${a('upl','photo')}>${ic(j.files.photo ? 'check' : 'upload')}<span><b>صورة المحل</b><br><span class="faint">${j.files.photo ? 'رُفعت' : 'من الكاميرا أو المعرض'}</span></span></button>
+      <div class="field"><label for="j-t">نوع الخدمة</label><select id="j-t" class="input">${SVC_TYPES.map(t => `<option>${t}</option>`).join('')}</select></div>
+      <div class="field"><label for="j-l">الموقع</label><input id="j-l" class="input" value="الزرقاء — الهاشمية"></div>
+      <div class="field"><label for="j-i">معلومات عن الخدمة</label><input id="j-i" class="input" placeholder="مثل: سحب داخل الزرقاء على مدار الساعة"></div>
+      <div class="field"><label for="j-f">نصّ حرّ</label><textarea id="j-f" class="input" rows="3"></textarea></div>`;
+    if (j.step === 2 && j.type !== 'service') body = `<h2 class="h2">الأوراق</h2><p class="muted" style="margin:0">تراها الإدارة وحدها لقبول طلبك.</p>
+      ${[['cr','السجلّ التجاري'],['id','الهوية'],['shop','صورة المحل']].map(([k, t]) => `<button class="upl ${j.files[k] ? 'done' : ''}" ${a('upl',k)}>${ic(j.files[k] ? 'check' : 'upload')}<span><b>${t}</b><br><span class="faint">${j.files[k] ? 'رُفعت · اضغط للتبديل' : 'صورة أو PDF'}</span></span></button>`).join('')}`;
+    if (j.step === steps) body = `<h2 class="h2">الشروط</h2><div class="card" style="max-height:180px;overflow:auto;background:var(--surface-2)"><p class="faint" style="margin:0">[نصّ شروط البيع والإعلان — يكتبه صاحب المشروع]</p></div>
+      <label style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" id="j-terms" ${j.terms ? 'checked' : ''} style="width:20px;height:20px;margin-top:3px"> أوافق على الشروط</label>
+      ${j.type !== 'service' ? note('info','info','بعد الإرسال تراجع الإدارة طلبك. تبقى تتسوّق كالعادة، وتصلك رسالة بالقرار.') : note('info','info','يظهر إعلانك للزبائن بعد تفعيل اشتراكك من الإدارة.')}`;
+    return `<div class="pad stack" style="gap:14px">${bar}${body}</div>`;
+  },
+  cta(){ const j = S.join; if (!j.step) return ''; const steps = j.type === 'service' ? 2 : 3, last = j.step === steps;
+    const ok = j.type !== 'service' && j.step === 2 ? ['cr','id','shop'].every(k => j.files[k]) : true;
+    return `<div class="ctabar"><button class="btn pri block" ${ok ? '' : 'disabled'} ${a(last ? 'joinSend' : 'joinNext')}>${last ? 'أرسل الطلب' : 'التالي'}</button></div>`; }};
+function joinType(t){ S.join.type = t; S.join.step = 1; render(true); }
+function joinNext(){ S.join.step++; render(true); }
+function upl(k){ S.join.files[k] = true; render(); }
+document.addEventListener('change', e => { if (e.target.id === 'j-terms') S.join.terms = e.target.checked; });
+function joinSend(){ if (!S.join.terms) return toast('الموافقة على الشروط مطلوبة');
+  const t = S.join.type; S.extraCaps = S.extraCaps.filter(c => c.t !== t); S.extraCaps.push({t, st:t === 'service' ? 'active' : 'pending'});
+  S.stack = []; if (t === 'service'){ S.screen = 'account'; render(true); return toast('أُضيفت صفة مزوّد خدمة لحسابك'); }
+  S.screen = 'joinStatus'; S.params = []; render(true); }
+SCREENS.joinStatus = { title:'حالة طلبك', noCart:true,
+  refs:[['ACC-6','لا تُفعَّل الصفة قبل قبول الإدارة'],['ACC-9','المرفوض يُبلَّغ بالسبب، وله أن يقدّم مرة أخرى'],['ACC-7','الصفة قيد المراجعة تظهر في قائمة الصفات معطّلة']],
+  render(){
+    const c = caps().find(x => x.st !== 'active') || {t:'store', st:'pending'}, name = c.t === 'store' ? ME.store : ME.supplier;
+    if (c.st === 'rejected') return `<div class="status-hero"><div class="status-word st-alt">لم يُقبل طلبك</div><p class="muted" style="margin:0">${name}</p></div>
+      <div class="pad stack" style="gap:12px"><div class="card stack" style="gap:6px"><b>سبب الإدارة</b><p style="margin:0">صورة السجلّ التجاري غير واضحة، والاسم فيها لا يطابق اسم المتجر.</p></div>
+      <button class="btn pri block" ${a('reapply')}>عدّل وأعد التقديم</button></div>`;
+    return `<div class="status-hero"><div class="status-word st-pending">قيد المراجعة</div><p class="muted" style="margin:0">طلب ${c.t === 'store' ? 'فتح متجر' : 'التسجيل كمورّد'}: <b>${name}</b></p></div>
+      <div class="blk"><ol class="track"><li class="done"><span class="b">${ic('check',12)}</span><span>أرسلت البيانات والأوراق</span></li><li class="now"><span class="b"></span><span>مراجعة الإدارة</span></li><li class="todo"><span class="b"></span><span>القبول وفتح ${c.t === 'store' ? 'واجهة المتجر' : 'واجهة المورّد'}</span></li></ol></div>
+      <div class="pad stack" style="gap:12px"><div class="card stack" style="gap:6px"><b>ما أرسلته</b>${['السجلّ التجاري','الهوية','صورة المحل'].map(x => `<div style="display:flex;gap:6px;align-items:center">${ic('check',16)} ${x}</div>`).join('')}</div>
+      ${note('info','info','تصلك رسالة بالقرار. خلال المراجعة تتسوّق كالعادة.')}<button class="btn sec block" ${a('tab','home')}>تابع التسوّق</button></div>`;
+  }};
+function reapply(){ S.join = {type:'store', step:2, files:{}, terms:false}; go('join'); }
+
+/* ---------- start ---------- */
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && S.sheet) closeSheet(); });
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>تطبيق زبون سوق القطع</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@600;800&family=Noto+Kufi+Arabic:wght@400;500;700&family=Poppins:wght@600;700&display=swap">
+<style>
+/* Layout: phone home page. A green "workshop band" carries the logo, made of the logo's hex-nut, with the ad banner hanging off its edge;
+   the hero is a search that translates Jordanian street names into official part names. Panel beside it: versions, controls, SRS clauses. */
+:root{
+  --ground:#E6EBE8; --bg:#F4F6F3; --surface:#FFFFFF; --surface-2:#EEF2EF; --line:#DCE3DF;
+  --ink:#1F2523; --ink-2:#4A5651; --ink-3:#5E6A65;
+  --brand:#0B5A4A; --brand-deep:#073F34; --brand-soft:#E2EFEA; --mint:#7FE0B5;
+  --band:#0B5A4A; --band-ink:#FFFFFF; --band-ink-2:#CFE7DD; --hex:rgba(255,255,255,.07);
+  --accent:#C2410C; --accent-hover:#A8380A; --accent-ink:#FFFFFF; --accent-soft:#FDEBDF;
+  --plate:#E9EDEB; --plate-line:#B9C2BE; --rivet:#9AA5A0;
+  --slide-1:#073F34; --slide-2:#1F2523; --slide-3:#7A2E0C; --on-slide:#FFFFFF;
+  --on-brand:#FFFFFF; --ok:#1D7348; --scrim:rgba(20,26,24,.5);
+  --shadow:0 1px 2px rgba(31,37,35,.06),0 10px 28px rgba(31,37,35,.10); --shadow-xs:0 1px 2px rgba(31,37,35,.06);
+  --f-display:"Alexandria","Noto Kufi Arabic",Tahoma,sans-serif;
+  --f-body:"Noto Kufi Arabic",Tahoma,sans-serif;
+  --f-num:"Poppins","Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ground:#0B110F; --bg:#111917; --surface:#18221F; --surface-2:#1F2B28; --line:#2B3834;
+  --ink:#E8ECEA; --ink-2:#BCC6C2; --ink-3:#9AA6A1;
+  --brand:#3FB58C; --brand-deep:#0B4A3D; --brand-soft:#15342C; --mint:#7FE0B5;
+  --band:#0B4A3D; --band-ink:#FFFFFF; --band-ink-2:#BFDDD1; --hex:rgba(255,255,255,.06);
+  --accent:#F0793B; --accent-hover:#F59563; --accent-ink:#1B0D05; --accent-soft:#3A2216;
+  --plate:#26322F; --plate-line:#3B4A45; --rivet:#5C6B66;
+  --slide-1:#0B4A3D; --slide-2:#26302D; --slide-3:#8A3A12; --on-slide:#FFFFFF;
+  --on-brand:#062018; --ok:#5CC48C; --scrim:rgba(0,0,0,.62);
+  --shadow:0 1px 2px rgba(0,0,0,.35),0 10px 28px rgba(0,0,0,.35); --shadow-xs:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ground:#0B110F; --bg:#111917; --surface:#18221F; --surface-2:#1F2B28; --line:#2B3834;
+  --ink:#E8ECEA; --ink-2:#BCC6C2; --ink-3:#9AA6A1;
+  --brand:#3FB58C; --brand-deep:#0B4A3D; --brand-soft:#15342C; --mint:#7FE0B5;
+  --band:#0B4A3D; --band-ink:#FFFFFF; --band-ink-2:#BFDDD1; --hex:rgba(255,255,255,.06);
+  --accent:#F0793B; --accent-hover:#F59563; --accent-ink:#1B0D05; --accent-soft:#3A2216;
+  --plate:#26322F; --plate-line:#3B4A45; --rivet:#5C6B66;
+  --slide-1:#0B4A3D; --slide-2:#26302D; --slide-3:#8A3A12; --on-slide:#FFFFFF;
+  --on-brand:#062018; --ok:#5CC48C; --scrim:rgba(0,0,0,.62);
+  --shadow:0 1px 2px rgba(0,0,0,.35),0 10px 28px rgba(0,0,0,.35); --shadow-xs:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--f-body);font-size:14px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+.ltr{direction:ltr;unicode-bidi:isolate}
+
+/* stage + panel */
+.stage{display:grid;grid-template-columns:auto minmax(280px,360px);gap:32px;justify-content:center;align-items:start;max-width:1100px;margin:0 auto}
+.device{width:390px;max-width:100%;height:844px;border:10px solid #141917;border-radius:48px;overflow:hidden;position:relative;background:var(--bg);box-shadow:var(--shadow)}
+@media (max-width:860px){.stage{grid-template-columns:minmax(0,1fr);justify-items:center}.panel{width:100%;max-width:430px}}
+@media (max-width:480px){.device{border:0;border-radius:20px;width:100%;height:calc(100dvh - 40px);min-height:600px}}
+.panel{display:flex;flex-direction:column;gap:16px;min-width:0}
+.panel h1{font-family:var(--f-display);font-size:22px;font-weight:800;margin:0;line-height:1.35;text-wrap:balance}
+.panel p{margin:0}
+.pbox{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.pbox h2{font-size:12px;letter-spacing:.03em;color:var(--ink-3);margin:0;font-weight:700}
+.vers{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none}
+.vers a,.vers span{display:flex;justify-content:space-between;gap:8px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);color:var(--ink);text-decoration:none}
+.vers a:hover{border-color:var(--brand)}
+.vers .cur{background:var(--brand-soft);border-color:var(--brand);font-weight:700}
+.vers small{color:var(--ink-3);font-weight:400}
+.seg{display:flex;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:3px;gap:2px}
+.seg button{flex:1;border:0;background:transparent;border-radius:9px;min-height:36px;font-size:13px;color:var(--ink-2)}
+.seg button[aria-pressed=true]{background:var(--surface);color:var(--ink);font-weight:700;box-shadow:var(--shadow-xs)}
+.refs{display:flex;flex-direction:column;gap:7px;margin:0;padding:0;list-style:none}
+.refs li{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:baseline}
+.refs code{font-family:var(--f-num);font-size:11.5px;font-weight:600;background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:1px 6px;direction:ltr;white-space:nowrap}
+.refs span{color:var(--ink-2);min-width:0}
+.pnote{font-size:12.5px;color:var(--ink-3)}
+
+/* app */
+.app{height:100%;position:relative;background:var(--bg);display:flex;flex-direction:column}
+.scroll{flex:1;overflow-y:auto;overscroll-behavior:contain;min-height:0;padding-bottom:104px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+
+/* the band */
+.band{background-color:var(--band);color:var(--band-ink);padding:0 16px 70px;position:relative;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='48' viewBox='0 0 56 48'%3E%3Cpath d='M14 1h28l13 23-13 23H14L1 24z' fill='none' stroke='white' stroke-width='1.4'/%3E%3C/svg%3E");
+  background-size:56px 48px;background-blend-mode:normal}
+.band::after{content:"";position:absolute;inset:0;background:var(--band);opacity:.9;pointer-events:none}
+.band > *{position:relative;z-index:1}
+.hdr{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;padding:14px 16px 10px;margin:0 -16px;background:var(--band)}
+.logo{display:flex;align-items:center;gap:8px;direction:ltr;flex:1}
+.logo .wm{font-family:var(--f-num);font-weight:700;font-size:25px;letter-spacing:-.01em;color:var(--mint);line-height:1}
+.logo .wm b{color:var(--band-ink);font-weight:700}
+.ibtn{width:44px;height:44px;border-radius:14px;border:0;background:rgba(255,255,255,.12);color:var(--band-ink);display:grid;place-items:center;position:relative;flex:none}
+.ibtn:hover{background:rgba(255,255,255,.2)}
+.ibtn .dot{position:absolute;top:-3px;inset-inline-end:-3px;min-width:20px;height:20px;border-radius:10px;background:var(--accent);color:var(--accent-ink);font:700 11px/20px var(--f-num);padding:0 5px;border:2px solid var(--band)}
+.rolepill{display:flex;align-items:center;gap:6px;height:38px;padding:0 12px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);color:var(--band-ink);font-weight:700;font-size:13px}
+.loc{display:flex;align-items:center;gap:6px;border:0;background:none;color:var(--band-ink-2);padding:4px 0 0;font-size:13px}
+.loc b{color:var(--band-ink)}
+
+/* banner hanging off the band */
+.bnr{margin:-58px 16px 0;position:relative;z-index:2}
+.bnr-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;border-radius:22px;box-shadow:var(--shadow);scrollbar-width:none}
+.bnr-track::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;scroll-snap-align:start;min-height:148px;display:grid;grid-template-columns:minmax(0,1fr) 120px;gap:10px;align-items:center;padding:16px;color:var(--on-slide);position:relative;border:0;text-align:start}
+.slide .st1{display:block;font-family:var(--f-display);font-weight:800;font-size:19px;line-height:1.35;margin:0 0 4px;text-wrap:balance}
+.slide .st2{display:block;margin:0;font-size:12.5px;opacity:.88}
+.slide .cta{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-weight:700;font-size:12.5px;background:rgba(255,255,255,.16);padding:5px 12px;border-radius:999px}
+.slide img{width:120px;height:110px;object-fit:cover;border-radius:16px;transform:rotate(-4deg);box-shadow:0 8px 20px rgba(0,0,0,.3)}
+.slide .ad{position:absolute;top:10px;inset-inline-end:12px;font-size:10.5px;background:rgba(0,0,0,.28);padding:1px 7px;border-radius:5px;z-index:1}
+.dots{display:flex;justify-content:center;gap:6px;padding:10px 0 0}
+.dots button{width:7px;height:7px;border-radius:4px;border:0;padding:0;background:var(--line);transition:width .25s}
+.dots button[aria-current=true]{width:22px;background:var(--brand)}
+
+/* hero search */
+.sec{padding:22px 16px 0}
+.hero-t{font-family:var(--f-display);font-weight:800;font-size:26px;line-height:1.3;margin:0;text-wrap:balance}
+.hero-t em{font-style:normal;color:var(--brand)}
+.hero-s{margin:4px 0 14px;color:var(--ink-2)}
+.sbox{display:flex;align-items:center;gap:8px;background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:6px 6px 6px 8px;box-shadow:var(--shadow-xs);position:relative;transition:border-color .2s}
+.sbox:focus-within{border-color:var(--brand)}
+.sbox > svg{flex:none;color:var(--brand);margin-inline-start:6px}
+.sfield{position:relative;flex:1;min-width:0;height:44px}
+.sfield input{position:absolute;inset:0;width:100%;border:0;background:transparent;outline:none;font-size:15px;color:var(--ink)}
+.ghost{position:absolute;inset:0;display:flex;align-items:center;font-size:15px;color:var(--ink-3);pointer-events:none;white-space:nowrap;overflow:hidden}
+.ghost i{display:inline-block;width:2px;height:20px;background:var(--brand);margin-inline-start:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.sgo{width:48px;height:48px;flex:none;border:0;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;clip-path:polygon(25% 3%,75% 3%,100% 50%,75% 97%,25% 97%,0 50%)}
+.sgo:hover{background:var(--accent-hover)}
+.xl8{display:flex;flex-wrap:wrap;align-items:center;gap:6px;min-height:36px;margin-top:10px}
+.xl8 .said{font-weight:700;color:var(--ink)}
+.xl8 .arr{color:var(--ink-3)}
+.pill{display:inline-flex;align-items:center;gap:4px;height:28px;padding:0 10px;border-radius:999px;font-size:12.5px;font-weight:700;white-space:nowrap}
+.pill.part{background:var(--brand);color:var(--on-brand)}
+.pill.car{background:var(--brand-soft);color:var(--brand)}
+.pill.oem{background:var(--surface-2);color:var(--ink);border:1px solid var(--line);font-family:var(--f-num)}
+.xl8 .lbl{font-size:12px;color:var(--ink-3)}
+@media (prefers-reduced-motion:no-preference){.xl8 > *{animation:pop .35s ease-out both}.xl8 > *:nth-child(2){animation-delay:.06s}.xl8 > *:nth-child(3){animation-delay:.12s}.xl8 > *:nth-child(4){animation-delay:.18s}.xl8 > *:nth-child(5){animation-delay:.24s}
+  @keyframes pop{from{opacity:0;transform:translateY(6px) scale(.96)}}}
+.go-row{display:flex;justify-content:flex-end}
+.go-row button{border:0;background:none;color:var(--brand);font-weight:700;padding:6px 0}
+
+/* entry tiles */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:16px 16px 0}
+.tile{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:14px;background:var(--surface);border:1px solid var(--line);border-radius:20px;text-align:start;min-width:0;box-shadow:var(--shadow-xs)}
+.tile:hover{border-color:var(--brand)}
+.hexi{width:42px;height:38px;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand);clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%)}
+.tile b{font-size:15px;line-height:1.3}
+.tile .sub{font-size:12px;color:var(--ink-3);line-height:1.4}
+.makes{display:flex;gap:4px;flex-wrap:wrap}
+.makes span{font-size:11px;padding:1px 7px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);color:var(--ink-2)}
+.plate{width:100%;background:var(--plate);border:1px solid var(--plate-line);border-radius:8px;padding:6px 18px;position:relative;direction:ltr;font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:11.5px;letter-spacing:.09em;color:var(--ink);white-space:nowrap;overflow:hidden}
+.plate::before,.plate::after{content:"";position:absolute;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:var(--rivet)}
+.plate::before{left:6px}.plate::after{right:6px}
+.plate small{display:block;font-size:8.5px;letter-spacing:.2em;color:var(--ink-3)}
+.plate .rest{color:var(--ink-3)}
+
+/* trust strip */
+.trust{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:16px 16px 0}
+.trust div{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;font-size:11.5px;font-weight:700;color:var(--ink-2);padding:10px 4px;border-radius:14px;background:var(--surface-2)}
+.trust svg{color:var(--brand)}
+
+/* section heads */
+.sh{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:26px 16px 10px}
+.sh h2{font-family:var(--f-display);font-weight:800;font-size:19px;margin:0;display:flex;align-items:center;gap:8px}
+.sh h2::before{content:"";width:10px;height:9px;background:var(--brand);clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);flex:none}
+.sh button{border:0;background:none;color:var(--brand);font-weight:700;font-size:13px;padding:6px 0}
+.rail{display:flex;gap:12px;overflow-x:auto;padding:0 16px 6px;scroll-snap-type:x proximity;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+
+/* offer card with a hanging price tag */
+.oc{flex:0 0 178px;scroll-snap-align:start;display:flex;flex-direction:column;gap:8px;padding:8px;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow-xs);min-width:0}
+.oc-open{display:flex;flex-direction:column;gap:5px;border:0;background:none;padding:0;text-align:start;min-width:0}
+.oc-img{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:1;background:var(--surface-2)}
+.oc-img img{width:100%;height:100%;object-fit:cover;display:block}
+.tag{position:absolute;top:10px;inset-inline-start:-2px;background:var(--accent);color:var(--accent-ink);font:700 13px/1 var(--f-num);padding:7px 16px 7px 10px;
+  clip-path:polygon(0 0,100% 0,calc(100% - 9px) 50%,100% 100%,0 100%)}
+[dir=rtl] .tag{clip-path:polygon(0 0,100% 0,100% 100%,0 100%,9px 50%);padding:7px 10px 7px 16px}
+.pills{display:flex;gap:4px;flex-wrap:wrap}
+.pills span{font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:999px;background:var(--surface-2);color:var(--ink-2)}
+.pills .new{background:var(--brand-soft);color:var(--brand)}
+.oc .t{font-weight:700;font-size:13.5px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.oc .fit{font-size:11.5px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pr{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.pr b{font:700 18px/1 var(--f-num);color:var(--ink)}
+.pr small{font-size:11px;color:var(--ink-3)}
+.pr s{font:500 12px var(--f-num);color:var(--ink-3)}
+.ends{font-size:11.5px;color:var(--accent);font-weight:700;display:flex;align-items:center;gap:4px}
+.seller{font-size:11.5px;color:var(--ink-2);display:flex;align-items:center;gap:4px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seller .st{color:#D99A00;display:inline-flex}
+.add{min-height:40px;border-radius:14px;border:0;background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;gap:6px}
+.add:hover{background:var(--accent-hover)}
+.add.in{background:var(--brand-soft);color:var(--brand)}
+
+/* services */
+.types{display:flex;gap:10px;overflow-x:auto;padding:0 16px 4px;scrollbar-width:none}
+.types::-webkit-scrollbar{display:none}
+.type{flex:none;width:72px;display:flex;flex-direction:column;align-items:center;gap:6px;border:0;background:none;padding:0;font-size:11.5px;color:var(--ink-2);text-align:center;line-height:1.3}
+.type span:first-child{width:56px;height:52px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line);color:var(--brand);clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%)}
+.svcs{display:flex;flex-direction:column;gap:10px;padding:12px 16px 0}
+.sc{display:grid;grid-template-columns:60px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow-xs)}
+.sc img{width:60px;height:60px;border-radius:14px;object-fit:cover;display:block}
+.sc b{display:block;font-size:14px}
+.sc .m{font-size:12px;color:var(--ink-3)}
+.wa{min-height:40px;padding:0 12px;border-radius:14px;border:0;background:var(--brand);color:var(--on-brand);font-weight:700;font-size:12.5px;display:flex;align-items:center;gap:6px}
+
+/* floating bottom nav */
+.nav{position:absolute;inset-inline:12px;bottom:12px;display:grid;grid-template-columns:repeat(5,1fr);background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:6px;box-shadow:var(--shadow);z-index:10}
+.nav button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:52px;font-size:11px;color:var(--ink-3);border-radius:18px}
+.nav button[aria-current=page]{color:var(--brand);font-weight:700;background:var(--brand-soft)}
+
+.toast{position:absolute;inset-inline:16px;bottom:96px;background:var(--ink);color:var(--bg);padding:12px 14px;border-radius:14px;font-size:13.5px;z-index:20;box-shadow:var(--shadow)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="device"><div class="app" id="app" dir="rtl" lang="ar"></div></div>
+  <aside class="panel" id="panel" aria-label="لوحة المعاينة"></aside>
+</div>
+<script>
+/* ---------- icons (stroke, currentColor) ---------- */
+const P = {
+  search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+  cart:'<path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6"/><circle cx="10" cy="20.5" r="1.2"/><circle cx="17" cy="20.5" r="1.2"/>',
+  back:'<path d="M9 5l7 7-7 7"/>', chev:'<path d="M15 5l-7 7 7 7"/>', down:'<path d="m6 9 6 6 6-6"/>',
+  home:'<path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/>',
+  tag:'<path d="M3 12V4h8l9 9-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/>',
+  wrench:'<path d="M15 4a5 5 0 0 0-4.6 6.9L4 17.3V20h2.7l6.4-6.4A5 5 0 0 0 20 9l-3 1-2-2 1-3z"/>',
+  box:'<path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
+  star:'<path fill="currentColor" stroke="none" d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/>',
+  phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
+  truck:'<path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/>',
+  filter:'<path d="M4 6h16M7 12h10M10 18h4"/>', sort:'<path d="M7 4v16M4 7l3-3 3 3M17 20V4M14 17l3 3 3-3"/>',
+  check:'<path d="m5 12 5 5 9-10"/>', x:'<path d="M6 6l12 12M18 6 6 18"/>', upload:'<path d="M12 16V4M7 9l5-5 5 5M4 20h16"/>',
+  chat:'<path d="M4 20l1.3-4A8 8 0 1 1 8 19z"/><path d="M9 10.5c.5 2 2 3.5 4.5 4.5"/>',
+  pin:'<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
+  alert:'<path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/>', info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
+  store:'<path d="M4 9l1.5-5h13L20 9M4 9v11h16V9M4 9h16M9 20v-6h6v6"/>', clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/>',
+  help:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/>',
+  car:'<path d="M4 15v-3l2-5h12l2 5v3"/><path d="M3 15h18v3H3z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/>',
+  vin:'<path d="M4 5v14M7 5v14M10 5v14M14 5v14M16 5v14M20 5v14"/>', swap:'<path d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/>',
+  shield:'<path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/>', logout:'<path d="M14 4h5v16h-5M10 8l-4 4 4 4M6 12h10"/>',
+  trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>', ret:'<path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/>',
+  doc:'<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/>', heavy:'<path d="M8 8a4 4 0 1 1 8 0M5 9h14l2 12H3z"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>', supply:'<path d="M3 7h13v10H3zM16 10h3l2 3v4h-5"/><path d="M7 11h5"/>',
+};
+const ic = (n, s=22, extra='') => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ${extra}>${P[n]||''}</svg>`;
+
+/* ---------- photo-like placeholders: phone shots of real parts on a bench ---------- */
+const BG = { concrete:['#9A9B96','#62645F'], wood:['#A47C52','#5E4429'], card:['#CDB287','#95784D'], shop:['#61707A','#36414A'], tile:['#DAD8D1','#A9A69E'], night:['#3B4650','#1C232A'] };
+const SH = {
+  pads:'<path d="M105 105q95-42 190 0v52q-95-30-190 0z" fill="url(#m)"/><path d="M118 168q82-34 164 0v44q-82-24-164 0z" fill="#2b2b2b"/><path d="M105 157q95-30 190 0" stroke="#c9ccce" stroke-width="3" fill="none"/>',
+  exhaust:'<rect x="40" y="146" width="96" height="18" rx="9" fill="url(#m)"/><rect x="118" y="112" width="176" height="86" rx="43" fill="url(#m)"/><rect x="286" y="140" width="84" height="16" rx="8" fill="#5b5f62"/><path d="M140 125h130" stroke="#d6d9db" stroke-width="3" opacity=".6"/>',
+  headlight:'<path d="M80 112q130-46 242 8l-22 92q-116 22-208-10z" fill="#1d2226"/><circle cx="165" cy="160" r="36" fill="#dfe7ec" opacity=".85"/><circle cx="250" cy="156" r="27" fill="#cfd8de" opacity=".8"/><path d="M95 205q100 18 200 0" stroke="#e58b2a" stroke-width="7"/>',
+  alt:'<circle cx="208" cy="152" r="82" fill="url(#m)"/><circle cx="208" cy="152" r="46" fill="#3e4245"/><path d="M168 152h80M208 112v80M180 124l56 56M236 124l-56 56" stroke="#7d8286" stroke-width="5"/><circle cx="110" cy="152" r="22" fill="#2a2d30"/>',
+  radiator:'<rect x="66" y="78" width="268" height="152" rx="6" fill="#2d3134"/><g stroke="#8a9095" stroke-width="2">' + Array.from({length:30},(_,i)=>`<path d="M${76+i*8.5} 86v136"/>`).join('') + '</g><rect x="60" y="70" width="18" height="168" rx="4" fill="#575c60"/><rect x="322" y="70" width="18" height="168" rx="4" fill="#575c60"/>',
+  bumper:'<path d="M36 138q164-64 328 0v54q-164 42-328 0z" fill="#26292b"/><path d="M110 176h180" stroke="#4a4e51" stroke-width="10" stroke-linecap="round"/>',
+  hybatt:'<rect x="72" y="98" width="256" height="126" rx="8" fill="url(#m)"/><rect x="72" y="98" width="256" height="26" rx="8" fill="#3b4044"/><rect x="104" y="84" width="22" height="16" fill="#b94a2c"/><rect x="274" y="84" width="22" height="16" fill="#222"/><rect x="150" y="150" width="100" height="34" rx="4" fill="#e6e9eb" opacity=".8"/>',
+  mirror:'<path d="M120 90h170q30 0 30 30v72q0 30-30 30H152q-42 0-52-42z" fill="#1f2326"/><path d="M134 104h150q20 0 20 20v62q0 20-20 20H160q-30 0-38-32z" fill="#a9bac4" opacity=".8"/>',
+  filter:'<rect x="150" y="82" width="100" height="150" rx="14" fill="#0f4b8a"/><g stroke="#2c6db0" stroke-width="4">' + Array.from({length:9},(_,i)=>`<path d="M${158+i*10.5} 96v122"/>`).join('') + '</g><rect x="146" y="74" width="108" height="22" rx="8" fill="#55595c"/>',
+  shock:'<rect x="186" y="34" width="28" height="228" rx="12" fill="url(#m)"/><path d="M168 70l64 16-64 16 64 16-64 16 64 16-64 16 64 16" stroke="#c0392b" stroke-width="7" fill="none" stroke-linejoin="round"/>',
+  compressor:'<rect x="112" y="108" width="190" height="104" rx="42" fill="url(#m)"/><circle cx="108" cy="160" r="40" fill="#2d3033"/><circle cx="108" cy="160" r="14" fill="#7a7f83"/>',
+  store:'<rect x="0" y="0" width="400" height="300" fill="#2b3238" opacity=".35"/><g>' + Array.from({length:4},(_,r)=>`<rect x="20" y="${30+r*66}" width="360" height="6" fill="#d8d2c4"/>` + Array.from({length:7},(_,c)=>`<rect x="${28+c*51}" y="${6+r*66}" width="42" height="${18+((r*7+c)%3)*4}" fill="${['#c96b2c','#2f5d8a','#d9b44a','#6c7a84','#a23b2a'][(r+c)%5]}" opacity=".9"/>`).join('')).join('') + '</g>',
+};
+const _img = {};
+function img(kind, bg='concrete', seed=1){
+  const k = kind+bg+seed; if (_img[k]) return _img[k];
+  const [a,b] = BG[bg]||BG.concrete, rot = ((seed*37)%13)-6;
+  const shape = SH[kind] ? `<g transform="rotate(${rot} 200 150)">${SH[kind]}</g>` :
+    `<g transform="translate(130,80) scale(5.8)" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity=".92">${P[kind]||P.wrench}</g>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><defs><radialGradient id="g" cx="${40+seed*7%30}%" cy="35%" r="85%"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></radialGradient><linearGradient id="m" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9aa0a4"/><stop offset=".45" stop-color="#5c6165"/><stop offset="1" stop-color="#2c2f32"/></linearGradient><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="${seed}"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .32 0"/></filter></defs><rect width="400" height="300" fill="url(#g)"/><rect width="400" height="300" filter="url(#n)"/><ellipse cx="200" cy="246" rx="150" ry="20" fill="#000" opacity=".22"/>${shape}<rect width="400" height="300" fill="url(#g)" opacity=".08"/></svg>`;
+  return _img[k] = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+}
+
+/* ---------- reference data (examples for the prototype) ---------- */
+const GOVS = ['عمّان','الزرقاء','إربد','البلقاء','مادبا','الكرك','المفرق','جرش','عجلون','الطفيلة','معان','العقبة'];
+const NAMES = [
+  {id:'pads_f', name:'فحمات الفرامل الأمامية', alt:['فحمات بريك','تيل فرامل','بريك قدام','فحمات'], img:'pads'},
+  {id:'pads_r', name:'فحمات الفرامل الخلفية', alt:['فحمات بريك خلفي','تيل فرامل خلفي','فحمات'], img:'pads'},
+  {id:'exhaust', name:'العادم', alt:['إشكمان','اشكمان','شكمان','اكزوز'], img:'exhaust'},
+  {id:'alt', name:'مولّد الكهرباء', alt:['دينمو','دينامو'], img:'alt'},
+  {id:'shock', name:'ممتصّ الصدمات الأمامي', alt:['مساعد','مساعدات','مساعد قدام'], img:'shock'},
+  {id:'radiator', name:'مشعّ التبريد', alt:['رديتر','راديتر'], img:'radiator'},
+  {id:'headlight', name:'المصباح الأمامي', alt:['ضو','ضو قدام','فانوس','ضوء أمامي'], img:'headlight'},
+  {id:'bumper', name:'الصدّام الأمامي', alt:['دعامية','صدام'], img:'bumper'},
+  {id:'hybatt', name:'بطارية الهايبرد', alt:['بطارية هايبرد','هايبرد'], img:'hybatt'},
+  {id:'mirror', name:'المرآة الجانبية', alt:['مراية','مرايه'], img:'mirror'},
+  {id:'filter', name:'فلتر الزيت', alt:['فلتر زيت'], img:'filter'},
+  {id:'compressor', name:'ضاغط المكيّف', alt:['كمبروسر','كمبريسور'], img:'compressor'},
+];
+const MAKES = [
+  {id:'hyundai', name:'هيونداي', models:[{id:'avante',name:'أفانتي',alt:['افانتي','النترا','إلنترا','avante','elantra']},{id:'sonata',name:'سوناتا',alt:['sonata','سوناتا هايبرد']},{id:'tucson',name:'توسان',alt:['tucson']}]},
+  {id:'kia', name:'كيا', models:[{id:'cerato',name:'سيراتو',alt:['cerato','k3']},{id:'optima',name:'أوبتيما',alt:['اوبتيما','optima','k5']},{id:'rio',name:'ريو',alt:['rio']}]},
+  {id:'toyota', name:'تويوتا', models:[{id:'prius',name:'بريوس',alt:['prius','بريس']},{id:'corolla',name:'كورولا',alt:['corolla','كرولا']},{id:'camry',name:'كامري',alt:['camry']}]},
+  {id:'ford', name:'فورد', models:[{id:'fusion',name:'فيوجن',alt:['fusion']}]},
+  {id:'mitsubishi', name:'ميتسوبيشي', models:[{id:'lancer',name:'لانسر',alt:['lancer']}]},
+  {id:'nissan', name:'نيسان', models:[{id:'sunny',name:'صني',alt:['sunny']}]},
+];
+const TR = {
+  nash:{name:'مركز النشامى لقطع الكوري', area:'عمّان — رأس العين', gov:'عمّان', rating:4.6, count:128, phone:'079 000 1184', free:100, km:3.2},
+  saleem:{name:'قطع غيار أبو سليم', area:'عمّان — ماركا', gov:'عمّان', rating:4.8, count:212, phone:'078 000 2290', free:150, km:7.5},
+  husseini:{name:'الحسيني لقطع الهايبرد', area:'الزرقاء — المنطقة الحرّة', gov:'الزرقاء', rating:4.3, count:76, phone:'077 000 3352', free:null, km:18.4},
+  amana:{name:'الأمانة للقطع اليابانية', area:'سحاب — المدينة الصناعية', gov:'عمّان', rating:4.5, count:91, phone:'079 000 4417', free:120, km:13.9},
+  shamal:{name:'مستودع الشمال للمستعمل', area:'إربد — شارع الثلاثين', gov:'إربد', rating:4.1, count:39, phone:'078 000 5536', free:null, km:71},
+};
+const W_NONE = 'بلا كفالة';
+const L = [
+  {id:1, n:'pads_f', g:'pads-avante', tr:'nash', cond:'new', auth:'agency', origin:'كوريا', brand:'Hyundai Mobis', oem:'58101-3XA30', mk:'hyundai', md:'avante', cars:'هيونداي أفانتي 2011–2015', price:22, war:'6 أشهر', feat:true, bg:'tile', days:9, desc:'فحمات أمامية أصلية من الوكالة، علبة مغلقة. تركب على أفانتي MD بمحرّك 1.6 و1.8.'},
+  {id:2, n:'pads_f', g:'pads-avante', tr:'saleem', cond:'new', auth:'trader', origin:'كوريا', brand:'Sangsin', oem:'58101-3XA30', mk:'hyundai', md:'avante', cars:'هيونداي أفانتي 2011–2015', price:13.5, offer:{price:11, ends:'31 تشرين الأول', pct:19, days:2}, war:'3 أشهر', bg:'wood', days:4, desc:'فحمات تجارية كورية، بديل مطابق لرقم الوكالة.'},
+  {id:3, n:'pads_f', g:'pads-avante', tr:'amana', cond:'new', auth:'trader', origin:'الصين', brand:'Hi-Q', oem:'58101-3XA30', mk:'hyundai', md:'avante', cars:'هيونداي أفانتي 2011–2015', price:12, war:'شهر', bg:'card', days:12, desc:'بديل اقتصادي مطابق لرقم الوكالة.'},
+  {id:4, n:'pads_f', g:'pads-prius', tr:'amana', cond:'new', auth:'agency', origin:'اليابان', brand:'Toyota', oem:'04465-47070', mk:'toyota', md:'prius', cars:'تويوتا بريوس 2010–2015', price:29, war:'6 أشهر', bg:'tile', days:20, desc:'فحمات أمامية وكالة لبريوس الجيل الثالث.'},
+  {id:5, n:'exhaust', g:'exhaust-prius', tr:'husseini', cond:'used', auth:'agency', origin:'اليابان', brand:'Toyota', oem:'', mk:'toyota', md:'prius', cars:'تويوتا بريوس 2010–2015', price:35, war:W_NONE, bg:'concrete', days:6, desc:'عادم خلفي مستعمل بحالة جيدة، بلا ثقوب. الكفالة: بلا كفالة. التطابق: بريوس الجيل الثالث فقط. الصور للقطعة نفسها.'},
+  {id:6, n:'hybatt', g:'hybatt-prius', tr:'husseini', cond:'used', auth:'agency', origin:'اليابان', brand:'Toyota', oem:'G9280-47031', mk:'toyota', md:'prius', cars:'تويوتا بريوس 2010–2015', price:380, war:'شهر', feat:true, special:true, bg:'shop', days:3, desc:'بطارية هايبرد مستعملة، فُحصت الخلايا كلها. الكفالة: شهر من الاستلام. التطابق: بريوس 2010–2015. الصور للبطارية نفسها.'},
+  {id:7, n:'hybatt', g:'hybatt-prius', tr:'amana', cond:'used', auth:'agency', origin:'اليابان', brand:'Toyota', oem:'', mk:'toyota', md:'prius', cars:'تويوتا بريوس 2010–2015', price:360, war:'أسبوعان', special:true, bg:'concrete', days:15, desc:'بطارية هايبرد مستعملة. الكفالة: أسبوعان. التطابق: بريوس الجيل الثالث. الصور للبطارية نفسها.'},
+  {id:8, n:'headlight', g:'head-cerato', tr:'shamal', cond:'used', auth:'agency', origin:'كوريا', brand:'Kia', oem:'', mk:'kia', md:'cerato', cars:'كيا سيراتو 2014–2016', price:45, war:W_NONE, bg:'wood', days:5, desc:'ضو أمامي يمين مستعمل، العدسة سليمة وفيه خدش خفيف بالحامل. الكفالة: بلا كفالة. التطابق: سيراتو K3. الصور للقطعة نفسها.'},
+  {id:9, n:'headlight', g:'head-cerato', tr:'nash', cond:'new', auth:'trader', origin:'تايوان', brand:'Depo', oem:'92102-A7020', mk:'kia', md:'cerato', cars:'كيا سيراتو 2014–2016', price:68, offer:{price:59, ends:'2 تشرين الثاني', pct:13, days:1}, war:'6 أشهر', bg:'tile', days:2, desc:'ضو أمامي يمين جديد تجاري، تايواني.'},
+  {id:10, n:'alt', g:'alt-sonata', tr:'saleem', cond:'used', auth:'agency', origin:'كوريا', brand:'Mando', oem:'', mk:'hyundai', md:'sonata', cars:'هيونداي سوناتا 2011–2014', price:55, war:'أسبوعان', bg:'concrete', days:8, desc:'دينمو مستعمل مفحوص على الجهاز. الكفالة: أسبوعان. التطابق: سوناتا بنزين 2.4. الصور للقطعة نفسها.'},
+  {id:11, n:'radiator', g:'rad-corolla', tr:'amana', cond:'new', auth:'trader', origin:'اليابان', brand:'Koyorad', oem:'16400-0T040', mk:'toyota', md:'corolla', cars:'تويوتا كورولا 2014–2018', price:48, war:'6 أشهر', bg:'card', days:11, desc:'رديتر جديد ياباني لكورولا.'},
+  {id:12, n:'bumper', g:'bumper-avante', tr:'nash', cond:'new', auth:'trader', origin:'تايوان', brand:'TYG', oem:'86511-3X000', mk:'hyundai', md:'avante', cars:'هيونداي أفانتي 2011–2013', price:39, war:W_NONE, special:true, bg:'shop', days:7, desc:'دعامية أمامية جديدة بلا دهان.'},
+  {id:13, n:'shock', g:'shock-avante', tr:'saleem', cond:'new', auth:'trader', origin:'اليابان', brand:'KYB', oem:'54651-3X100', mk:'hyundai', md:'avante', cars:'هيونداي أفانتي 2011–2015', price:31, offer:{price:26.5, ends:'5 تشرين الثاني', pct:15, days:3}, war:'سنة', bg:'wood', days:3, desc:'مساعد أمامي يسار ياباني.'},
+  {id:14, n:'filter', g:'filter-hy', tr:'nash', cond:'new', auth:'agency', origin:'كوريا', brand:'Hyundai Mobis', oem:'26300-35505', mk:'hyundai', md:'avante', cars:'هيونداي أفانتي، سوناتا، كيا سيراتو', price:3.5, war:W_NONE, bg:'tile', days:30, desc:'فلتر زيت وكالة.'},
+  {id:15, n:'compressor', g:'comp-sonata', tr:'husseini', cond:'used', auth:'agency', origin:'كوريا', brand:'Hyundai', oem:'', mk:'hyundai', md:'sonata', cars:'هيونداي سوناتا هايبرد 2011–2015', price:140, war:'شهر', bg:'night', days:10, desc:'كمبروسر مكيف كهربائي مستعمل. الكفالة: شهر. التطابق: سوناتا هايبرد فقط. الصور للقطعة نفسها.'},
+  {id:16, n:'mirror', g:'mirror-camry', tr:'shamal', cond:'used', auth:'agency', origin:'اليابان', brand:'Toyota', oem:'', mk:'toyota', md:'camry', cars:'تويوتا كامري 2012–2014', price:28, war:W_NONE, bg:'concrete', days:14, desc:'مراية يسار مستعملة، الزجاج سليم والطي الكهربائي يعمل. الكفالة: بلا كفالة. الصور للقطعة نفسها.'},
+  {id:17, n:'shock', g:'shock-avante', tr:'amana', cond:'new', auth:'trader', origin:'اليابان', brand:'KYB', oem:'54651-3X100', mk:'hyundai', md:'avante', cars:'هيونداي أفانتي 2011–2015', price:29, war:'سنة', bg:'card', days:6, desc:'مساعد أمامي يسار ياباني.'},
+  {id:18, n:'shock', g:'shock-avante', tr:'nash', cond:'new', auth:'trader', origin:'كوريا', brand:'Mando', oem:'54651-3X100', mk:'hyundai', md:'avante', cars:'هيونداي أفانتي 2011–2015', price:33.5, war:'6 أشهر', bg:'tile', days:9, desc:'مساعد أمامي يسار كوري.'},
+];
+const SVC_TYPES = ['ونش وسحب سيارات','سطحة بين المحافظات','كراج ميكانيك','كهربائي سيارات','تكييف','بنشر وإطارات وبلانص','بطاريات وتشغيل على الطريق','سمكرة ودهان','زجاج وتظليل','غسيل وتلميع','تنظيف داخلي','فحص قبل الشراء','برمجة مفاتيح','كاميرات وأنظمة صوت','تغيير زيت متنقّل','تأمين','معاملات ترخيص','تأجير سيارات','شراء سيارات حوادث','عُدد صناعية'];
+const SVCS = [
+  {id:1, name:'ونش أبو خليل', type:'ونش وسحب سيارات', gov:'عمّان', area:'طبربور', km:2.1, icon:'truck', bg:'night', info:'سحب داخل عمّان على مدار الساعة.', text:'نوصل خلال 30 دقيقة داخل عمّان الشرقية. السحب للكراج أو للبيت.'},
+  {id:2, name:'بنشر الوحدات 24 ساعة', type:'بنشر وإطارات وبلانص', gov:'عمّان', area:'الوحدات', km:4.8, icon:'wrench', bg:'shop', info:'تبديل كوشوك، ترصيص، بلانص.', text:'مفتوح 24 ساعة. خدمة متنقّلة للبيت بأجرة إضافية.'},
+  {id:3, name:'غسيل وتلميع النخبة', type:'غسيل وتلميع', gov:'عمّان', area:'خلدا', km:6.3, icon:'car', bg:'tile', info:'غسيل خارجي وداخلي وتلميع.', text:'مواعيد من 8 الصبح لـ 10 المسا.'},
+  {id:4, name:'كراج المهندس للهايبرد', type:'كراج ميكانيك', gov:'الزرقاء', area:'الزرقاء الجديدة', km:15.2, icon:'wrench', bg:'concrete', info:'فحص وصيانة سيارات الهايبرد.', text:'فحص بطارية الهايبرد بالجهاز. صيانة بريوس وسوناتا وفيوجن.'},
+  {id:5, name:'كهربائي أبو رامي', type:'كهربائي سيارات', gov:'مادبا', area:'وسط البلد', km:29.5, icon:'alert', bg:'wood', info:'كهرباء وكمبيوتر سيارات.', text:'فحص كمبيوتر وتصليح دينمو وسلف.'},
+  {id:6, name:'سطحة الشمال', type:'سطحة بين المحافظات', gov:'إربد', area:'إربد', km:72, icon:'truck', bg:'card', info:'نقل سيارات بين المحافظات.', text:'من إربد لكل المحافظات، ومن وإلى العقبة بحجز مسبق.'},
+];
+const PERSONAS = {
+  guest:{label:'ضيف — لم يسجّل الدخول', logged:false, caps:[]},
+  customer:{label:'زبون فقط', logged:true, caps:[]},
+  pending:{label:'زبون + طلب متجر قيد المراجعة', logged:true, caps:[{t:'store', st:'pending'}]},
+  rejected:{label:'زبون + طلب متجر مرفوض', logged:true, caps:[{t:'store', st:'rejected'}]},
+  trader:{label:'زبون + تاجر مقبول', logged:true, caps:[{t:'store', st:'active'}]},
+  multi:{label:'زبون + تاجر + مورّد', logged:true, caps:[{t:'store', st:'active'},{t:'supplier', st:'active'}]},
+  supplier:{label:'زبون + مورّد فقط', logged:true, caps:[{t:'supplier', st:'active'}]},
+};
+const ME = {name:'محمد العمري', phone:'079 000 4821', store:'قطع غيار الريّان', storeArea:'الزرقاء — الهاشمية', supplier:'مؤسسة الرواد للتوريد'};
+
+/* ---------- home v4: helpers shared with the full prototype ---------- */
+Object.assign(P, {
+  bolt:'<path d="M13 3 5 14h6l-1 7 8-11h-6z"/>', battery:'<rect x="3" y="7" width="16" height="10" rx="2"/><path d="M21 10v4M7 10v4M11 10v4"/>',
+  key:'<circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M15 8l2 2"/>', drop:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',
+  cash:'<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6.5 9.5h.01M17.5 14.5h.01"/>',
+});
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nm = id => NAMES.find(x => x.id === id);
+const lp = l => l.offer ? l.offer.price : l.price;
+const norm = s => String(s).toLowerCase().replace(/[ًٌٍَُِّْـ]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').replace(/\s+/g, ' ').trim();
+const makeOf = id => MAKES.find(m => m.id === id);
+const modelOf = (mk, md) => makeOf(mk)?.models.find(m => m.id === md);
+const carName = (mk, md) => [makeOf(mk)?.name, modelOf(mk, md)?.name].filter(Boolean).join(' ');
+function parse(text){
+  const t = ' ' + norm(text) + ' ', r = {text, part:null, typed:null, amb:[], mk:null, md:null, year:null, oem:null};
+  let best = 0, hits = [];
+  NAMES.forEach(x => [x.name, ...x.alt].forEach(al => { const n = norm(al); if (n.length >= 2 && (n.length > 3 ? t.includes(n) : t.includes(' ' + n + ' '))){ if (n.length > best){ best = n.length; hits = [[x.id, al]]; } else if (n.length === best && !hits.some(h => h[0] === x.id)) hits.push([x.id, al]); } }));
+  if (hits.length === 1){ r.part = hits[0][0]; r.typed = hits[0][1]; } else if (hits.length > 1){ r.amb = hits.map(h => h[0]); r.typed = hits[0][1]; }
+  MAKES.forEach(m => { if (t.includes(norm(m.name))) r.mk = m.id; m.models.forEach(md => [md.name, ...md.alt].forEach(al => { if (t.includes(' ' + norm(al) + ' ')){ r.mk = m.id; r.md = md.id; } })); });
+  const y = text.match(/\b(19[89]\d|20[0-2]\d)\b/); if (y) r.year = +y[1];
+  const o = text.match(/\b[A-Z0-9]{4,6}-[A-Z0-9]{3,6}\b/i); if (o) r.oem = o[0].toUpperCase();
+  return r;
+}
+
+/* ---------- state ---------- */
+const H = { persona:'guest', theme:'auto', cart:[], slide:0, loc:'عمّان', typing:true, toast:null };
+const SOON = 'هالصفحة بتنصمّم بعد ما تعتمد الرئيسية';
+let toastT;
+function toast(msg){ H.toast = msg; paintToast(); clearTimeout(toastT); toastT = setTimeout(() => { H.toast = null; paintToast(); }, 2600); }
+function paintToast(){ const app = document.getElementById('app'); app.querySelector('.toast')?.remove(); if (H.toast) app.insertAdjacentHTML('beforeend', `<div class="toast" role="status">${H.toast}</div>`); }
+
+/* ---------- pieces ---------- */
+const LOGO = `<span class="logo" role="img" aria-label="Spary"><svg width="38" height="32" viewBox="0 0 100 84" aria-hidden="true"><path fill="#7FE0B5" d="M2 40 L31 2 H74 L85 20 H52 Q44 20 44 28 V48 Q44 56 36 56 H12 Z"/><path fill="#FFFFFF" d="M98 42 L70 82 H24 L13 62 H42 Q50 62 50 54 V34 Q50 26 58 26 H88 Z"/></svg><span class="wm" aria-hidden="true">Spa<b>ry</b></span></span>`;
+const SLIDES = [
+  {cls:'--slide-1', t:'بطاريات هايبرد مفحوصة', s:'الحسيني لقطع الهايبرد — المنطقة الحرّة، الزرقاء', cta:'شوف القطع', im:img('hybatt','shop',41)},
+  {cls:'--slide-2', t:'فحمات أفانتي بـ 11 دينار', s:'عرض قطع غيار أبو سليم حتى 31 تشرين الأول', cta:'شوف العرض', im:img('pads','wood',3)},
+  {cls:'--slide-3', t:'ونش 24 ساعة جوّا عمّان', s:'ونش أبو خليل — طبربور', cta:'تواصل معه', im:img('truck','night',5)},
+];
+const TYPES = [['ونش وسحب سيارات','ونش','truck'],['بنشر وإطارات وبلانص','بنشر','wrench'],['كراج ميكانيك','كراج','wrench'],['كهربائي سيارات','كهربائي','bolt'],['بطاريات وتشغيل على الطريق','بطاريات','battery'],['غسيل وتلميع','غسيل','drop'],['سطحة بين المحافظات','سطحة','truck'],['برمجة مفاتيح','مفاتيح','key']];
+const EXAMPLES = ['إشكمان بريوس 2012', 'دينمو سوناتا', 'رديتر كورولا 2016', 'ضو سيراتو', '58101-3XA30'];
+const daysTxt = d => d === 1 ? 'ينتهي خلال يوم' : d === 2 ? 'ينتهي خلال يومين' : `ينتهي خلال ${d} أيام`;
+
+function xl8(r, live){
+  if (!r || !r.text.trim()) return '';
+  const out = [];
+  if (r.part){ if (norm(r.typed) !== norm(nm(r.part).name)) out.push(`<span class="said">${esc(r.typed)}</span><span class="arr" aria-hidden="true">←</span>`); out.push(`<span class="pill part">${nm(r.part).name}</span>`); }
+  else if (r.amb.length){ out.push(`<span class="said">${esc(r.typed)}</span><span class="arr" aria-hidden="true">←</span><span class="lbl">أمامية ولا خلفية؟</span>`); r.amb.forEach(id => out.push(`<span class="pill car">${nm(id).name}</span>`)); }
+  if (r.mk) out.push(`<span class="pill car">${carName(r.mk, r.md)}</span>`);
+  if (r.year) out.push(`<span class="pill car num">${r.year}</span>`);
+  if (r.oem) out.push(`<span class="lbl">رقم OEM</span><span class="pill oem ltr">${r.oem}</span>`);
+  if (!out.length && live) out.push(`<span class="lbl">ما عرفنا الاسم بعد. جرّب اسمًا ثانيًا للقطعة أو رقم OEM.</span>`);
+  return out.join('');
+}
+function offerCard(l){
+  const t = TR[l.tr], N = nm(l.n), inC = H.cart.includes(l.id);
+  return `<article class="oc"><button class="oc-open" data-h="soon">
+    <div class="oc-img"><img alt="صورة ${N.name} كما صوّرها التاجر" src="${img(N.img, l.bg, l.id + 1)}"><span class="tag ltr">−${l.offer.pct}%</span></div>
+    <div class="pills"><span class="${l.cond === 'new' ? 'new' : ''}">${l.cond === 'new' ? 'جديدة' : 'مستعملة'}</span><span>${l.auth === 'agency' ? 'قطعة وكالة' : 'قطعة تاجر'}</span></div>
+    <span class="t">${N.name}</span><span class="fit">${l.cars}</span>
+    <span class="pr"><b>${l.offer.price.toFixed(2)}</b><small>د.أ</small><s>${l.price.toFixed(2)}</s></span>
+    <span class="ends">${ic('clock',13)} ${daysTxt(l.offer.days)}</span>
+    <span class="seller">${ic('store',13)} ${t.name} · <span class="st">${ic('star',12)}</span><span class="num">${t.rating.toFixed(1)}</span></span></button>
+    <button class="add ${inC ? 'in' : ''}" data-h="add|${l.id}">${inC ? `${ic('check',16)} في السلة` : `${ic('cart',16)} أضف للسلة`}</button></article>`;
+}
+function svcCard(s){
+  return `<div class="sc"><img alt="" src="${img(s.icon, s.bg, s.id)}"><button data-h="soon" style="border:0;background:none;padding:0;text-align:start;min-width:0"><b>${s.name}</b><span class="m">${s.type} · ${s.area}، ${s.gov}</span></button>
+    <button class="wa" data-h="wa|${s.id}">${ic('chat',16)} واتساب</button></div>`;
+}
+
+/* ---------- render ---------- */
+function render(){
+  const app = document.getElementById('app');
+  const offers = L.filter(l => l.offer).sort((x, y) => x.offer.days - y.offer.days);
+  const near = SVCS.filter(s => s.gov === H.loc).concat(SVCS.filter(s => s.gov !== H.loc)).slice(0, 2);
+  app.innerHTML = `<div class="scroll" id="scroll">
+    <div class="band">
+      <header class="hdr">${LOGO}${H.persona === 'multi' ? `<button class="rolepill" data-h="role">${ic('swap',16)} أتسوّق لنفسي ${ic('down',14)}</button>` : ''}
+        <button class="ibtn" data-h="soon" aria-label="السلة، ${H.cart.length} قطع">${ic('cart')}${H.cart.length ? `<span class="dot">${H.cart.length}</span>` : ''}</button></header>
+      <button class="loc" data-h="loc">${ic('pin',16)} الأقرب إلى <b>${H.loc}</b> ${ic('down',14)}</button>
+    </div>
+    <section class="bnr" aria-label="إعلانات">
+      <div class="bnr-track" id="bnr">${SLIDES.map((s, i) => `<button class="slide" style="background:var(${s.cls})" data-h="soon" aria-label="إعلان ${i + 1} من ${SLIDES.length}: ${s.t}"><span class="ad">إعلان</span><span><span class="st1">${s.t}</span><span class="st2">${s.s}</span><span class="cta">${s.cta} ${ic('chev',14)}</span></span><img alt="" src="${s.im}"></button>`).join('')}</div>
+      <div class="dots">${SLIDES.map((_, i) => `<button data-h="dot|${i}" aria-label="الإعلان ${i + 1}" ${i === H.slide ? 'aria-current="true"' : ''}></button>`).join('')}</div>
+    </section>
+    <section class="sec" aria-labelledby="hero-t">
+      <h1 class="hero-t" id="hero-t">اكتبها <em>متل ما بتحكيها</em></h1>
+      <p class="hero-s">إشكمان، دينمو، رديتر… بنفهم عليك وبنوصّلك للقطعة.</p>
+      <form class="sbox" id="sform" role="search">${ic('search',22)}
+        <div class="sfield"><input id="q" type="search" autocomplete="off" aria-label="ابحث باسم القطعة أو اسمها الشعبي أو رقم OEM"><div class="ghost" id="ghost" aria-hidden="true"></div></div>
+        <button class="sgo" type="submit" aria-label="ابحث">${ic('search',20)}</button></form>
+      <div class="xl8" id="xl8"></div>
+    </section>
+    <div class="tiles">
+      <button class="tile" data-h="soon"><span class="hexi">${ic('car',20)}</span><b>حسب سيارتك</b><span class="sub">الصانع ← الموديل ← السنة</span><span class="makes"><span>هيونداي</span><span>كيا</span><span>تويوتا</span><span class="num">+3</span></span></button>
+      <button class="tile" data-h="soon"><span class="hexi">${ic('vin',20)}</span><b>برقم الشاسيه</b><span class="sub">17 خانة من رخصة سيارتك</span><span class="plate"><small>VIN</small>KMHDH41EB<span class="rest">DU468213</span></span></button>
+    </div>
+    <div class="trust"><div>${ic('cash',22)}الدفع عند الاستلام</div><div>${ic('truck',22)}توصيل لباب البيت</div><div>${ic('phone',22)}اسأل التاجر قبل ما تطلب</div></div>
+    <div class="sh"><h2>عروض سارية</h2><button data-h="soon">كل العروض ←</button></div>
+    <div class="rail">${offers.map(offerCard).join('')}</div>
+    <div class="sh"><h2>خدمات حواليك</h2><button data-h="soon">كل الخدمات ←</button></div>
+    <div class="types">${TYPES.map(([full, short, icon]) => `<button class="type" data-h="soon" aria-label="${full}"><span>${ic(icon,22)}</span><span>${short}</span></button>`).join('')}</div>
+    <div class="svcs">${near.map(svcCard).join('')}</div>
+  </div>
+  <nav class="nav" aria-label="التنقّل الرئيسي">${[['home','الرئيسية'],['tag','العروض'],['wrench','الخدمات'],['box','طلباتي'],['user','حسابي']].map(([i, l], k) => `<button ${k === 0 ? 'aria-current="page"' : 'data-h="soon"'}>${ic(i)}<span>${l}</span></button>`).join('')}</nav>`;
+  paintToast(); wire(); panel();
+}
+
+/* ---------- the translating search ---------- */
+let loopT, loopOn = false;
+const sleep = ms => new Promise(r => { loopT = setTimeout(r, ms); });
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+async function loop(){
+  if (loopOn) return; loopOn = true;
+  const g = document.getElementById('ghost'), x = document.getElementById('xl8');
+  if (reduce){ g.innerHTML = esc(EXAMPLES[0]); x.innerHTML = xl8(parse(EXAMPLES[0])); return; }
+  for (let k = 0; H.typing; k = (k + 1) % EXAMPLES.length){
+    const ex = EXAMPLES[k];
+    for (let i = 1; i <= ex.length && H.typing; i++){ g.innerHTML = esc(ex.slice(0, i)) + '<i></i>'; await sleep(75); }
+    if (!H.typing) break;
+    x.innerHTML = xl8(parse(ex)); await sleep(2300);
+    for (let i = ex.length; i >= 0 && H.typing; i--){ g.innerHTML = esc(ex.slice(0, i)) + '<i></i>'; await sleep(22); }
+    x.innerHTML = ''; await sleep(350);
+  }
+  loopOn = false;
+}
+function wire(){
+  const q = document.getElementById('q'), g = document.getElementById('ghost'), x = document.getElementById('xl8');
+  const stop = () => { H.typing = false; clearTimeout(loopT); loopOn = false; g.innerHTML = ''; };
+  q.addEventListener('focus', () => { stop(); x.setAttribute('aria-live', 'polite'); x.innerHTML = xl8(parse(q.value), true); if (!q.value) g.innerHTML = 'اسم القطعة، اسمها الشعبي، أو رقم OEM'; });
+  q.addEventListener('input', () => { g.innerHTML = q.value ? '' : 'اسم القطعة، اسمها الشعبي، أو رقم OEM'; x.innerHTML = xl8(parse(q.value), true); });
+  q.addEventListener('blur', () => { if (!q.value.trim()){ x.removeAttribute('aria-live'); x.innerHTML = ''; H.typing = true; setTimeout(() => { if (H.typing && document.activeElement !== q) loop(); }, 900); } });
+  document.getElementById('sform').addEventListener('submit', e => { e.preventDefault(); q.value.trim() ? toast('صفحة النتائج ' + SOON.replace('هالصفحة ', '')) : q.focus(); });
+  const tr = document.getElementById('bnr');
+  tr.addEventListener('scroll', () => { const i = Math.round(Math.abs(tr.scrollLeft) / tr.clientWidth); if (i !== H.slide){ H.slide = i; document.querySelectorAll('.dots button').forEach((d, k) => d.toggleAttribute('aria-current', k === i)); } }, {passive:true});
+  if (H.typing) loop();
+}
+function goSlide(i){ const tr = document.getElementById('bnr'); const dir = getComputedStyle(tr).direction === 'rtl' ? -1 : 1; tr.scrollTo({left: dir * i * tr.clientWidth, behavior: reduce ? 'auto' : 'smooth'}); }
+setInterval(() => { if (reduce || document.hidden) return; const tr = document.getElementById('bnr'); if (!tr || tr.matches(':hover')) return; goSlide((H.slide + 1) % SLIDES.length); }, 4800);
+
+/* ---------- actions ---------- */
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-h]'); if (!el) return;
+  const [act, arg] = el.dataset.h.split('|');
+  if (act === 'soon') toast(SOON);
+  if (act === 'add'){ const id = +arg; if (H.cart.includes(id)) return toast('القطعة بالسلة، وصفحة السلة بتنصمّم بعد الرئيسية');
+    H.cart.push(id); const card = el.closest('.oc'); card.outerHTML = offerCard(lst(id)); document.querySelector('.hdr .ibtn').outerHTML = `<button class="ibtn" data-h="soon" aria-label="السلة، ${H.cart.length} قطع">${ic('cart')}<span class="dot">${H.cart.length}</span></button>`; toast('أُضيفت القطعة للسلة'); }
+  if (act === 'wa') toast('بيفتح واتساب مع ' + SVCS.find(s => s.id === +arg).name + ' برسالة جاهزة، وفيها موقعك إذا بدك');
+  if (act === 'dot') goSlide(+arg);
+  if (act === 'loc'){ const i = GOVS.indexOf(H.loc); H.loc = GOVS[(i + 1) % 4]; document.querySelector('.loc b').textContent = H.loc; document.querySelector('.svcs').innerHTML = SVCS.filter(s => s.gov === H.loc).concat(SVCS.filter(s => s.gov !== H.loc)).slice(0, 2).map(svcCard).join(''); toast('بالتطبيق: تسمح بالموقع أو تختار محافظتك. هون بنبدّل بين المحافظات للعرض'); }
+  if (act === 'role') toast('قائمة الصفات متل الإصدار 3: أتسوّق لنفسي · أدير متجري · أطلب من مورّد');
+  if (act === 'theme'){ H.theme = arg; if (arg === 'auto') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = arg; panel(); }
+  if (act === 'persona'){ H.persona = arg; H.typing = false; clearTimeout(loopT); loopOn = false; H.typing = true; render(); }
+});
+const lst = id => L.find(x => x.id === +id);
+
+/* ---------- panel ---------- */
+function panel(){
+  const VERS = [['v3-spary.html','v3','النموذج الكامل: لوغو Spary والألوان المقترحة'],['v2-alaa.html','v2','النموذج الكامل بشكل علاء وألوانه'],['v1-classic.html','v1','النموذج الكامل بالشكل الكلاسيكي']];
+  const refs = [['ADS-1/2','البانر: تديره الإدارة، ومكانه أعلى الرئيسية'],['NAM-1/3','الاسم الشعبي يوصل للقطعة: إشكمان ← العادم'],['SRCH-1/3','البحث بالاسم ورقم OEM'],['SRCH-4','حسب سيارتك: الصانع، الموديل، السنة'],['SRCH-5','برقم الشاسيه'],['SRCH-9/ORD-10','«اسأل التاجر قبل ما تطلب» بدل أي وعد بالتوافق'],['SRCH-11','الأقرب: من الموقع أو المحافظة المختارة'],['OFR-2/3','عروض سارية: السعر الأصلي مشطوب وتاريخ النهاية'],['CAT-6','جديدة/مستعملة ووكالة/تاجر'],['SVC-4/5/7','أنواع الخدمات، الأقرب أولًا، واتساب'],['ORD-3','الدفع عند الاستلام'],['DLV-3','توصيل فقط'],['ACC-1/7','الضيف يتصفّح؛ وشارة الصفة لمن عنده متجر']];
+  const seg = (act, cur, opts) => `<div class="seg" role="group">${opts.map(([v, l]) => `<button data-h="${act}|${v}" aria-pressed="${cur === v}">${l}</button>`).join('')}</div>`;
+  document.getElementById('panel').innerHTML = `<div class="stack"><h1>الرئيسية — الإصدار 4</h1><p style="color:var(--ink-2);margin-top:4px">تصميم الصفحة الرئيسية وحدها. بقية الصفحات بعد اعتمادها.</p></div>
+    <div class="pbox"><h2>الإصدارات</h2><ul class="vers"><li><span class="cur">v4 <small>الرئيسية الجديدة — الحالي</small></span></li>${VERS.map(([href, v, d]) => `<li><a href="${href}">${v} <small>${d}</small></a></li>`).join('')}</ul></div>
+    <div class="pbox"><h2>المظهر</h2>${seg('theme', H.theme, [['auto','حسب الجهاز'],['light','فاتح'],['dark','داكن']])}</div>
+    <div class="pbox"><h2>حالة الحساب</h2>${seg('persona', H.persona, [['guest','ضيف'],['multi','زبون عنده متجر']])}</div>
+    <div class="pbox"><h2>بنود الوثيقة في هذه الصفحة</h2><ul class="refs">${refs.map(([c, t]) => `<li><code>${c}</code><span>${t}</span></li>`).join('')}</ul></div>
+    <p class="pnote">البيانات أمثلة: المحلات والأسعار وأرقام الشاسيه ومحتوى البانرات. الصور رسوم بديلة تحاكي تصوير التاجر بالموبايل.</p>`;
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && H.toast){ H.toast = null; paintToast(); } });
+render();
+</script>
+</body>
+</html>
