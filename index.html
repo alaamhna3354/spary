@@ -440,7 +440,7 @@ body{background:var(--ground);padding:0;min-height:100dvh}
 }
 
 /* Cinematic roadside services: a dark scene with focused service controls */
-.road{margin:30px 16px 0;padding:22px 16px 16px;border:1px solid rgba(255,255,255,.14);border-radius:26px;box-shadow:0 16px 30px rgba(0,31,63,.2);isolation:isolate}
+.road{margin:30px 16px 0;padding:22px 16px 16px;border:1px solid rgba(255,255,255,.14);border-radius:26px;background-color:#001f3f;background-image:linear-gradient(90deg,rgba(0,31,63,.22) 0%,rgba(0,31,63,.5) 55%,rgba(0,31,63,.88) 100%),url("assets/img/roadside-garage-bg.png");background-size:cover;background-position:center 48%;box-shadow:0 16px 30px rgba(0,31,63,.2);isolation:isolate}
 .road::before{content:"";position:absolute;width:230px;height:180px;inset-inline-end:-94px;top:-86px;border-radius:50%;background:radial-gradient(circle,rgba(255,133,27,.3),rgba(255,133,27,0) 68%);opacity:.65;pointer-events:none}
 .road .ey{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.02em;color:#ffb76b}
 .road .ey::before{content:"";width:22px;height:2px;border-radius:2px;background:var(--accent)}
@@ -496,20 +496,23 @@ body{background:var(--ground);padding:0;min-height:100dvh}
   --radius-card:18px; --radius-control:14px; --radius-small:12px;
   --elevation-card:0 1px 3px rgba(0,31,63,.06),0 8px 22px rgba(0,31,63,.06);
 }
-.band{padding:0 var(--page-gutter) 26px;border-radius:0 0 24px 24px;background:linear-gradient(180deg,#6c8ba6 0%,#315773 29%,#173b5d 48%,#001f3f 100%);box-shadow:0 12px 24px rgba(0,31,63,.12)}
-.hdr{min-height:72px;padding:max(14px,env(safe-area-inset-top,0px)) var(--page-gutter) 12px;margin:0 calc(var(--page-gutter) * -1);gap:8px;background:transparent;color:var(--band-ink);border-bottom:0;backdrop-filter:none;-webkit-backdrop-filter:none}
+.band{padding:0 var(--page-gutter) 26px;border-radius:0 0 24px 24px;background:#f7f9fc;color:#001f3f;box-shadow:0 12px 24px rgba(0,31,63,.08)}
+.band::before{display:none}
+.hdr{min-height:72px;padding:max(14px,env(safe-area-inset-top,0px)) var(--page-gutter) 12px;margin:0 calc(var(--page-gutter) * -1);gap:8px;background:transparent;color:#001f3f;border-bottom:0;backdrop-filter:none;-webkit-backdrop-filter:none}
 .logo{min-height:44px;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
 .logo img{width:116px;height:34px}
-.signup{min-height:40px;padding:0 10px;border:1px solid rgba(255,255,255,.24);border-radius:12px;background:rgba(255,255,255,.08);color:var(--band-ink);font-size:11.5px;box-shadow:none}
+.signup{min-height:40px;padding:0 10px;border:1px solid rgba(0,31,63,.12);border-radius:12px;background:#fff;color:#001f3f;font-size:11.5px;box-shadow:0 4px 12px rgba(0,31,63,.06)}
 .signup svg{color:var(--accent)}
-.signup:hover{background:rgba(255,255,255,.14);transform:none}
-.ibtn{width:42px;height:42px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:var(--band-ink);box-shadow:none}
-.ibtn:hover{background:rgba(255,255,255,.14)}
-.ibtn .dot{border-color:var(--band)}
-.rolepill{color:var(--band-ink);border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.08)}
-.rolepill:hover{background:rgba(255,255,255,.14)}
-.loc{min-height:32px;margin-top:0;padding:0;color:var(--band-ink-2);border:0;background:transparent;box-shadow:none}
-.loc b{color:var(--band-ink)}
+.signup:hover{background:#e8f0f7;transform:none}
+.ibtn{width:42px;height:42px;border-radius:12px;border:1px solid rgba(0,31,63,.12);background:rgba(255,255,255,.86);color:#001f3f;box-shadow:0 4px 12px rgba(0,31,63,.06)}
+.ibtn:hover{background:#fff}
+.ibtn .dot{border-color:#fff}
+.rolepill{color:#001f3f;border-color:rgba(0,31,63,.12);background:rgba(255,255,255,.86)}
+.rolepill:hover{background:#e8f0f7}
+.loc{min-height:32px;margin-top:0;padding:0;color:#45566b;border:0;background:transparent;box-shadow:none}
+.loc b{color:#001f3f}
+.loc > svg:first-child{color:#ff851b}
+.loc > svg:last-child{color:#718398}
 
 .search-hub{position:relative;z-index:3;margin:-8px var(--page-gutter) 0;padding:16px;border:1px solid var(--line);border-radius:var(--radius-card);background:var(--surface);box-shadow:var(--elevation-card)}
 .search-head{display:flex;align-items:center;gap:10px}
@@ -592,22 +595,29 @@ body{background:var(--ground);padding:0;min-height:100dvh}
 .oc{padding:10px}
 .sc{border-radius:var(--radius-card)}
 
-/* v13 navigation: a clean white floating dock with a raised home tile */
-.nav{inset-inline:12px;bottom:12px;display:block;overflow:visible;padding:7px 8px 6px;border:1px solid rgba(0,31,63,.08);border-radius:20px;background:#fff;box-shadow:0 8px 22px rgba(0,31,63,.1);z-index:10}
-.nav-items{position:relative;z-index:1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:end;width:100%}
-.nav-items > button{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:2px;min-height:44px;border:0;border-radius:13px;background:transparent;color:#66788b;font-size:10px;line-height:1.2}
-.nav-items > button:not(.nav-home) svg{width:19px;height:19px}
-.nav-items > button:not(.nav-home):hover{background:var(--surface-2);color:var(--brand)}
-.nav-items > button.nav-home[aria-current=page]{z-index:3;width:58px;height:58px;min-height:58px;margin:0 auto;transform:translateY(-17px);border:4px solid #fff;border-radius:18px;background:var(--accent);color:var(--accent-ink);box-shadow:0 8px 16px rgba(0,31,63,.12),0 4px 9px rgba(255,133,27,.16);font-size:9px;font-weight:800;white-space:nowrap}
-.nav-items > button.nav-home[aria-current=page] svg{width:22px;height:22px}
-.nav-items > button.nav-home[aria-current=page]:hover{background:var(--accent-hover);color:var(--accent-ink)}
-.nav-items > button.nav-home[aria-current=page] span{font-weight:800}
+/* v14 navigation: SVG cradle with a centered floating home action */
+.nav{inset-inline:12px;bottom:12px;height:72px;display:block;overflow:visible;padding:0;border:0;background:transparent;box-shadow:none;z-index:10}
+.nav-shape{position:absolute;inset:0;z-index:0;pointer-events:none;filter:drop-shadow(0 -6px 16px rgba(0,31,63,.08))}
+.nav-shape svg{display:block;width:100%;height:100%;overflow:visible}
+.nav-shape path{fill:rgba(255,255,255,.95);stroke:rgba(226,232,240,.9);stroke-width:1}
+.nav-items{position:absolute;inset:0;top:3px;z-index:1;display:flex;align-items:flex-end;justify-content:space-between;gap:8px;padding:0 12px 10px;pointer-events:none}
+.nav-side{display:flex;align-items:center;justify-content:space-around;gap:4px;flex:1;min-width:0;pointer-events:auto}
+.nav-link{display:flex!important;flex:1;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:48px;min-height:44px;padding:4px 3px;border:0;border-radius:13px;background:transparent;color:#66788b;font-size:10px;line-height:1.2}
+.nav-link svg{width:16px;height:16px}
+.nav-link:hover{background:var(--surface-2);color:var(--brand)}
+.nav-center{position:relative;display:flex;flex:none;width:64px;height:70px;margin-top:-32px;flex-direction:column;align-items:center;justify-content:flex-start;pointer-events:auto}
+.nav-home{display:flex!important;align-items:center;justify-content:center;width:52px;height:52px;min-width:52px;min-height:52px;aspect-ratio:1;padding:10px!important;border:4px solid #fff!important;border-radius:999px!important;background:#ff851b!important;color:#fff!important;box-shadow:0 8px 20px rgba(255,133,27,.4);font-size:10px;font-weight:800}
+.nav-home svg{width:20px;height:20px;color:#fff}
+.nav-home:hover{background:#e8740f!important;color:#fff!important}
+.nav-center > span{margin-top:2px;color:#ff851b;font-size:10px;font-weight:800;line-height:1.2;white-space:nowrap}
 @media (max-width:360px){
   .search-tabs button{font-size:10.5px;padding-inline:3px}
   .fc{flex-basis:198px}
   .fc-body{padding:11px 10px 12px}
-  .nav{inset-inline:8px;padding-inline:6px}
-  .nav-items > button.nav-home[aria-current=page]{width:54px;height:54px;min-height:54px;transform:translateY(-15px)}
+  .nav{inset-inline:8px}
+  .nav-items{padding-inline:8px}
+  .nav-center{width:58px}
+  .nav-home{width:50px;height:50px;min-height:50px}
 }
 </style>
 </head>
@@ -865,8 +875,9 @@ function photo(kind, bg, seed){
 /* ---------- v9 pieces ---------- */
 Object.assign(H, {car:{mk:null, md:null, yr:null}, stab:'text', vin:''});
 const lst = id => L.find(x => x.id === +id);
-const LOGO = `<span class="logo" role="img" aria-label="Spary"><img src="Spary-logo.png" alt="Spary"></span>`;
+const LOGO = `<span class="logo" role="img" aria-label="Spary"><img src="Logo-removebg-preview.png" alt="Spary"></span>`;
 const OFFER_IMAGES = {pads_f:'assets/img/offer-placeholder.png', headlight:'assets/img/offer-headlight.jpg', shock:'assets/img/offer-shock.jpg'};
+const FEATURED_IMAGES = {hybatt:'assets/img/featured-hybrid-battery.jpg'};
 const FEATURED_IDS = [1, 6, 4, 8];
 const SLIDES = [
   {cls:'--slide-1', t:'بطاريات هايبرد مفحوصة', s:'الحسيني لقطع الهايبرد — المنطقة الحرّة، الزرقاء', cta:'شوف القطع', im:'assets/img/Banner-1.png'},
@@ -906,7 +917,7 @@ function svcCard(s){
 const nearSvcs = () => SVCS.filter(s => s.gov === H.loc).concat(SVCS.filter(s => s.gov !== H.loc)).slice(0, 2);
 
 function featuredCard(l){
-  const N = nm(l.n), t = TR[l.tr], src = OFFER_IMAGES[l.n] || img(N.img, l.bg, l.id);
+  const N = nm(l.n), t = TR[l.tr], src = FEATURED_IMAGES[l.n] || OFFER_IMAGES[l.n] || img(N.img, l.bg, l.id);
   return `<article class="fc"><button class="fc-open" data-h="soon" aria-label="عرض ${N.name}">
     <div class="fc-media"><img src="${src}" alt="صورة ${N.name}"></div>
     <div class="fc-body"><span class="fc-brand">${l.brand}</span><h3>${N.name}</h3><span class="fc-fit">${ic('car',13)} ${l.cars}</span>
@@ -975,7 +986,14 @@ function render(){
       <div class="all"><span>وكمان كراج، غسيل، سطحة، مفاتيح…</span><button data-h="soon">كل الخدمات</button></div></section>
     <div class="svcs">${nearSvcs().map(svcCard).join('')}</div>
   </div>
-  <nav class="nav" aria-label="التنقّل الرئيسي"><div class="nav-items">${[['tag','العروض'],['wrench','الخدمات'],['home','الرئيسية'],['box','طلباتي'],['user','حسابي']].map(([i, l], k) => `<button class="${k === 2 ? 'nav-home' : ''}" ${k === 2 ? 'aria-current="page"' : 'data-h="soon"'}>${ic(i, k === 2 ? 23 : 20)}<span>${l}</span></button>`).join('')}</div></nav>`;
+  <nav class="nav" aria-label="التنقّل الرئيسي">
+    <div class="nav-shape" aria-hidden="true"><svg viewBox="0 0 400 72" preserveAspectRatio="none"><path d="M 0,16 L 154,16 C 166,16 172,17 177,24 C 183,32 189,45 200,45 C 211,45 217,32 223,24 C 228,17 234,16 246,16 L 400,16 L 400,72 L 0,72 Z"></path></svg></div>
+    <div class="nav-items">
+      <div class="nav-side">${[['tag','العروض'],['wrench','الخدمات']].map(([i, l]) => `<button class="nav-link" data-h="soon">${ic(i, 18)}<span>${l}</span></button>`).join('')}</div>
+      <div class="nav-center"><button class="nav-home" aria-current="page" aria-label="الرئيسية">${ic('home', 22)}</button><span>الرئيسية</span></div>
+      <div class="nav-side">${[['box','طلباتي'],['user','حسابي']].map(([i, l]) => `<button class="nav-link" data-h="soon">${ic(i, 18)}<span>${l}</span></button>`).join('')}</div>
+    </div>
+  </nav>`;
   paintToast(); wire(); wireVin(); panel();
 }
 
