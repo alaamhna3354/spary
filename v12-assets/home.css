@@ -123,17 +123,15 @@
 .search-tabs button[data-value=vin][aria-selected=true] .tab-fx{animation:tabScanLine 1s ease-in-out}
 @keyframes tabScanLine{0%{opacity:0;transform:none}15%{opacity:.8}50%{transform:translateY(14px)}85%{opacity:.8}100%{opacity:0;transform:none}}
 .unified-search .examples{position:relative}
-.unified-search .examples button{display:inline-flex;align-items:center;gap:7px;padding-inline:4px 13px;animation:chipRise .5s cubic-bezier(.2,.9,.3,1.3) backwards}
+.unified-search .examples button{display:inline-flex;align-items:center;gap:0;padding-inline:12px;animation:chipRise .5s cubic-bezier(.2,.9,.3,1.3) backwards}
 .unified-search .examples button:nth-of-type(2){animation-delay:.08s}
 .unified-search .examples button:nth-of-type(3){animation-delay:.16s}
 @keyframes chipRise{from{opacity:0;transform:translateY(8px) scale(.94)}}
-.ex-thumb{flex:none;width:24px;height:24px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px var(--surface),0 2px 6px -2px #10282066;transition:transform .25s}
-.unified-search .examples button:hover .ex-thumb{transform:rotate(-12deg) scale(1.08)}
 .unified-search .examples button.ex-sent{opacity:.35}
 .unified-search .examples .ex-ghost{animation:none;box-shadow:0 10px 20px -10px #102820aa;position:absolute;z-index:3;margin:0;display:inline-flex;align-items:center;gap:7px;padding:0 13px 0 4px;border:5px solid transparent;border-inline-width:0;border-radius:999px;background:var(--brand) padding-box;color:var(--hero-text);font:inherit;font-size:12px;font-weight:600;pointer-events:none;white-space:nowrap}
 .unified-search .search-input.just-filled{animation:fieldLand .7s ease-out}
 @keyframes fieldLand{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--signal) 70%,transparent)}100%{box-shadow:0 0 0 12px transparent}}
-@media(max-width:360px){.unified-search .search-tabs button{gap:4px}.tab-icon{width:24px;height:24px}.unified-search .examples button{padding-inline:3px 11px;gap:6px}.ex-thumb{width:22px;height:22px}}
+@media(max-width:360px){.unified-search .search-tabs button{gap:4px}.tab-icon{width:24px;height:24px}.unified-search .examples button{padding-inline:10px;gap:0}}
 @media(prefers-reduced-motion:reduce){.tab-icon svg,.tab-fx,.unified-search .examples button,.unified-search .search-input.just-filled{animation:none!important}}
 /* Car search 2026-10-26 (owner request: restyle the car dropdowns).
    Make, model and year read as three linked steps: a numbered badge that turns into a check, the chosen value
