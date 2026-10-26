@@ -1,0 +1,20 @@
+/* v12 type pass: the mobile UI starts at the agreed semibold weight. */
+#screen *,
+#dock *,
+#sheet * {
+  font-weight: 600 !important;
+}
+
+/* Keep the exact supplied WhatsApp mark crisp inside both service actions. */
+.wa svg,
+.svc-wa svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+  flex: 0 0 16px;
+}
+
+.wa,
+.svc-wa {
+  gap: 7px;
+}
