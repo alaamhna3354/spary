@@ -5,6 +5,10 @@
   font-weight: 600 !important;
 }
 
+:root {
+  --type-scale: 0.92;
+}
+
 /* Keep the exact supplied WhatsApp mark crisp inside both service actions. */
 .wa svg,
 .svc-wa svg {
@@ -17,4 +21,16 @@
 .wa,
 .svc-wa {
   gap: 7px;
+}
+
+.route-panel .svc-wa {
+  padding-inline: 14px;
+  gap: 8px;
+  font-size: 12px !important;
+}
+
+@media (max-width: 360px) {
+  .route-panel .svc-wa {
+    padding-inline: 12px;
+  }
 }

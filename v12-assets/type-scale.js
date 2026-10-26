@@ -1,6 +1,6 @@
 (() => {
   const SCALE = parseFloat(getComputedStyle(document.documentElement)
-    .getPropertyValue('--kufi-type-scale')) || 0.92;
+    .getPropertyValue('--type-scale')) || 0.92;
   const roots = ['screen', 'dock', 'sheet']
     .map(id => document.getElementById(id))
     .filter(Boolean);
@@ -11,7 +11,7 @@
 
   function scaleText(root) {
     const elements = [root, ...root.querySelectorAll('*')].filter(el => {
-      if (el.dataset.kufiScaled) return false;
+      if (el.dataset.typeScaled) return false;
       if (/^(SVG|PATH|USE|IMG)$/.test(el.tagName)) return false;
       return hasDirectText(el) || /^(INPUT|SELECT|TEXTAREA)$/.test(el.tagName);
     });
@@ -20,7 +20,7 @@
     sizes.forEach(([el, size]) => {
       if (!Number.isFinite(size)) return;
       el.style.fontSize = `${(size * SCALE).toFixed(2)}px`;
-      el.dataset.kufiScaled = 'true';
+      el.dataset.typeScaled = 'true';
     });
   }
 

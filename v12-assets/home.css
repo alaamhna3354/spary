@@ -143,7 +143,7 @@
 .unified-search .car-step{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:7px;min-height:78px;padding:10px 10px 11px;border:1px solid var(--line);border-radius:15px;background:var(--paper);color:var(--text);font-size:12px;cursor:pointer;transition:border-color .2s,background .2s,box-shadow .2s}
 .unified-search .car-step>svg{position:absolute;inset-inline-end:9px;top:14px;color:var(--muted);transition:transform .2s}
 .unified-search .car-step:hover>svg{transform:translateY(2px)}
-.step-badge{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:600 12px/1 Plex,Arial,sans-serif;background:var(--soft);color:var(--muted);transition:background .25s,color .25s}
+.step-badge{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:600 12px/1 "Noto Kufi Arabic",Arial,sans-serif;background:var(--soft);color:var(--muted);transition:background .25s,color .25s}
 .step-text{display:flex;flex-direction:column;gap:1px;width:100%;min-width:0}
 .step-text small{font-size:12px;color:var(--muted)}
 .step-text b{font-size:15px;font-weight:600;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -180,7 +180,7 @@
 .pick-chain{display:flex;align-items:center;gap:4px;margin-bottom:16px;overflow-x:auto;scrollbar-width:none}
 .pick-chain::-webkit-scrollbar{display:none}
 .pick-step{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 13px 0 9px;border-radius:999px;background:var(--soft);color:var(--muted);font:inherit;font-size:13px;font-weight:500}
-.pick-step span{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--surface);font:600 12px/1 Plex,Arial,sans-serif}
+.pick-step span{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--surface);font:600 12px/1 "Noto Kufi Arabic",Arial,sans-serif}
 .pick-step.done{color:var(--text)}
 .pick-step.done span{background:var(--signal);color:var(--signal-ink)}
 .pick-step.now{background:var(--brand);color:var(--hero-text);font-weight:600}
@@ -198,7 +198,7 @@
 .pick-option small{font-size:12px;color:var(--muted)}
 .pick-option:hover{border-color:var(--muted)}
 .pick-option:active{transform:scale(.95)}
-.pick-mono{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--signal) 55%,var(--surface));color:var(--signal-ink);font:600 23px/1 Plex,Arial,sans-serif;box-shadow:inset 0 -3px 0 color-mix(in srgb,var(--signal-ink) 12%,transparent)}
+.pick-mono{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--signal) 55%,var(--surface));color:var(--signal-ink);font:600 23px/1 "Noto Kufi Arabic",Arial,sans-serif;box-shadow:inset 0 -3px 0 color-mix(in srgb,var(--signal-ink) 12%,transparent)}
 .pick-option[aria-pressed=true]{background:var(--brand);border-color:var(--brand);color:var(--hero-text)}
 .pick-option[aria-pressed=true] small{color:var(--hero-muted)}
 .pick-option[aria-pressed=true] .pick-mono{background:var(--signal)}
@@ -246,7 +246,7 @@
    and clean product cards that let the photo lead. */
 .section.deals{position:relative;margin:30px 8px 0;padding:22px 0 20px;border-radius:30px;overflow:hidden;color:var(--hero-text);background:radial-gradient(120% 55% at 90% 0%,color-mix(in srgb,var(--signal) 20%,transparent),transparent 62%),linear-gradient(180deg,color-mix(in srgb,var(--brand) 88%,#fff),var(--brand) 45%),var(--brand);box-shadow:0 24px 40px -30px #102820}
 :root[data-theme=dark] .section.deals{box-shadow:inset 0 0 0 1px var(--line)}
-.section.deals:before{content:'%';position:absolute;top:24px;left:-14px;font:700 210px/1 Plex,Arial,sans-serif;color:var(--signal);opacity:.07;transform:rotate(-12deg);pointer-events:none}
+.section.deals:before{content:'%';position:absolute;top:24px;left:-14px;font:700 210px/1 "Noto Kufi Arabic",Arial,sans-serif;color:var(--signal);opacity:.07;transform:rotate(-12deg);pointer-events:none}
 .deals-head{position:relative;padding:0 18px;margin-bottom:18px}
 .deals-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px 5px 12px;border-radius:999px;background:var(--signal);color:var(--signal-ink);font-size:12px;font-weight:600}
 .deals-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
@@ -366,7 +366,7 @@
 :root[data-theme=dark] .dock:before{box-shadow:inset 0 0 0 1px var(--line)}
 @media(prefers-reduced-motion:reduce){.home-disc.spin svg,.nav-item[aria-current=page]:before{animation:none}}
 /* Type pass 2026-10-26 (owner: one pass on font and size across the whole home page).
-   One family (the Arabic Plex already loaded) and one scale of eight steps; the faces exist in 400/500/600,
+   One family (the Arabic "Noto Kufi Arabic" already loaded) and one scale of eight steps; the faces exist in 400/500/600,
    so 700 is declared as 600 (it rendered as 600 anyway). 16px stays on the search field so phones do not zoom.
      xs 12 labels, chips, meta, nav     sm 13 body text, secondary buttons     md 15 main buttons, tiles, sub-heads
      lg 17 card titles                  xl 20 sticker number                    2xl 24 section titles, advert, sign-off
