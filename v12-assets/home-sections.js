@@ -62,7 +62,7 @@ function revealTrust(){
 // at its foot; the service types are dark tiles, then providers in the chosen governorate with a WhatsApp button.
 // Services are adverts only: contact, no booking or payment (SVC-1/5). No distance is claimed (SVC-4, SRCH-11).
 const ROAD_TYPES=[['ونش','truck','ونش وسحب سيارات'],['بنشر','wrench','بنشر وإطارات وبلانص'],['بطارية','battery','بطاريات وتشغيل على الطريق'],['كهربائي','bolt','كهربائي سيارات']];
-function roadsideCard(){return `<div class="hivis"><div class="hivis-head"><span class="hivis-eyebrow">${ic('truck',15)}خدمات الطريق والسيارة</span><h2>وقفت؟ <em>إلها حل.</em></h2><p>ونش، بنشر، أو تشغيل بطارية. تواصل مباشرة مع صاحب الخدمة.</p></div><div class="hivis-types">${ROAD_TYPES.map(([n,i,type])=>`<button data-action="service-type" data-value="${type}"><span class="hivis-ico">${ic(i,22)}</span><b>${n}</b><small>${type}</small></button>`).join('')}</div><div class="hivis-more"><span>وكمان كراج، تكييف، غسيل ومفاتيح…</span><button data-action="services">كل الخدمات${ic('chev',14)}</button></div><div class="hivis-road" aria-hidden="true"><i class="hivis-truck">${ic('truck',24)}</i></div></div>`;}
+function roadsideCard(){return `<div class="hivis"><div class="hivis-head"><span class="hivis-eyebrow">${ic('truck',15)}خدمات الطريق والسيارة</span><h2>وقفت؟ <em>إلها حل.</em></h2><p>ونش، بنشر، أو تشغيل بطارية. تواصل مباشرة مع صاحب الخدمة.</p></div><div class="hivis-types">${ROAD_TYPES.map(([n,i,type])=>`<button data-action="service-type" data-value="${type}"><span class="hivis-ico">${ic(i,22)}</span><b>${n}</b><small>${type}</small></button>`).join('')}</div><div class="hivis-more"><span>وكمان كراج، تكييف، غسيل ومفاتيح…</span><button data-action="services">كل الخدمات${ic('chev',14)}</button></div><div class="hivis-road" aria-hidden="true"><div class="hivis-truck-track"><svg class="hivis-truck" viewBox="0 0 150 52" focusable="false"><g class="hivis-truck-shape"><path class="hivis-truck-silhouette" d="M8 8h68c6 0 11 2 15 7l10 12h27c7 0 12 5 12 12v2H8a6 6 0 0 1-6-6V14a6 6 0 0 1 6-6Z"/><path class="hivis-truck-window" d="M95 16h10l12 11H95z"/><path class="hivis-truck-detail" d="M12 35h75M89 13v23"/><path class="hivis-truck-bumper" d="M2 37h13v4H6a4 4 0 0 1-4-4Zm128 0h10v4h-10z"/><circle class="hivis-wheel" cx="32" cy="42" r="7"/><circle class="hivis-wheel" cx="119" cy="42" r="7"/><circle class="hivis-wheel-hub" cx="32" cy="42" r="2.5"/><circle class="hivis-wheel-hub" cx="119" cy="42" r="2.5"/></g><g class="hivis-truck-brand" transform="translate(34 9) scale(.25)"><path d="${MARK_PATH}"/><path d="${MARK_PATH}" transform="rotate(180 50 50)"/></g></svg></div></div></div>`;}
 // Nearby providers as a route (owner: the list still looked classic and off-brand). The road at the foot of the
 // roadside card carries on downward as the brand's dashed "connection" line; each provider is a stop on it with its
 // service icon in a signal circle, then its type, name, area, short description, WhatsApp and details (SVC-3/5).
@@ -75,7 +75,7 @@ function revealRoute(){
   sc?.addEventListener('scroll',show,{passive:true});
   setTimeout(show,250);
 }
-// The road comes alive once when the card reaches the eye: the lane marks run and the tow truck pulls in.
+// The road comes alive when the card reaches the eye: the lane marks run and the branded tow truck cruises through.
 let roadShown=false;
 function revealRoad(){
   const card=$('.hivis'),sc=$('#screen');if(!card||roadShown||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
