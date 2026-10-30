@@ -268,38 +268,38 @@
 /* Offers stage 2026-10-26 (owner: the coupon cards did not reach the level; keep the heading and the limited-time line).
    A dark showroom: lime pill «عروض لفترة محدودة», «عروض سارية» with the signal word, «كل العروض», a faint % mark,
    and clean product cards that let the photo lead. */
-.section.deals{position:relative;margin:30px 8px 0;padding:22px 0 20px;border-radius:30px;overflow:hidden;color:var(--hero-text);background:radial-gradient(120% 55% at 90% 0%,color-mix(in srgb,var(--signal) 20%,transparent),transparent 62%),linear-gradient(180deg,color-mix(in srgb,var(--brand) 88%,#fff),var(--brand) 45%),var(--brand);box-shadow:0 24px 40px -30px #102820}
+.section.deals{position:relative;margin:26px 8px 0;padding:16px 0 14px;border-radius:30px;overflow:hidden;color:var(--hero-text);background:radial-gradient(120% 55% at 90% 0%,color-mix(in srgb,var(--signal) 20%,transparent),transparent 62%),linear-gradient(180deg,color-mix(in srgb,var(--brand) 88%,#fff),var(--brand) 45%),var(--brand);box-shadow:0 24px 40px -30px #102820}
 :root[data-theme=dark] .section.deals{box-shadow:inset 0 0 0 1px var(--line)}
 .section.deals:before{content:'%';position:absolute;top:24px;left:-14px;font:700 210px/1 "Noto Kufi Arabic",Arial,sans-serif;color:var(--signal);opacity:.07;transform:rotate(-12deg);pointer-events:none}
-.deals-head{position:relative;padding:0 18px;margin-bottom:18px}
+.deals-head{position:relative;padding:0 18px;margin-bottom:10px}
 .deals-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 11px 5px 12px;border-radius:999px;background:var(--signal);color:var(--signal-ink);font-size:12px;font-weight:600}
 .deals-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .deals-head h2{margin-top:10px;font-size:32px;line-height:1.1;font-weight:700;letter-spacing:-.8px}
 .deals-head h2 em{font-style:normal;color:var(--signal)}
 .deals-head p{margin-top:6px;font-size:12px;line-height:1.6;color:var(--hero-muted)}
 .deals-all{flex:none;display:inline-flex;align-items:center;gap:3px;min-height:44px;padding:0 12px 0 10px;border-radius:999px;border:1px solid #ffffff2e;background:#ffffff0d;color:var(--hero-text);font:inherit;font-size:12px;font-weight:600}
-.deals-rail{position:relative;gap:12px;padding:2px 16px 6px;scroll-snap-type:x mandatory;scroll-padding-inline:16px}
+.deals-rail{position:relative;gap:12px;padding:2px 16px 4px;scroll-snap-type:x mandatory;scroll-padding-inline:16px}
 /* Card v2 (owner: the round discount sticker was nicer; the white card still short of the level).
    Alaa's structure on our brand: a dark glass card inside the showroom, inset photo, the round stamped sticker,
    a tinted price box with offer price and the old one, date and saving, merchant, and a full-width signal button. */
-.deals-rail{padding-top:12px}
-.deal{position:relative;flex:0 0 262px;scroll-snap-align:start;display:flex;flex-direction:column;padding:10px;border-radius:28px;background:color-mix(in srgb,var(--brand) 88%,#fff);border:1px solid #ffffff1c;color:var(--hero-text);box-shadow:0 22px 36px -24px #000d}
+.deals-rail{padding-top:8px}
+.deal{position:relative;flex:0 0 262px;scroll-snap-align:start;display:flex;flex-direction:column;padding:8px;border-radius:26px;background:color-mix(in srgb,var(--brand) 88%,#fff);border:1px solid #ffffff1c;color:var(--hero-text);box-shadow:0 22px 36px -24px #000d}
 .deal-open{display:flex;flex-direction:column;flex:1;width:100%;padding:0;background:none;color:inherit;font:inherit;text-align:start}
-.deal-media{position:relative;height:176px;border-radius:20px;overflow:hidden;background:var(--soft)}
+.deal-media{position:relative;height:154px;border-radius:18px;overflow:hidden;background:var(--soft)}
 .deal-media img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.8,.3,1)}
 .deal:hover .deal-media img{transform:scale(1.05)}
-.deal-sticker{position:absolute;z-index:2;top:-8px;inset-inline-start:-4px;width:66px;height:66px;border-radius:50%;display:grid;place-content:center;gap:1px;text-align:center;line-height:1;background:var(--signal);color:var(--signal-ink);transform:rotate(-12deg);outline:1.5px dashed color-mix(in srgb,var(--signal-ink) 35%,transparent);outline-offset:-6px;box-shadow:0 12px 20px -8px #000a}
-.deal-sticker b{font-size:20px;font-weight:700;direction:ltr;letter-spacing:-.5px}
-.deal-sticker small{font-size:12px;font-weight:600}
+.deal-sticker{position:absolute;z-index:2;top:-7px;inset-inline-start:-3px;width:60px;height:60px;border-radius:50%;display:grid;place-content:center;gap:1px;text-align:center;line-height:1;background:var(--signal);color:var(--signal-ink);transform:rotate(-12deg);outline:1.5px dashed color-mix(in srgb,var(--signal-ink) 35%,transparent);outline-offset:-6px;box-shadow:0 12px 20px -8px #000a}
+.deal-sticker b{font-size:18px;font-weight:700;direction:ltr;letter-spacing:-.5px}
+.deal-sticker small{font-size:11px;font-weight:600}
 .deal-tags{position:absolute;inset-inline:8px;bottom:8px;display:flex;flex-wrap:wrap;gap:4px}
 .deal-tags span{padding:3px 10px;border-radius:999px;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(6px);color:var(--text);font-size:12px;font-weight:500}
 .deal-tags span:first-child{color:var(--good);font-weight:600}
-.deal-body{display:flex;flex-direction:column;gap:9px;padding:14px 6px 12px}
+.deal-body{display:flex;flex-direction:column;gap:6px;padding:10px 4px 8px}
 .deal-body h3{font-size:19px;font-weight:700;line-height:1.3;letter-spacing:-.3px}
 .deal-fit{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--hero-muted)}
 .deal-fit svg,.deal-shop svg,.deal-ends svg{flex:none}
-.deal-price{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;padding:11px 13px 12px;border-radius:18px;background:color-mix(in srgb,var(--signal) 14%,var(--brand));border:1px solid color-mix(in srgb,var(--signal) 28%,transparent)}
-.deal-price small{display:block;margin-bottom:5px;font-size:12px;font-weight:600}
+.deal-price{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;padding:8px 10px 9px;border-radius:16px;background:color-mix(in srgb,var(--signal) 14%,var(--brand));border:1px solid color-mix(in srgb,var(--signal) 28%,transparent)}
+.deal-price small{display:block;margin-bottom:3px;font-size:12px;font-weight:600}
 .deal-price .now small{color:var(--signal)}
 .deal-price .was{text-align:end}
 .deal-price .was small{color:var(--hero-muted);font-weight:500}
@@ -308,18 +308,24 @@
 .deal-price s{font-size:16px;color:var(--hero-muted);font-variant-numeric:tabular-nums}
 .deal-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px}
 .deal-ends{display:flex;align-items:center;gap:5px;color:var(--signal);font-weight:600}
-.deal-save{padding:3px 9px;border-radius:999px;background:#ffffff14;color:var(--hero-text);font-weight:600;white-space:nowrap}
+.deal-stock{padding:3px 9px;border-radius:999px;background:#ffffff14;color:var(--hero-text);font-weight:600;white-space:nowrap}
 .deal-shop{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--hero-muted)}
 .deal-shop span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .deal-shop b{display:flex;align-items:center;gap:3px;color:var(--hero-text);font-weight:600}
 .deal-shop b svg{color:var(--signal)}
-.deal-add{display:flex;align-items:center;justify-content:center;gap:7px;min-height:50px;border-radius:18px;background:var(--signal);color:var(--signal-ink);font:inherit;font-size:14px;font-weight:700;transition:transform .15s,background .25s,box-shadow .25s;box-shadow:0 10px 20px -12px color-mix(in srgb,var(--signal) 80%,transparent)}
+.deal-actions{display:flex;gap:7px}
+.deal-add{display:flex;align-items:center;justify-content:center;gap:7px;min-height:46px;border-radius:16px;background:var(--signal);color:var(--signal-ink);font:inherit;font-size:14px;font-weight:700;transition:transform .15s,background .25s,box-shadow .25s;box-shadow:0 10px 20px -12px color-mix(in srgb,var(--signal) 80%,transparent)}
+.deal-actions .deal-add{flex:1}
+.deal-share{display:flex;align-items:center;justify-content:center;gap:5px;min-width:76px;min-height:46px;padding:0 10px;border:1px solid #ffffff2e;border-radius:16px;background:#ffffff0d;color:var(--hero-text);font:inherit;font-size:12px;font-weight:600;transition:transform .15s,background .25s,border-color .2s}
+.deal-share svg{color:var(--signal)}
+.deal-share:active{transform:scale(.97)}
+.deal-share:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
 .deal-add:active{transform:scale(.97)}
 .deal-add.added{background:#ffffff1f;color:var(--hero-text);box-shadow:none}
 .deal-add.added svg{color:var(--signal);animation:stepPop .45s cubic-bezier(.2,.9,.3,1.6)}
 .deals.armed .deal{opacity:0;transform:translateX(-40px)}
 .deals.in .deal{opacity:1;transform:none;transition:opacity .5s,transform .7s cubic-bezier(.2,.9,.3,1);transition-delay:calc(var(--i)*.1s + .1s)}
-@media(max-width:360px){.section.deals{margin-inline:6px}.deal{flex-basis:246px}.deals-head h2{font-size:29px}}
+@media(max-width:360px){.section.deals{margin-inline:6px}.deal{flex-basis:246px}.deal-media{height:142px}.deals-head h2{font-size:29px}}
 @media(prefers-reduced-motion:reduce){.deals.armed .deal{opacity:1;transform:none}.deal-media img,.deal-add.added svg{transition:none;animation:none}}
 /* Services 2026-10-26 (owner: show creativity in the services section).
    Roadside hi-vis: the card wears the safety-vest colour with barrier stripes, the four service types are dark
