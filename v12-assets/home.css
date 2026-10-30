@@ -24,19 +24,22 @@
 .category-head h2{font-size:23px;line-height:1.25;letter-spacing:-.4px;font-weight:600}
 .category-head p{margin-top:5px;color:var(--muted);font-size:12px;line-height:1.6}
 .category-count{flex:none;padding:5px 9px;border:1px solid var(--line);border-radius:999px;background:var(--soft);color:var(--muted);font-size:12px;line-height:1}
-.category-rail{display:flex;direction:rtl;gap:10px;overflow-x:auto;padding:2px 2px 10px;scroll-snap-type:x mandatory;scroll-padding-inline:2px;scrollbar-width:none}
-.category-rail::-webkit-scrollbar{display:none}
-.category-card{position:relative;flex:0 0 142px;display:flex;flex-direction:column;gap:0;padding:6px 6px 7px;border:1px solid var(--line);border-radius:19px;background:var(--surface);color:var(--text);font:inherit;text-align:right;overflow:hidden;box-shadow:0 12px 24px -24px #102820b8;scroll-snap-align:start;transition:transform .18s ease,border-color .2s ease,box-shadow .2s ease}
+.category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:2px 1px 0}
+.category-card{position:relative;min-width:0;width:100%;display:flex;flex-direction:column;gap:0;padding:6px 6px 7px;border:1px solid var(--line);border-radius:19px;background:var(--surface);color:var(--text);font:inherit;text-align:right;overflow:hidden;box-shadow:0 12px 24px -24px #102820b8;transition:transform .18s ease,border-color .2s ease,box-shadow .2s ease}
 .category-card:active{transform:scale(.97)}
 .category-card:hover{border-color:color-mix(in srgb,var(--brand) 32%,var(--line));box-shadow:0 16px 26px -24px #102820d4}
 .category-card:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
-.category-media{position:static;display:block;aspect-ratio:1.12;overflow:hidden;border-radius:14px;background:var(--paper)}
+.category-media{position:static;display:block;aspect-ratio:1.4;overflow:hidden;border-radius:14px;background:var(--paper)}
 .category-media img{display:block;width:100%;height:100%;object-fit:cover}
-.category-meta{position:static;display:flex;align-items:center;gap:7px;min-height:31px;padding:7px 2px 0 1px;background:transparent;color:var(--text)}
-.category-name{flex:1;min-width:0;padding-inline:1px;font-size:11.12px;font-weight:600;line-height:1.4;color:inherit}
-.category-arrow{display:grid;place-items:center;flex:none;width:23px;height:23px;border-radius:50%;background:color-mix(in srgb,var(--signal) 78%,var(--surface));color:var(--signal-ink)}
+.category-meta{position:static;display:flex;align-items:center;justify-content:center;min-height:31px;padding:8px 2px 1px;background:transparent;color:var(--text);text-align:center}
+.category-name{display:block;min-width:0;padding-inline:1px;font-size:12.12px;font-weight:600;line-height:1.4;color:inherit;text-align:center}
+.category-more{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;min-height:44px;margin-top:12px;border:1px solid var(--line);border-radius:13px;background:var(--surface);color:var(--text);font:inherit;font-size:12px;font-weight:600}
+.category-more svg{color:var(--brand)}
+.category-more:disabled{background:var(--soft);color:var(--muted);cursor:default}
+.category-more:disabled svg{color:var(--muted)}
+.category-more:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
 :root[data-theme=dark] .category-card{box-shadow:0 12px 24px -24px #000}
-@media(max-width:360px){.category-discovery{margin-inline:12px}.category-card{flex-basis:132px}.category-head p{font-size:11px}.category-name{font-size:10.12px}}
+@media(max-width:360px){.category-discovery{margin-inline:12px}.category-grid{gap:8px}.category-card{padding:5px 5px 6px}.category-media{aspect-ratio:1.28}.category-head p{font-size:11px}.category-name{font-size:10.12px}.category-more{margin-top:10px;font-size:11px}}
 /* Visual round 2026-10-26 (owner request): stronger advert with controls inside, example chips, trust card, nearby service cards. */
 .home-ads{position:relative;margin-top:18px}
 .ad-stage{border:0;border-radius:24px;background:var(--signal);box-shadow:0 18px 32px -24px #102820a6}
