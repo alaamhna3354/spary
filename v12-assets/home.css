@@ -186,7 +186,12 @@
 .pick-step:disabled{opacity:1;background:transparent;border:1px dashed var(--line);cursor:default}
 .pick-link{flex:none;width:10px;height:2px;border-radius:2px;background:var(--line)}
 .pick-grid{display:grid;gap:8px}
-.pick-make,.pick-model{grid-template-columns:repeat(3,minmax(0,1fr))}
+.pick-make{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.pick-model{grid-template-columns:repeat(3,minmax(0,1fr))}
+.pick-make .pick-option{min-height:74px;padding:8px 4px;gap:4px;border-radius:14px}
+.pick-make .pick-option b{max-width:100%;font-size:11px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pick-make .pick-mono{width:34px;height:34px;font-size:16px}
+.pick-make .pick-logo{width:38px;height:38px;display:block;object-fit:cover;object-position:center;mix-blend-mode:multiply}
 .pick-year{grid-template-columns:repeat(4,minmax(0,1fr))}
 .pick-option{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-height:96px;padding:12px 6px;border:1px solid var(--line);border-radius:18px;background:var(--paper);color:var(--text);font:inherit;text-align:center;transition:transform .15s,border-color .2s,background .2s;animation:optIn .38s cubic-bezier(.2,.9,.3,1.25) backwards;animation-delay:calc(var(--i)*22ms)}
 @keyframes optIn{from{opacity:0;transform:translateY(10px) scale(.96)}}
@@ -198,6 +203,7 @@
 .pick-option:active{transform:scale(.95)}
 .pick-mono{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--signal) 55%,var(--surface));color:var(--signal-ink);font:600 23px/1 "Noto Kufi Arabic",Arial,sans-serif;box-shadow:inset 0 -3px 0 color-mix(in srgb,var(--signal-ink) 12%,transparent)}
 .pick-option[aria-pressed=true]{background:var(--brand);border-color:var(--brand);color:var(--hero-text)}
+.pick-make .pick-option[aria-pressed=true]{background:var(--surface);border-color:var(--brand);color:var(--text);box-shadow:0 0 0 3px color-mix(in srgb,var(--signal) 38%,transparent)}
 .pick-option[aria-pressed=true] small{color:var(--hero-muted)}
 .pick-option[aria-pressed=true] .pick-mono{background:var(--signal)}
 .pick-tick{position:absolute;top:7px;inset-inline-end:7px;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--signal);color:var(--signal-ink)}

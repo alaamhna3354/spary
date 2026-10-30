@@ -70,12 +70,18 @@ const NAMES = [
   {id:'compressor', name:'ضاغط المكيّف', alt:['كمبروسر','كمبريسور'], img:'compressor'},
 ];
 const MAKES = [
-  {id:'hyundai', name:'هيونداي', models:[{id:'avante',name:'أفانتي',alt:['افانتي','النترا','إلنترا','avante','elantra']},{id:'sonata',name:'سوناتا',alt:['sonata','سوناتا هايبرد']},{id:'tucson',name:'توسان',alt:['tucson']}]},
-  {id:'kia', name:'كيا', models:[{id:'cerato',name:'سيراتو',alt:['cerato','k3']},{id:'optima',name:'أوبتيما',alt:['اوبتيما','optima','k5']},{id:'rio',name:'ريو',alt:['rio']}]},
-  {id:'toyota', name:'تويوتا', models:[{id:'prius',name:'بريوس',alt:['prius','بريس']},{id:'corolla',name:'كورولا',alt:['corolla','كرولا']},{id:'camry',name:'كامري',alt:['camry']}]},
-  {id:'ford', name:'فورد', models:[{id:'fusion',name:'فيوجن',alt:['fusion']}]},
-  {id:'mitsubishi', name:'ميتسوبيشي', models:[{id:'lancer',name:'لانسر',alt:['lancer']}]},
-  {id:'nissan', name:'نيسان', models:[{id:'sunny',name:'صني',alt:['sunny']}]},
+  {id:'toyota', name:'تويوتا', logo:'v12-assets/brand-logos/toyota.webp', models:[{id:'prius',name:'بريوس',alt:['prius','بريس']},{id:'corolla',name:'كورولا',alt:['corolla','كرولا']},{id:'camry',name:'كامري',alt:['camry']}]},
+  {id:'hyundai', name:'هيونداي', logo:'v12-assets/brand-logos/hyundai.webp', models:[{id:'avante',name:'أفانتي',alt:['افانتي','النترا','إلنترا','avante','elantra']},{id:'sonata',name:'سوناتا',alt:['sonata','سوناتا هايبرد']},{id:'tucson',name:'توسان',alt:['tucson']}]},
+  {id:'kia', name:'كيا', logo:'v12-assets/brand-logos/kia.webp', models:[{id:'cerato',name:'سيراتو',alt:['cerato','k3']},{id:'optima',name:'أوبتيما',alt:['اوبتيما','optima','k5']},{id:'rio',name:'ريو',alt:['rio']}]},
+  {id:'nissan', name:'نيسان', logo:'v12-assets/brand-logos/nissan.webp', models:[{id:'sunny',name:'صني',alt:['sunny']},{id:'patrol',name:'باترول',alt:['patrol']},{id:'xtrail',name:'إكس تريل',alt:['x-trail','xtrail']}]},
+  {id:'ford', name:'فورد', logo:'v12-assets/brand-logos/ford.webp', models:[{id:'fusion',name:'فيوجن',alt:['fusion']}]},
+  {id:'chevrolet', name:'شيفروليه', logo:'v12-assets/brand-logos/chevrolet.webp', models:[{id:'cruze',name:'كروز',alt:['cruze']},{id:'malibu',name:'ماليبو',alt:['malibu']},{id:'tahoe',name:'تاهو',alt:['tahoe']}]},
+  {id:'mercedes', name:'مرسيدس', logo:'v12-assets/brand-logos/mercedes.webp', models:[{id:'cclass',name:'C-Class',alt:['c-class','مرسيدس c']},{id:'eclass',name:'E-Class',alt:['e-class','مرسيدس e']},{id:'gle',name:'GLE',alt:['gle']}]},
+  {id:'bmw', name:'بي إم دبليو', logo:'v12-assets/brand-logos/bmw.webp', models:[{id:'series3',name:'الفئة الثالثة',alt:['3 series','series 3','بي ام دبليو 3']},{id:'series5',name:'الفئة الخامسة',alt:['5 series','series 5','بي ام دبليو 5']},{id:'x5',name:'X5',alt:['x5']}]},
+  {id:'mitsubishi', name:'ميتسوبيشي', logo:'v12-assets/brand-logos/mitsubishi.webp', models:[{id:'lancer',name:'لانسر',alt:['lancer']}]},
+  {id:'honda', name:'هوندا', logo:'v12-assets/brand-logos/honda.webp', models:[{id:'civic',name:'سيفيك',alt:['civic']},{id:'accord',name:'أكورد',alt:['accord']},{id:'crv',name:'CR-V',alt:['cr-v','crv']}]},
+  {id:'mazda', name:'مازدا', logo:'v12-assets/brand-logos/mazda.webp', models:[{id:'mazda3',name:'مازدا 3',alt:['mazda 3']},{id:'mazda6',name:'مازدا 6',alt:['mazda 6']},{id:'cx5',name:'CX-5',alt:['cx-5','cx5']}]},
+  {id:'land-rover', name:'لاند روفر', logo:'v12-assets/brand-logos/land-rover.webp', models:[{id:'range-rover',name:'رينج روفر',alt:['range rover']},{id:'discovery',name:'ديسكفري',alt:['discovery']},{id:'defender',name:'ديفندر',alt:['defender']}]},
 ];
 const TR = {
   nash:{name:'مركز النشامى لقطع الكوري', area:'عمّان — رأس العين', gov:'عمّان', rating:4.6, count:128, phone:'079 000 1184', free:100, km:3.2},
