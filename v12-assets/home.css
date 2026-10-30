@@ -40,6 +40,47 @@
 .category-more:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
 :root[data-theme=dark] .category-card{box-shadow:0 12px 24px -24px #000}
 @media(max-width:360px){.category-discovery{margin-inline:12px}.category-grid{gap:8px}.category-card{padding:5px 5px 6px}.category-media{aspect-ratio:1.28}.category-head p{font-size:11px}.category-name{font-size:10.12px}.category-more{margin-top:10px;font-size:11px}}
+
+/* Featured merchants: a quiet cinematic gallery after roadside services. */
+.home-services{margin-inline:16px}
+.featured-merchants{position:relative;isolation:isolate;margin:16px 16px 0;padding:18px 14px 10px;padding-inline-end:0;border-radius:28px;overflow:hidden;background:radial-gradient(120% 78% at 8% 0%,color-mix(in srgb,var(--signal) 12%,transparent),transparent 58%),linear-gradient(160deg,color-mix(in srgb,var(--brand) 92%,#fff),var(--brand) 58%,#0c1a1e);color:var(--hero-text);box-shadow:0 24px 42px -30px #102820e6}
+.featured-merchants:before{content:'';position:absolute;z-index:-1;inset:-75px auto auto -68px;width:190px;height:190px;border:1px solid #ffffff0d;border-radius:50%;transform:rotate(-18deg);pointer-events:none}
+.featured-merchants-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:15px;padding-inline-end:14px}
+.featured-merchants-head h2{font-size:23px;line-height:1.25;letter-spacing:-.4px;font-weight:600;color:var(--hero-text)}
+.featured-merchants-head p{margin-top:5px;color:var(--hero-muted);font-size:12px;line-height:1.6}
+.featured-merchants-badge{display:inline-flex;align-items:center;gap:4px;flex:none;padding:6px 9px;border:1px solid #ffffff1c;border-radius:999px;background:#ffffff0b;color:var(--hero-muted);font-size:11px;white-space:nowrap}
+.featured-merchants-badge svg{color:var(--signal);fill:var(--signal)}
+.merchant-rail{display:flex;direction:rtl;gap:11px;overflow-x:auto;padding:2px 0 10px;scroll-snap-type:x mandatory;scroll-padding-inline:0;scrollbar-width:none}
+.merchant-rail::-webkit-scrollbar{display:none}
+.merchant-card{position:relative;display:flex;flex:0 0 238px;flex-direction:column;min-height:240px;padding:0;border:1px solid #ffffff18;border-radius:19px;background:linear-gradient(180deg,#ffffff0b,#ffffff05);color:var(--hero-text);font:inherit;text-align:right;overflow:hidden;scroll-snap-align:start;transition:transform .18s ease,border-color .2s ease,background .2s ease,box-shadow .2s ease}
+.merchant-card:hover{border-color:#ffffff38;background:linear-gradient(180deg,#ffffff12,#ffffff07);box-shadow:0 20px 32px -24px #000b;transform:translateY(-3px)}
+.merchant-card:active{transform:scale(.985)}
+.merchant-card:focus-visible{outline:2px solid var(--signal);outline-offset:3px}
+.merchant-card-visual{position:relative;display:flex;align-items:flex-start;justify-content:space-between;height:100px;padding:14px 14px 0;background:radial-gradient(90% 110% at 86% 0%,#ffffff14,transparent 60%),linear-gradient(145deg,#183238,#102227);overflow:hidden;border-bottom:1px solid #ffffff10}
+.merchant-card-visual:before{content:'';position:absolute;inset:0 auto auto 0;width:58px;height:2px;background:var(--signal);box-shadow:0 0 18px color-mix(in srgb,var(--signal) 66%,transparent)}
+.merchant-card-visual:after{content:'';position:absolute;inset:auto -24px -48px auto;width:158px;height:100px;border:1px solid #ffffff17;border-radius:50%;transform:rotate(-18deg)}
+.merchant-tone-lime .merchant-card-visual{background:radial-gradient(90% 110% at 86% 0%,color-mix(in srgb,var(--signal) 20%,transparent),transparent 60%),linear-gradient(145deg,#1b3b39,#102629)}
+.merchant-tone-mint .merchant-card-visual{background:radial-gradient(90% 110% at 86% 0%,color-mix(in srgb,#9ce7c8 16%,transparent),transparent 60%),linear-gradient(145deg,#17443f,#10272b)}
+.merchant-tone-cobalt .merchant-card-visual{background:radial-gradient(90% 110% at 86% 0%,color-mix(in srgb,#a4caff 15%,transparent),transparent 60%),linear-gradient(145deg,#183b58,#12262e)}
+.merchant-avatar{position:relative;z-index:1;display:grid;place-items:center;width:56px;height:56px;border:1px solid #ffffff3d;border-radius:18px;background:#ffffff0d;color:var(--signal);box-shadow:inset 0 0 0 1px #ffffff08,0 10px 18px -14px #000b}
+.merchant-featured{position:relative;z-index:1;display:inline-flex;align-items:center;gap:3px;padding:6px 9px;border:1px solid #ffffff1d;border-radius:999px;background:#ffffff0c;color:var(--hero-text);font-size:10px;font-weight:500}
+.merchant-featured svg{color:var(--signal);fill:var(--signal)}
+.merchant-rank{position:absolute;right:14px;bottom:8px;color:#ffffff25;font-size:34px;font-weight:700;letter-spacing:-.06em;line-height:1}
+.merchant-card-body{display:flex;flex:1;flex-direction:column;padding:13px 13px 12px;background:#ffffff04}
+.merchant-card-body strong{display:-webkit-box;min-height:0;overflow:hidden;font-size:15px;font-weight:600;line-height:1.45;color:var(--hero-text);-webkit-box-orient:vertical;-webkit-line-clamp:2}
+.merchant-card-body small{display:block;margin-top:2px;color:var(--hero-muted);font-size:11px;line-height:1.6}
+.merchant-rating{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:11px}
+.merchant-rating>span{display:inline-flex;align-items:center;gap:3px;padding:5px 7px;border:1px solid color-mix(in srgb,var(--signal) 28%,transparent);border-radius:8px;background:color-mix(in srgb,var(--signal) 12%,transparent);color:var(--signal);font-weight:600}
+.merchant-rating>span svg{color:var(--signal);fill:var(--signal)}
+.merchant-rating em{color:var(--hero-muted);font-style:normal}
+.merchant-location{display:flex;align-items:center;gap:4px;margin-top:6px;color:var(--hero-muted);font-size:11px}
+.merchant-location svg{flex:none;color:var(--signal)}
+.merchant-card-cta{display:flex;align-items:center;justify-content:space-between;gap:6px;min-height:39px;margin-top:12px;padding:0 11px;border:1px solid #ffffff1d;border-radius:11px;background:#ffffff0a;color:var(--signal);font-size:12px;font-weight:600;transition:background .2s ease,border-color .2s ease,transform .2s ease}
+.merchant-card:hover .merchant-card-cta{border-color:color-mix(in srgb,var(--signal) 42%,transparent);background:color-mix(in srgb,var(--signal) 14%,transparent)}
+.merchant-card-cta svg{color:var(--signal);transition:transform .2s ease}
+.merchant-card:hover .merchant-card-cta svg{transform:translateX(-3px)}
+@media(max-width:360px){.home-services{margin-inline:12px}.featured-merchants{margin:12px 12px 0;padding:16px 10px 8px;padding-inline-end:0}.featured-merchants-head{margin-bottom:13px;padding-inline-end:10px}.featured-merchants-head h2{font-size:21px}.featured-merchants-head p{font-size:11px}.featured-merchants-badge{font-size:10px;padding-inline:8px}.merchant-card{flex-basis:222px;min-height:230px}.merchant-card-visual{height:90px;padding-inline:12px}.merchant-avatar{width:52px;height:52px}.merchant-card-body{padding-inline:11px}.merchant-card-body strong{font-size:15px}}
+@media(prefers-reduced-motion:reduce){.merchant-card,.merchant-card-cta,.merchant-card-cta svg{transition:none}.merchant-card:hover,.merchant-card:active{transform:none}.merchant-card:hover .merchant-card-cta svg{transform:none}}
 /* Visual round 2026-10-26 (owner request): stronger advert with controls inside, example chips, trust card, nearby service cards. */
 .home-ads{position:relative;margin-top:18px}
 .ad-stage{border:0;border-radius:24px;background:var(--signal);box-shadow:0 18px 32px -24px #102820a6}
@@ -271,7 +312,7 @@
 /* Offers stage 2026-10-26 (owner: the coupon cards did not reach the level; keep the heading and the limited-time line).
    A dark showroom: lime pill «عروض لفترة محدودة», «عروض سارية» with the signal word, «كل العروض», a faint % mark,
    and clean product cards that let the photo lead. */
-.section.deals{position:relative;margin:26px 8px 0;padding:16px 0 14px;border-radius:30px;overflow:hidden;color:var(--hero-text);background:radial-gradient(120% 55% at 90% 0%,color-mix(in srgb,var(--signal) 20%,transparent),transparent 62%),linear-gradient(180deg,color-mix(in srgb,var(--brand) 88%,#fff),var(--brand) 45%),var(--brand);box-shadow:0 24px 40px -30px #102820}
+.section.deals{position:relative;margin:26px 16px 0;padding:16px 0 14px;border-radius:30px;overflow:hidden;color:var(--hero-text);background:radial-gradient(120% 55% at 90% 0%,color-mix(in srgb,var(--signal) 20%,transparent),transparent 62%),linear-gradient(180deg,color-mix(in srgb,var(--brand) 88%,#fff),var(--brand) 45%),var(--brand);box-shadow:0 24px 40px -30px #102820}
 :root[data-theme=dark] .section.deals{box-shadow:inset 0 0 0 1px var(--line)}
 .section.deals:before{content:'%';position:absolute;top:24px;left:-14px;font:700 210px/1 "Noto Kufi Arabic",Arial,sans-serif;color:var(--signal);opacity:.07;transform:rotate(-12deg);pointer-events:none}
 .deals-head{position:relative;padding:0 18px;margin-bottom:10px}
@@ -328,7 +369,7 @@
 .deal-add.added svg{color:var(--signal);animation:stepPop .45s cubic-bezier(.2,.9,.3,1.6)}
 .deals.armed .deal{opacity:0;transform:translateX(-40px)}
 .deals.in .deal{opacity:1;transform:none;transition:opacity .5s,transform .7s cubic-bezier(.2,.9,.3,1);transition-delay:calc(var(--i)*.1s + .1s)}
-@media(max-width:360px){.section.deals{margin-inline:6px}.deal{flex-basis:246px}.deal-media{height:142px}.deals-head h2{font-size:29px}}
+@media(max-width:360px){.section.deals{margin-inline:12px}.deal{flex-basis:246px}.deal-media{height:142px}.deals-head h2{font-size:29px}}
 @media(prefers-reduced-motion:reduce){.deals.armed .deal{opacity:1;transform:none}.deal-media img,.deal-add.added svg{transition:none;animation:none}}
 /* Services 2026-10-26 (owner: show creativity in the services section).
    Roadside hi-vis: the card wears the safety-vest colour with barrier stripes, the four service types are dark
