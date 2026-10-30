@@ -20,6 +20,17 @@ const CATEGORY_GROUPS=[
 function categoryRail(){return `<section class="section category-discovery" aria-labelledby="category-title"><div class="category-head"><div><h2 id="category-title">استكشف حسب الفئة</h2><p>اختَر الفئة، وبعدها خلّينا نجيب القطع لسيارتك.</p></div><span class="category-count">${CATEGORY_GROUPS.length} فئات</span></div><div class="category-rail" role="list" aria-label="فئات قطع السيارات">${CATEGORY_GROUPS.map(c=>`<button type="button" class="category-card" data-action="category" data-value="${c.id}" aria-label="البحث عن ${c.name}"><span class="category-media"><img src="v12-assets/category-images/${c.image}" alt="" loading="lazy"></span><span class="category-meta"><span class="category-name" data-type-scale-skip="true">${c.name}</span><span class="category-arrow" aria-hidden="true">${ic('chev',13)}</span></span></button>`).join('')}</div></section>`;}
 let adMotion=[];
 function changeHomeAd(index){const prev=homeAdIndex,dir=Math.sign(index-prev)||1;homeAdIndex=(index+HOME_ADS.length)%HOME_ADS.length;adMotion.forEach(end=>end());adMotion=[];const slides=[...document.querySelectorAll('[data-ad-slide]')];slides.forEach((slide,i)=>slide.hidden=i!==homeAdIndex);if(slides[prev]&&slides[prev]!==slides[homeAdIndex]&&slides[prev].animate&&!matchMedia('(prefers-reduced-motion: reduce)').matches)slideAd(slides[prev],slides[homeAdIndex],dir);document.querySelectorAll('[data-action="ad-dot"]').forEach((dot,i)=>{if(i===homeAdIndex)dot.setAttribute('aria-current','true');else dot.removeAttribute('aria-current');});const position=document.querySelector('#ad-position');if(position)position.textContent=`${homeAdIndex+1} / ${HOME_ADS.length}`;}
+const AD_AUTOPLAY_MS=5200;
+let adAutoTimer=null;
+let adAutoPaused=false;
+function stopAdAutoplay(){if(adAutoTimer){clearInterval(adAutoTimer);adAutoTimer=null;}}
+function startAdAutoplay(){stopAdAutoplay();adAutoPaused=false;if(!$('.ad-stage')||HOME_ADS.length<2||document.hidden||matchMedia('(prefers-reduced-motion: reduce)').matches)return;adAutoTimer=setInterval(()=>{if(!adAutoPaused&&document.visibilityState==='visible'&&$('.ad-stage'))changeHomeAd(homeAdIndex+1);},AD_AUTOPLAY_MS);}
+function adHoverRoot(target){return target instanceof Element?target.closest('.home-ads'):null;}
+document.addEventListener('pointerover',e=>{const root=adHoverRoot(e.target);if(root&&!root.contains(e.relatedTarget))adAutoPaused=true;});
+document.addEventListener('pointerout',e=>{const root=adHoverRoot(e.target);if(root&&(!e.relatedTarget||!root.contains(e.relatedTarget)))adAutoPaused=false;});
+document.addEventListener('focusin',e=>{if(adHoverRoot(e.target))adAutoPaused=true;});
+document.addEventListener('focusout',()=>{if(!adHoverRoot(document.activeElement))adAutoPaused=false;});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stopAdAutoplay();else if($('.ad-stage'))startAdAutoplay();});
 // RTL: the next advert enters from the left, the way a finger drags it in, while the current one
 // slides out to the right underneath; the product art settles a beat later.
 function slideAd(old,next,dir){
