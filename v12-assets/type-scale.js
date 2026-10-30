@@ -11,7 +11,7 @@
 
   function scaleText(root) {
     const elements = [root, ...root.querySelectorAll('*')].filter(el => {
-      if (el.dataset.typeScaled) return false;
+      if (el.dataset.typeScaled || el.dataset.typeScaleSkip) return false;
       if (/^(SVG|PATH|USE|IMG)$/.test(el.tagName)) return false;
       return hasDirectText(el) || /^(INPUT|SELECT|TEXTAREA)$/.test(el.tagName);
     });
