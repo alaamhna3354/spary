@@ -88,6 +88,12 @@
 :root[data-theme=dark] .demo-meaning{background:var(--signal);color:var(--signal-ink)}
 :root[data-theme=dark] .demo-meaning:before{background:var(--signal-ink)}
 .search-input.demoing input::placeholder{color:transparent}
+#name-form .search-submit{min-width:76px;height:44px;padding:0 12px;border:1px solid var(--brand);border-radius:13px;background:var(--signal);color:var(--signal-ink);gap:6px;box-shadow:0 8px 16px -12px var(--brand);transition:transform .2s ease,box-shadow .2s ease}
+#name-form .search-submit svg{width:17px;height:17px;transition:transform .2s ease}
+#name-form .search-submit:hover{background:var(--signal);color:var(--signal-ink);box-shadow:0 10px 18px -12px var(--brand)}
+#name-form .search-submit:hover svg{transform:rotate(-8deg) scale(1.06)}
+#name-form .search-submit:active{transform:scale(.96)}
+#name-form .search-submit:focus-visible{outline:3px solid color-mix(in srgb,var(--signal) 55%,transparent);outline-offset:2px}
 .search-input.demoing:after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;background:linear-gradient(100deg,transparent 35%,color-mix(in srgb,var(--signal) 55%,transparent) 50%,transparent 65%) 0 0/70% 100% no-repeat}
 .search-input.demoing:has(.understood):after{animation:demoSweep .85s ease-out}
 @keyframes demoSweep{from{opacity:1;background-position:260% 0}to{opacity:1;background-position:-160% 0}}
@@ -490,6 +496,12 @@
 .deal-share{flex:none;width:48px;height:48px;border-radius:15px;display:grid;place-items:center;border:1px solid #ffffff2e;background:#ffffff0d;color:var(--hero-text);transition:transform .15s}
 .deal-share:active{transform:scale(.94)}
 
+/* Offers full-bleed polish: let the dark showroom meet the viewport while the content keeps its inner rhythm. */
+.section.deals{margin-inline:0;border-radius:0}
+.section.deals .deals-head{padding-inline:16px}
+.section.deals .deals-rail{padding-inline-start:12px;padding-inline-end:0;scroll-padding-inline:12px 0}
+@media(max-width:360px){.section.deals .deals-head{padding-inline:12px}.section.deals .deals-rail{padding-inline-start:10px;padding-inline-end:0;scroll-padding-inline:10px 0}}
+
 /* the drawn tow truck on the road */
 .hivis-road{height:60px}
 .hivis-truck{bottom:3px;left:12%;color:var(--signal);filter:drop-shadow(0 0 10px color-mix(in srgb,var(--signal) 40%,transparent))}
@@ -840,6 +852,13 @@
 .is-done .so-note{color:var(--good);font-weight:600}
 .is-sorry,.is-late{opacity:.82}
 .st-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.st-pulse{position:relative;overflow:hidden;isolation:isolate;margin-top:8px;padding-top:27px;padding-bottom:28px;background:radial-gradient(110% 95% at 0% 0%,color-mix(in srgb,var(--signal) 16%,transparent),transparent 65%),linear-gradient(180deg,var(--brand),#17262a);color:var(--hero-text)}
+.st-pulse-watermark{position:absolute;z-index:0;top:3px;left:-38px;width:190px;height:190px;color:var(--signal);opacity:.075;transform:rotate(-10deg);pointer-events:none}
+.st-pulse-watermark svg{width:100%;height:100%;stroke-width:1.25}
+.st-pulse>:not(.st-pulse-watermark){position:relative;z-index:1}
+.st-pulse-head{margin-bottom:15px}
+.st-pulse-head h2{font-size:var(--fs-2xl);font-weight:600;letter-spacing:-.4px;line-height:1.25}
+.st-pulse-head h2 em{font-style:normal;padding:0 7px 2px;border-radius:9px;background:var(--signal);color:var(--signal-ink)}
 .st-stat{display:grid;gap:4px;padding:13px 14px;border-radius:20px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line)}
 .st-stat>span{display:inline-flex;align-items:center;gap:5px;font-size:var(--fs-xs);color:var(--muted)}
 .st-stat>b{display:inline-flex;align-items:center;gap:5px;font-size:26px;font-weight:700;line-height:1.15}
@@ -855,27 +874,52 @@
 .st-quick button{display:grid;justify-items:center;align-content:start;gap:7px;min-height:88px;padding:4px 2px;background:none;color:var(--text);font:inherit;font-size:var(--fs-xs);font-weight:600;line-height:1.35;text-align:center}
 .st-quick span{width:50px;height:50px;border-radius:18px;display:grid;place-items:center;background:var(--brand);color:var(--signal);transition:transform .2s}
 .st-quick button:active span{transform:scale(.92)}
-.sup-rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:14px -16px 0;padding:2px 16px 10px;scrollbar-width:none}
+.section.sup{position:relative;overflow:hidden;isolation:isolate;margin-top:8px;padding-top:28px;padding-bottom:25px;background:var(--paper);color:var(--text)}
+.sup-watermark{position:absolute;z-index:0;top:3px;left:-38px;width:190px;height:190px;color:var(--good);opacity:.06;transform:rotate(-10deg);pointer-events:none}
+.sup-watermark svg{width:100%;height:100%;stroke-width:1.25}
+.section.sup>:not(.sup-watermark){position:relative;z-index:1}
+.section.sup .st-label{color:var(--good)}
+.section.sup .st-head h2{color:var(--text)}
+.section.sup .st-sub{color:var(--muted)}
+.section.sup .sup-card{color:var(--text)}
+.st-pulse .st-stat{background:#ffffff0d;box-shadow:inset 0 0 0 1px #ffffff17}
+.st-pulse .st-stat>span{color:var(--hero-muted)}
+.st-pulse .st-stat>b{color:var(--hero-text)}
+.st-pulse .st-stat>b.num{direction:rtl;unicode-bidi:plaintext;justify-content:flex-start;text-align:end}
+.st-pulse .st-stat>b small{color:var(--hero-muted)}
+.st-pulse .st-bar{background:linear-gradient(var(--signal) 0 0) right/calc(var(--w)*100%) 100% no-repeat,#ffffff1c}
+.st-pulse .st-free{background:var(--signal);box-shadow:none}
+.st-pulse .st-free>span,.st-pulse .st-free>b{color:var(--signal-ink)}
+.st-pulse .st-free em{background:var(--signal-ink);color:var(--signal)}
+.st-pulse .st-quick{margin-top:18px;padding-top:14px;border-top:1px solid #ffffff1c}
+.st-pulse .st-quick button{color:var(--hero-text)}
+.st-pulse .st-quick span{background:#ffffff12;box-shadow:inset 0 0 0 1px #ffffff1c}
+.sup-rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:14px 0 0;padding:2px 0 10px;scroll-padding-inline:0;scrollbar-width:none}
 .sup-rail::-webkit-scrollbar{display:none}
-.sup-card{flex:0 0 222px;scroll-snap-align:start;display:flex;flex-direction:column;padding:10px 10px 12px;border-radius:24px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line)}
-.sup-photo{position:relative;height:124px;border-radius:17px;overflow:hidden;background:var(--soft)}
-.sup-photo img{width:100%;height:100%;object-fit:cover;filter:saturate(.85)}
-.sup-pct{position:absolute;top:8px;inset-inline-start:8px;padding:2px 9px;border-radius:999px;background:var(--signal);color:var(--signal-ink);font-size:var(--fs-sm);font-weight:700;direction:ltr}
-.sup-name{margin-top:10px;font-size:var(--fs-md);font-weight:600}
-.sup-from{display:inline-flex;align-items:center;gap:5px;margin-top:2px;font-size:var(--fs-xs);color:var(--muted)}
-.sup-tiers{list-style:none;display:grid;gap:6px;margin:10px 0 8px;padding:0}
-.sup-tiers li{display:flex;align-items:baseline;gap:6px;padding:7px 10px;border-radius:12px;background:var(--soft);font-size:var(--fs-xs)}
+.sup-card{flex:0 0 222px;scroll-snap-align:start;display:flex;flex-direction:column;padding:10px 10px 12px;border:1px solid var(--line);border-radius:22px;background:var(--surface);box-shadow:0 14px 28px -24px color-mix(in srgb,var(--brand) 45%,transparent);transition:transform .2s ease,box-shadow .2s ease}
+.sup-photo{position:relative;height:128px;border-radius:17px;overflow:hidden;background:linear-gradient(145deg,var(--soft),#dfe7e1)}
+.sup-photo::after{content:"";position:absolute;inset:auto 0 0;height:28%;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--brand) 12%,transparent));pointer-events:none}
+.sup-photo img{width:100%;height:100%;object-fit:cover;filter:saturate(.9);transition:transform .25s ease}
+.sup-pct{position:absolute;z-index:1;top:8px;inset-inline-start:8px;padding:3px 9px;border-radius:999px;background:var(--signal);color:var(--signal-ink);font-size:var(--fs-sm);font-weight:700;direction:ltr;box-shadow:0 4px 12px -8px var(--brand)}
+.sup-name{display:-webkit-box;min-height:0;margin-top:10px;overflow:hidden;font-size:var(--fs-md);font-weight:600;line-height:1.35;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+.sup-from{display:inline-flex;align-items:center;gap:5px;min-height:21px;margin-top:0;font-size:var(--fs-xs);line-height:1.3;color:var(--muted)}
+.sup-from svg{flex:none;color:var(--good)}
+.sup-tiers{list-style:none;display:grid;gap:7px;margin:10px 0 9px;padding:0}
+.sup-tiers li{display:flex;align-items:baseline;gap:6px;min-height:40px;padding:8px 10px;border:1px solid var(--line);border-radius:13px;background:var(--soft);font-size:var(--fs-xs)}
 .sup-tiers li span{flex:1}
-.sup-tiers li b{font-size:var(--fs-md);font-weight:700}
+.sup-tiers li b{font-size:var(--fs-md);font-weight:700;white-space:nowrap}
 .sup-tiers li small{font-size:var(--fs-xs);font-weight:500;color:var(--muted)}
 .sup-tiers s{font-size:var(--fs-xs);color:var(--muted)}
-.sup-tiers li:last-child{background:var(--brand);color:var(--hero-text)}
+.sup-tiers li:last-child{border-color:transparent;background:var(--brand);color:var(--hero-text);box-shadow:inset 0 0 0 1px #ffffff0d}
 .sup-tiers li:last-child small{color:var(--hero-muted)}
 .sup-tiers li:last-child b{color:var(--signal)}
 .sup-tiers-sheet{margin:14px 0}
-.sup-ends{display:inline-flex;align-items:center;gap:5px;font-size:var(--fs-xs);color:var(--warm);font-weight:600}
-.sup-go{display:flex;align-items:center;justify-content:center;gap:4px;min-height:44px;margin-top:auto;border-radius:999px;background:var(--brand);color:var(--signal);font:inherit;font-size:var(--fs-sm);font-weight:600}
+.sup-ends{align-self:flex-start;display:inline-flex;align-items:center;gap:5px;min-height:25px;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--warm) 10%,transparent);font-size:var(--fs-xs);color:var(--warm);font-weight:600}
+.sup-go{display:flex;align-items:center;justify-content:center;gap:5px;min-height:46px;margin-top:auto;border-radius:14px;background:var(--brand);color:var(--signal);font:inherit;font-size:var(--fs-sm);font-weight:600;box-shadow:0 8px 16px -14px var(--brand);transition:transform .2s ease,background-color .2s ease}
+.sup-go svg{transition:transform .2s ease}
 .sup-ends+.sup-go{margin-top:10px}
+.sup-go:focus-visible{outline:3px solid color-mix(in srgb,var(--good) 55%,transparent);outline-offset:2px}
+@media (hover:hover){.sup-card:hover{transform:translateY(-2px);box-shadow:0 18px 32px -22px color-mix(in srgb,var(--brand) 55%,transparent)}.sup-card:hover .sup-photo img{transform:scale(1.025)}.sup-go:hover{background:var(--signal-ink)}.sup-go:hover svg{transform:translateX(-2px)}}
 :root[data-theme=dark] .sup-go,:root[data-theme=dark] .st-quick span,:root[data-theme=dark] .sup-tiers li:last-child{background:#0d1518}
 
 /* Services page on Alaa's sections. */
@@ -942,7 +986,7 @@
 .svc-types-grid .is-empty b{color:var(--muted)}
 .svc-sheet-photo{display:block;width:100%;height:170px;margin-bottom:12px;border-radius:18px;object-fit:cover;filter:saturate(.85)}
 @media(max-width:360px){.svc-open{grid-template-columns:80px 1fr}.svc-photo{width:80px;height:80px}.svc-where{margin-inline:14px}.svc-gps{padding:0 10px}.so-top{grid-template-columns:58px 1fr 52px}.so-ring{width:58px;height:58px}.so-photo{width:52px;height:52px}.so-acts button{padding:0 12px}.st-quick{gap:4px}}
-@media(max-width:360px){.sup-rail{margin-inline:-12px;padding-inline:12px}}
+@media(max-width:360px){.sup-rail{margin-inline:0;padding-inline:0}}
 
 /* New arrivals 2026-10-31: the age of each part on its photo, in the brand's dark with the signal clock. */
 .shelf-tag.is-new{background:var(--brand);color:var(--hero-text)}
@@ -1096,3 +1140,83 @@
 .cat-hero .cat-ring{z-index:2}
 .cat-art .cat-photo[src*="hero-pads"]{height:auto;width:118%;top:4%;left:-14%;transform:rotate(-12deg)}
 @media(max-width:360px){.cat-hero.cat-tall{padding-inline:9px}.cat-hero.cat-tall b{font-size:var(--fs-sm)}}
+
+/* Services page hero: use the target arrival surface while keeping the provider directory below unchanged. */
+.service-page-hero{position:relative;overflow:hidden;padding:14px 16px 22px;background:linear-gradient(180deg,#162d34,#0c1b22);color:var(--hero-text);border-radius:0 0 30px 30px;isolation:isolate}
+.service-page-hero:before{content:'';position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,#0c1b22b2,#0c1b22b5),url('roadside-garage-bg.webp') center/cover;opacity:.78}
+.service-page-hero:after{content:'';position:absolute;z-index:-1;inset:auto -50px -88px auto;width:220px;height:180px;border-radius:50%;background:color-mix(in srgb,var(--signal) 18%,transparent);filter:blur(12px);transform:rotate(-15deg)}
+.service-page-top{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.service-top-action{position:relative;display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:#ffffff0d;border:1px solid #ffffff1a;color:var(--hero-text)}
+.service-cart-action{color:var(--signal)}
+.service-page-brand{display:flex;align-items:center;gap:7px;color:var(--signal);font-size:11px;font-weight:600}
+.service-page-brand svg{width:28px;height:28px}
+.service-page-brand span{color:var(--hero-muted);font-weight:500}
+.service-page-copy{position:relative;z-index:1;padding:35px 0 20px;max-width:320px}
+.service-page-copy h1{font-size:32px;line-height:1.25;font-weight:600;letter-spacing:-.7px}
+.service-page-copy h1 em{color:var(--signal);font-style:normal}
+.service-page-copy p{margin-top:8px;color:var(--hero-muted);font-size:13px;line-height:1.7}
+.service-page-location{position:relative;z-index:1;display:flex;align-items:center;gap:9px;min-height:55px;padding:7px 10px;border:1px solid #ffffff1c;border-radius:17px;background:#ffffff0c;color:var(--hero-text);text-align:right}
+.service-location-icon{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:var(--signal);color:var(--signal-ink)}
+.service-page-location>span:nth-child(2){display:flex;flex-direction:column;gap:1px;min-width:108px}
+.service-page-location small{font-size:10px;color:var(--hero-muted)}
+.service-page-location b{font-size:13px;font-weight:600}
+.service-page-location>svg{margin-inline-start:auto;color:var(--signal)}
+.service-page-hero{padding-bottom:18px}
+.service-page-copy{padding-top:29px;padding-bottom:16px}
+.service-page-location{min-height:52px}
+.service-top-action:focus-visible,.service-page-location:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+.service-top-action:focus-visible,.service-page-location:focus-visible{outline-color:var(--signal)}
+@media(max-width:360px){.service-page-copy{padding-top:24px;padding-bottom:13px}.service-page-location{min-height:50px}}
+
+/* Shelf continuity: let the dark drawer cabinet ease into the product tray instead of breaking at a hard color seam. */
+.section.shelf .shelf-tray{background:linear-gradient(180deg,var(--brand) 0%,color-mix(in srgb,var(--brand) 82%,var(--soft)) 18%,color-mix(in srgb,var(--soft) 88%,var(--brand)) 55%,var(--soft) 100%);box-shadow:inset 0 16px 18px -18px #0009}
+
+/* Shelf full-bleed polish: the section owns the screen edge; content keeps its inner rhythm. */
+.section.shelf{padding-inline:0}
+.section.shelf .shelf-head{padding-inline:16px}
+.section.shelf .shelf-drawers{padding-inline-start:12px;padding-inline-end:0;border-radius:0}
+.section.shelf .shelf-tray{padding-inline:12px;border-radius:0}
+@media(max-width:360px){.section.shelf .shelf-head{padding-inline:12px}.section.shelf .shelf-drawers{padding-inline-start:10px;padding-inline-end:0}.section.shelf .shelf-tray{padding-inline:10px}}
+
+/* Shelf cards bolder: turn the latest parts into dark display cases with a clear price signal. */
+.section.shelf .shelf-grid{gap:10px}
+.section.shelf .shelf-card{padding:8px;border-radius:22px;background:linear-gradient(155deg,color-mix(in srgb,var(--brand) 90%,#fff),var(--brand));box-shadow:inset 0 0 0 1px #ffffff1c,0 18px 28px -22px #0b1a1caa;transition:transform .2s ease,box-shadow .2s ease}
+.section.shelf .shelf-open{gap:0;padding:0 0 4px;color:var(--hero-text)}
+.section.shelf .shelf-media{height:120px;border-radius:16px;background:var(--soft);box-shadow:inset 0 0 0 1px #ffffff16}
+.section.shelf .shelf-media:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 48%,#0b1719b8 100%);pointer-events:none}
+.section.shelf .shelf-media img{filter:saturate(1.05) contrast(1.03);transition:transform .45s cubic-bezier(.2,.8,.3,1)}
+.section.shelf .shelf-card:active{transform:translateY(2px) scale(.99)}
+.section.shelf .shelf-card:active .shelf-media img{transform:scale(1.04)}
+.section.shelf .shelf-tag{top:8px;inset-inline-start:8px;padding:4px 8px;background:var(--signal);color:var(--signal-ink);box-shadow:0 8px 14px -10px #000c}
+.section.shelf .shelf-open b{display:block;padding:12px 6px 0;font-size:var(--fs-md);font-weight:700;line-height:1.35;min-height:37px}
+.section.shelf .shelf-fit{display:block;padding:4px 6px 0;font-size:var(--fs-xs);line-height:1.55;min-height:34px;color:var(--hero-muted);white-space:normal;overflow:visible;text-overflow:clip}
+.section.shelf .shelf-price{display:flex;align-items:baseline;gap:4px;margin:11px 6px 0;padding:9px 8px 2px;border-top:1px solid #ffffff1c;color:var(--signal);font-size:var(--fs-lg);font-weight:700;line-height:1.1}
+.section.shelf .shelf-price i{color:var(--hero-muted)}
+.section.shelf .shelf-price s{margin-inline-start:auto;color:var(--hero-muted)}
+.section.shelf .shelf-seller{margin:7px 6px 0;padding:0;min-height:22px;color:var(--hero-muted)}
+.section.shelf .shelf-cta{display:flex;align-items:stretch;gap:8px;margin-top:10px}
+.section.shelf .shelf-add{position:static;inset:auto;flex:1;min-width:0;width:auto;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;gap:7px;padding:0 10px;background:var(--signal);color:var(--signal-ink);font:inherit;font-size:12px;font-weight:700;white-space:nowrap;box-shadow:0 10px 18px -10px #000d,inset 0 0 0 1px #ffffff80}
+.section.shelf .shelf-add.added{background:var(--signal);color:var(--signal-ink)}
+@media(max-width:360px){.section.shelf .shelf-card{padding:7px;border-radius:20px}.section.shelf .shelf-media{height:108px}.section.shelf .shelf-cta{gap:6px}.section.shelf .shelf-add{font-size:11px}}
+
+/* Shelf stage: use the same continuous showroom surface as the active offers section. */
+.section.shelf{color:var(--hero-text);background:radial-gradient(120% 55% at 90% 0%,color-mix(in srgb,var(--signal) 20%,transparent),transparent 62%),linear-gradient(180deg,color-mix(in srgb,var(--brand) 88%,#fff),var(--brand) 45%),var(--brand)}
+.section.shelf{position:relative;overflow:hidden;isolation:isolate}
+.section.shelf .shelf-watermark{position:absolute;z-index:0;top:2px;left:-38px;width:190px;height:190px;color:var(--signal);opacity:.085;transform:rotate(-12deg);pointer-events:none}
+.section.shelf .shelf-watermark svg{width:100%;height:100%;stroke-width:1.25}
+.section.shelf>:not(.shelf-watermark){position:relative;z-index:1}
+.section.shelf .shelf-kicker{color:var(--signal)}
+.section.shelf .shelf-head p{color:var(--hero-muted)}
+.section.shelf .shelf-drawers{background:transparent;box-shadow:none}
+.section.shelf .shelf-tray{background:transparent;box-shadow:none}
+
+/* Shelf card polish: clip the product image to its frame and give status/action controls room to breathe. */
+.section.shelf .shelf-media{overflow:hidden}
+.section.shelf .shelf-media img{border-radius:inherit}
+.section.shelf .shelf-tag{gap:6px;min-height:28px;padding:5px 10px;line-height:1;white-space:nowrap}
+.section.shelf .shelf-tag svg{width:12px;height:12px}
+.section.shelf .shelf-tag.is-new svg{color:var(--signal-ink)}
+.section.shelf .shelf-card{display:flex;flex-direction:column}
+.section.shelf .shelf-open{height:auto;flex:1;min-height:0}
+.section.shelf .shelf-share{flex:none;width:48px;height:48px;border-radius:15px;display:grid;place-items:center;border:1px solid #ffffff2e;background:#ffffff0d;color:var(--hero-text);transition:transform .15s}
+.section.shelf .shelf-share:active{transform:scale(.94)}
