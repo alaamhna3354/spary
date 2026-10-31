@@ -1,0 +1,39 @@
+/* Weight hierarchy (review 2026-10-31: forcing 600 on every text flattened it). Titles, names, prices, labels and
+   buttons stay semibold; descriptions and secondary lines read in regular. Low specificity, so a component that sets
+   its own weight keeps it. */
+:where(#screen, #dock, #sheet) :where(h1, h2, h3, h4, b, strong, button, label, summary, dt, th, select, .nav-label) {
+  font-weight: 600;
+}
+:where(#screen, #dock, #sheet) :where(p, small, dd, li, input, textarea) {
+  font-weight: 400;
+}
+
+:root {
+  --type-scale: 0.92;
+}
+
+/* Keep the exact supplied WhatsApp mark crisp inside both service actions. */
+.wa svg,
+.svc-wa svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+  flex: 0 0 16px;
+}
+
+.wa,
+.svc-wa {
+  gap: 7px;
+}
+
+.route-panel .svc-wa {
+  padding-inline: 14px;
+  gap: 8px;
+  font-size: 12px !important;
+}
+
+@media (max-width: 360px) {
+  .route-panel .svc-wa {
+    padding-inline: 12px;
+  }
+}
